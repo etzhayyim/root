@@ -3,7 +3,7 @@
 # The apex CF Worker (50-infra/etzhayyim-did-web) routes com.atproto.repo.* / sync.* +
 # app.bsky.feed.getAuthorFeed to XRPC_PDS_UPSTREAM. Point XRPC_PDS_UPSTREAM at the
 # PUBLIC HOSTNAME below; this tunnel terminates it on the mesh node's loopback PDS
-# (`bb serve`, port @PORT@). No LoadBalancer, no Ingress, no public IP on the node.
+# (`kbb -M:serve`, port @PORT@). No LoadBalancer, no Ingress, no public IP on the node.
 #
 # Setup (operator, one-time):
 #   cloudflared tunnel login

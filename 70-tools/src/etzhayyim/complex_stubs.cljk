@@ -14,7 +14,7 @@
 ;;   (strip-jsonc-comments src)    → src string without // line-comments
 ;;   (parse-toml-array s)          → list of strings from "[\"a\", \"b\"]"
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.complex-stubs :as cs])
 ;;   (cs/parse-duration "2m")   ;; => 120
 ;;   (cs/date? "2026-06-21")    ;; => true

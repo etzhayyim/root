@@ -39,7 +39,7 @@
   ;; `:transport nil` (only on an absent key), and `drain!` passes `:transport transport`
   ;; where transport is nil on the production path (no injected fake) — that nil was
   ;; being called as a fn → NPE. The test suite always injects a transport, so this
-  ;; latent break never surfaced there; it only bit the live `bb drain` runtime.
+  ;; latent break never surfaced there; it only bit the live `kbb -M:drain` runtime.
   (let [transport (or transport default-transport)
         {:keys [status body]}
         (transport :post (str base "/xrpc/com.atproto.repo.createRecord")

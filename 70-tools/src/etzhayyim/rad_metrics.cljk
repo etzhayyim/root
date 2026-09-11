@@ -28,7 +28,7 @@
 ;; machine-measurable clause, e.g. {:metric [:rad :attested-organisms] :op :>=
 ;; :threshold 1} + {:metric [:rad :funding-events] :op :>= :threshold 1}.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   bb rad:metrics                       ;; pprint {:rad {...}} to stdout
 ;;   bb rad:metrics --out metrics/etzhayyim.edn   ;; write the {:rad {...}} fragment
 (ns etzhayyim.rad-metrics
@@ -179,7 +179,7 @@
   (rad-metrics (read-journals rad-dir) (read-give-datoms give-ledger)))
 
 (defn -main
-  "bb rad:metrics [--out PATH] [--rad-dir DIR] [--give-ledger PATH].
+  "kbb -M:rad:metrics [--out PATH] [--rad-dir DIR] [--give-ledger PATH].
    Emits {:rad {...}} (pprint). With --out, writes the fragment the superproject
    BMC collector merges into 90-docs/business/metrics/etzhayyim.edn."
   [& args]

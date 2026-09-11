@@ -67,7 +67,7 @@ Reading an existing `80-data` log directly:
 ## Test
 
 ```
-bb test:kotoba
+kbb -M:test:kotoba
 ```
 
 Covers CID framing + genome byte-identical parity, indexes, Datalog joins/predicates,

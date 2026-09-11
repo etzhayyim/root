@@ -7,7 +7,7 @@
 ;; This is the baseline the `/loop coverage, 成熟度を向上して` iterations improve
 ;; against — each maturity increment should move a cell of this table.
 ;;
-;; Run: bb --classpath 20-actors 70-tools/robotics-coverage/maturity.cljk
+;; Run: kbb --classpath 20-actors 70-tools/robotics-coverage/maturity.cljk
 ;; Per ADR-2606142000 (Clojure-first GAP-actor wave).
 (ns robotics-coverage.maturity
   (:require [clojure.edn :as edn]
@@ -139,6 +139,6 @@
                        (:id r) (maturity-score r) (:methods r) (:gates r)
                        (:raising-gates r) (:deftests r))))))
 
-;; Run when invoked as a script (`bb --classpath 20-actors <this-file>`), matching
-;; the actor test-file idiom (top-level invocation; bb does not auto-call -main).
+;; Run when invoked as a script (`kbb --classpath 20-actors <this-file>`), matching
+;; the actor test-file idiom (top-level invocation; kbb -M:does not auto-call -main).
 (apply -main *command-line-args*)

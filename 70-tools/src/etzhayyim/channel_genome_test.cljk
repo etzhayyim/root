@@ -1,7 +1,7 @@
 (ns etzhayyim.channel-genome-test
   "Tests for the kotoba-genome W1×W2 bridge (ADR-2606302205): an actor learns WHICH
   channel to grow on by folding per-channel real growth readings, and recommends by
-  realised growth-rate (not prediction accuracy). Run: bb --classpath 70-tools/src
+  realised growth-rate (not prediction accuracy). Run: kbb --classpath 70-tools/src
   -e \"(require 'etzhayyim.channel-genome-test)
        (clojure.test/run-tests 'etzhayyim.channel-genome-test)\""
   (:require [clojure.test :refer [deftest is testing]]

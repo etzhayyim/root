@@ -9,7 +9,7 @@ COPY src ./src
 COPY did.json .
 
 # Warm the classpath / fail fast on a compile error at build time.
-RUN bb -e "(require 'etzhayyim.pds.server)" && echo "compile ok"
+RUN kbb -e "(require 'etzhayyim.pds.server)" && echo "compile ok"
 
 ENV PORT=8787 \
     PDS_HOST=atproto.etzhayyim.com \

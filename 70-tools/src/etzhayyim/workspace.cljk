@@ -22,8 +22,8 @@
 ;; SECURITY:
 ;;   No secrets at load time.  No network calls.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.workspace)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.workspace)(println :ok)"
 
 (ns etzhayyim.workspace
   (:require [clojure.string :as str]

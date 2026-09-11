@@ -9,10 +9,10 @@ tooling: `70-tools/src/etzhayyim/kotoba_rad.cljk`（pure）+
 
 ```bash
 # 1) actor member 鍵 (Keychain service etzhayyim.kotoba-rad / account <actor>)
-bb actor:keygen <actor> --apply
+kbb -M:actor:keygen <actor> --apply
 
 # 2) 署名付き genesis journal
-bb -e "(require '[etzhayyim.kotoba-rad :as rad] '[etzhayyim.kotoba-rad-sign :as sign])
+kbb -e "(require '[etzhayyim.kotoba-rad :as rad] '[etzhayyim.kotoba-rad-sign :as sign])
        (rad/publish-identity! \"<actor>\"
          (rad/genesis-block {:name \"<actor>\"
                              :did-web \"did:web:etzhayyim.com:actor:<actor>\"  ; 現行スキーム (ADR-2606231200 addendum 2026-07-02)

@@ -280,7 +280,7 @@
 
   ;; danjo 弾正 — public-accountability oversight mirror. Registered + self-publication
   ;; seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
-  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  ;; #xrpc-libp2p peer multiaddr assigned at `kbb -M:murakumo deploy` time (wasmCid set).
   {:actor/handle "danjo"
    :actor/did "did:web:etzhayyim.com:actor:danjo"
    :actor/kind :tier-b
@@ -301,7 +301,7 @@
 
   ;; toritsugi 取次 — citizen government-procedure concierge (wayfinding mirror). Registered +
   ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
-  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  ;; #xrpc-libp2p peer multiaddr assigned at `kbb -M:murakumo deploy` time (wasmCid set).
   {:actor/handle "toritsugi"
    :actor/did "did:web:etzhayyim.com:actor:toritsugi"
    :actor/kind :tier-b
@@ -322,7 +322,7 @@
 
   ;; himotoki 繙き — active disclosure-request filer (consent-bound, own-data-only). Registered +
   ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
-  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  ;; #xrpc-libp2p peer multiaddr assigned at `kbb -M:murakumo deploy` time (wasmCid set).
   {:actor/handle "himotoki"
    :actor/did "did:web:etzhayyim.com:actor:himotoki"
    :actor/kind :tier-b
@@ -343,7 +343,7 @@
 
   ;; junkan 循環 — citizen↔state-asymmetry systems-dynamics observer (analysis-only). Registered +
   ;; self-publication seed (did-web + social_post membrane + on-tick self-publish) per ADR-2606272355.
-  ;; #xrpc-libp2p peer multiaddr assigned at `bb murakumo deploy` time (wasmCid set).
+  ;; #xrpc-libp2p peer multiaddr assigned at `kbb -M:murakumo deploy` time (wasmCid set).
   {:actor/handle "junkan"
    :actor/did "did:web:etzhayyim.com:actor:junkan"
    :actor/kind :tier-b
@@ -798,7 +798,7 @@
    :actor/primary-schema "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
    :actor/adr ["2606161630"]
    :actor/created-at "2026-06-16"
-   :actor/wasm-cid nil   ;; componentize-py non-reproducible → operator records the pinned CID (bb aburi:publish --pin)
+   :actor/wasm-cid nil   ;; componentize-py non-reproducible → operator records the pinned CID (kbb -M:aburi:publish --pin)
    :actor/wasm-tier "T2"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:aburi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}

@@ -27,7 +27,7 @@
 ;;   All click CLI commands — wave 4+ (babashka.cli)
 ;;   dodaf seed (PDS HTTP push) — urllib.request → babashka.http-client
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.dodaf :as dodaf])
 ;;   (dodaf/find-viewpoints "This section covers AV-1 and OV-5 concerns.")
 ;;   ;=> ["AV-1" "OV-5"]

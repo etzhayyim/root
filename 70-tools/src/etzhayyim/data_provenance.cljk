@@ -3,7 +3,7 @@
 ;; sub-entities against the CIDs recorded in 80-data/* provenance, pin, and
 ;; coverage-manifest files. Offline (no IPFS daemon); reuses the kotoba Datom
 ;; log reader. clj/bb per the repo "Operational code = clj/bb" rule.
-;; `bb lint:provenance` — exits non-zero on any holding that is missing a
+;; `kbb -M:lint:provenance` — exits non-zero on any holding that is missing a
 ;; required field or whose :rad/cidv1 is not recorded anywhere in 80-data.
 (ns etzhayyim.data-provenance
   (:require [clojure.java.io :as io]
@@ -44,7 +44,7 @@
    Sorted by filename: file-seq order is filesystem-dependent (macOS vs Linux
    CI runners return different directory-listing orders), and this seq feeds
    ownership-matrix's insertion-ordered :datasets map — an unsorted walk made
-   `bb rad:ownership-matrix --check` pass locally but fail reproducibly in CI."
+   `kbb -M:rad:ownership-matrix --check` pass locally but fail reproducibly in CI."
   [rad-dir]
   (->> (file-seq (io/file rad-dir))
        (filter #(and (.isFile %)
@@ -128,7 +128,7 @@
      :problems (remove :ok? results)}))
 
 (defn -main
-  "bb lint:provenance — validate RAD holdings cross-reference 80-data."
+  "kbb -M:lint:provenance — validate RAD holdings cross-reference 80-data."
   [& _]
   (let [res     (validate {:rad-dir "80-data/kotoba-rad" :data-dir "80-data" :actors-dir "20-actors"})
         problems (:problems res)]

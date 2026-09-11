@@ -1,4 +1,4 @@
-;; etzhayyim.actor-evolve — `bb actor:evolve <name>` git lifecycle for an actor.
+;; etzhayyim.actor-evolve — `kbb -M:actor:evolve <name>` git lifecycle for an actor.
 ;;
 ;; ADR-2606241500 (this PR). The C-axis (self-evolution) companion to
 ;; actor:publish (ADR-2606231200): an actor evolves BOTH its CODE

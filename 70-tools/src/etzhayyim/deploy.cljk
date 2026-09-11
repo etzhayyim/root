@@ -43,8 +43,8 @@
 ;;   No secrets at load time.  Token env vars read lazily when needed.
 ;;   _SECRETS_STORE_ID read lazily from env, with a fallback default string.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.deploy)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.deploy)(println :ok)"
 
 (ns etzhayyim.deploy
   (:require [clojure.string :as str]

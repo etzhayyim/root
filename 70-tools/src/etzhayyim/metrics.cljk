@@ -25,11 +25,11 @@
 ;;   metrics errors    — GET getErrorRate XRPC → babashka.http-client
 ;;
 ;; NOTE: metrics.py has no significant pure logic.  This namespace documents the
-;; IO boundary faithfully and provides the small helpers above so bb tasks that
+;; IO boundary faithfully and provides the small helpers above so kbb -Saliases that
 ;; later wrap the XRPC calls can share validation + parsing without re-implementing
 ;; them.  The IO legs will be added in wave 4 via babashka.http-client.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.metrics :as m])
 ;;   (m/window-valid? "1h")    ;=> true
 ;;   (m/metrics-nsid :latency) ;=> "com.etzhayyim.metrics.getLatency"

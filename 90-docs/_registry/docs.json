@@ -1365,7 +1365,7 @@
       "authoritative": true,
       "authoritative_for": [
         "etzhayyim-py CLI migration strategy + triage classification",
-        "the COMPLETE ~49-module cljc port record (waves 1–8) + the bb CLI capstone (etzhayyim.cli / `bb e7m`)",
+        "the COMPLETE ~49-module cljc port record (waves 1–8) + the bb CLI capstone (etzhayyim.cli / `kbb -M:e7m`)",
         "the bb/SCI IO-rewrite pattern (injectable :http-fn/:proc-fn/:fs-fn + build-X-request/command shape layer + dry-run)",
         "the consolidated bb/SCI porting gotchas reference",
         "babashka.cli / http-client / process mapping reference"
@@ -24525,7 +24525,7 @@
       "topic": "aozora-deploy",
       "authoritative": true,
       "authoritative_for": [
-        "bb aozora:deploy task",
+        "kbb -M:aozora:deploy task",
         "etzhayyim.aozora-deploy namespace",
         "actor-profile-seed.kotoba.edn generation"
       ],

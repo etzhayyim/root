@@ -30,7 +30,7 @@
 ;;   (flatten-report report)               → string-keyed flat map (for storage)
 ;;   (bar score width)                     → ASCII bar string
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.mokuteki :as m])
 ;;   (m/resolve-rank 1500)   ;; → {:name "Kyu 1" :color "#8B4513" :min-score 1500}
 

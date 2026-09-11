@@ -36,7 +36,7 @@
       :cid "bafkreiacmpjkhjncxlfjtfhfia7ikjyfjq42u7yi3x56ajppu374t3j4gi"}
      {:file "hirameki-patents.datoms.kotoba.edn" :bytes 6255
       :cid "bafkreif7ricl4x24y5pnquryjf4gakmwm36uqijtsao3rw2cuxuwflw4be"}]
-    :verification {:command "bb verify" :result :pass}}
+    :verification {:command "kbb -M:verify" :result :pass}}
    :root-retirement
    {:actor-path "20-actors/hirameki/MOVED.edn"
     :dataset-path "80-data/hirameki-patents/MOVED.edn"

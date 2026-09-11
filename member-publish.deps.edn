@@ -9,8 +9,8 @@
 ;; mint+publish runs via the clojure CLI (the --dry PILOT runs fine under bb).
 ;; Prereq: `west update` (the :local/root repos present) + a sealed Keychain did:key.
 ;; Real publish:
-;;   clojure -Sdeps "$(cat member-publish.deps.edn)" -M -m etzhayyim.observatory-sign-host \
+;;   kbb -Sdeps "$(cat member-publish.deps.edn)" -M -m etzhayyim.observatory-sign-host \
 ;;     --actor cable-marea --aud "<node-operator-did>" --subject "MAREA" --text "…"
-;; Dry pilot (bb is fine — no kagi needed):
+;; Dry pilot (kbb -M:is fine — no kagi needed):
 ;;   bb --config member-publish.bb.edn observatory:member-publish --actor cable-marea \
 ;;     --aud "<node-operator-did>" --subject "MAREA" --text "…" --dry

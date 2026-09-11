@@ -22,7 +22,7 @@ its `SUPERSEDED.md`.
 
 ## Components
 
-- `com.etzhayyim.pds.plist.template` — the LaunchAgent. Runs `bb serve` (the clj PDS HTTP
+- `com.etzhayyim.pds.plist.template` — the LaunchAgent. Runs `kbb -M:serve` (the clj PDS HTTP
   server) with `KOTOBA_URL` = loopback engine, `PDS_ACTOR_KEYS_DIR` + `MURAKUMO_SEAL_KEY`
   for per-actor sealed signing. `KeepAlive`/`RunAtLoad` = resident.
 - `install.clj` — bb installer (`install` / `uninstall` / `status`). Renders the plist from
@@ -38,12 +38,12 @@ cd 50-infra/etzhayyim-atproto-pds-clj
 
 # 0. the local kotoba engine must be up on :8077 (the mesh node already runs it).
 #    smoke-test the server first (ephemeral, no key):
-bb serve            # ^C after it prints "[pds] … up"
+kbb -M:serve            # ^C after it prints "[pds] … up"
 
 # 1. install the resident PDS (state = local kotoba engine, writes = sealed actor keys)
 MURAKUMO_SEAL_KEY="$(…)" PDS_ACTOR_KEYS_DIR=/path/to/sealed/keys \
-  bb deploy/install.clj install
-bb deploy/install.clj status            # state = running, last log healthy
+  kbb deploy/install.cljk install
+kbb deploy/install.cljk status            # state = running, last log healthy
 
 # 2. expose it to the apex Worker via the tunnel (one-time)
 cloudflared tunnel login
@@ -74,6 +74,6 @@ echo -n "" | wrangler secret put XRPC_PDS_UPSTREAM   # (or `wrangler secret dele
 wrangler deploy
 ```
 
-Do the cutover **only after** `bb deploy/install.clj status` is healthy AND the tunnel
+Do the cutover **only after** `kbb deploy/install.cljk status` is healthy AND the tunnel
 host answers `GET https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer` —
 otherwise the apex would proxy live traffic to a dead origin.

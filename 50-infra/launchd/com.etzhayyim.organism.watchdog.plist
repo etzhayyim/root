@@ -3,7 +3,7 @@
 <!--
   com.etzhayyim.organism.watchdog — the EXTERNAL supervisor (immune kaizen).
 
-  Runs `bb organism:watchdog` (etzhayyim.watchdog/-check) once every 60s (StartInterval).
+  Runs `kbb -M:organism:watchdog` (etzhayyim.watchdog/-check) once every 60s (StartInterval).
   It reads the organism's health.json from OUTSIDE the heartbeat loop: if the loop has
   wedged (process alive but silent >120s — which the organism's own KeepAlive cannot see,
   because the process never died) it force-restarts the organism via

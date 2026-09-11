@@ -1,6 +1,6 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; etzhayyim.lint.no-new-shell — gate tests.
-;; Run:  bb --classpath 70-tools/src 70-tools/src/etzhayyim/lint/test_no_new_shell.cljk
+;; Run:  kbb --classpath 70-tools/src 70-tools/src/etzhayyim/lint/test_no_new_shell.cljk
 (ns etzhayyim.lint.test-no-new-shell
   (:require [etzhayyim.lint.no-new-shell :as l]
             [clojure.test :refer [deftest is run-tests]]))

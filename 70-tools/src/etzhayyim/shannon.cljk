@@ -38,7 +38,7 @@
 ;;              CLI click commands, subprocess) are NOT ported here;
 ;; they stay in the Python module or will arrive in a later IO wave.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.shannon :as sh]
 ;;            '[etzhayyim.shannon-scores :as ss])
 ;;   (sh/hash8 "hello")        ;=> "2cf24dba5fb0a30e"

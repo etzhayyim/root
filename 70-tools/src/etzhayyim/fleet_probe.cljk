@@ -22,8 +22,8 @@
   babashka.process is allowed; the LOGIC is clj.
 
   Run:  bb fleet:probe                 (all online nodes)
-        bb fleet:probe --nodes a,b     (subset)
-        bb fleet:probe --no-ssh        (tailscale + inference only, no node login)"
+        kbb -M:fleet:probe --nodes a,b     (subset)
+        kbb -M:fleet:probe --no-ssh        (tailscale + inference only, no node login)"
   (:require [clojure.edn :as edn]
             [clojure.string :as str]
             [clojure.java.io :as io]

@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; ecdsa_coscientist.clj — secp256k1 / ECDSA cryptanalysis PoC (research/教育用)
 ;;
 ;; AI Co-Scientist (Generation→Reflection→Ranking→Evolution→Meta-review) が収束した

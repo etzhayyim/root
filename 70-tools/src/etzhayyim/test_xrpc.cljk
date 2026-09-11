@@ -102,7 +102,7 @@
   ;; suite is RUN with the variable set. That is a deliberate part of the check —
   ;; run it as:
   ;;
-  ;;   E7M_PDS=https://ambient.invalid bb --classpath 70-tools/src \
+  ;;   E7M_PDS=https://ambient.invalid kbb --classpath 70-tools/src \
   ;;     -m etzhayyim.test-xrpc
   ;;
   ;; With the env read still in place that invocation fails here; without it the

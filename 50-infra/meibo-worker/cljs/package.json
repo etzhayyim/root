@@ -4,8 +4,8 @@
   "private": true,
   "description": "ClojureScript core for the meibo Cloudflare Worker (compiled to ../cljs-out/worker_core.js)",
   "scripts": {
-    "build": "npx shadow-cljs release worker",
-    "watch": "npx shadow-cljs watch worker"
+    "build": "amu compile --target wasm32-browser worker",
+    "watch": "amu compile --target wasm32-browser worker"
   },
   "devDependencies": {
     "shadow-cljs": "^3.4.11"

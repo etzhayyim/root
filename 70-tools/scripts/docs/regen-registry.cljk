@@ -23,10 +23,10 @@
 ;;               keys, matching the repo's *.adr.edn convention).
 ;;
 ;; Usage:
-;;   bb 70-tools/scripts/docs/regen-registry.cljk
-;;   bb 70-tools/scripts/docs/regen-registry.cljk --check   ; exit 1 on drift (json OR edn)
-;;   bb 70-tools/scripts/docs/regen-registry.cljk --json    ; plan-only JSON (stdout)
-;;   bb 70-tools/scripts/docs/regen-registry.cljk --edn     ; plan-only EDN (stdout)
+;;   kbb 70-tools/scripts/docs/regen-registry.cljk
+;;   kbb 70-tools/scripts/docs/regen-registry.cljk --check   ; exit 1 on drift (json OR edn)
+;;   kbb 70-tools/scripts/docs/regen-registry.cljk --json    ; plan-only JSON (stdout)
+;;   kbb 70-tools/scripts/docs/regen-registry.cljk --edn     ; plan-only EDN (stdout)
 
 (ns regen-registry
   (:require [babashka.fs :as fs]
@@ -351,14 +351,14 @@
           (do (binding [*out* *err*]
                 (println (str "registry drift detected: disk=" (count entries)
                               " entries, file=" (count disk-entries) " entries"))
-                (println "run: nbb scripts/run-task.cljk docs:registry"))
+                (println "run: kbb --backend sci scripts/run-task.cljk docs:registry"))
               1)
 
           (not= (edn-entries-block (if (fs/exists? registry-edn) (slurp registry-edn) ""))
                 (edn-entries-block (render-edn entries date)))
           (do (binding [*out* *err*]
                 (println "registry EDN drift detected: docs.edn out of sync with docs.json source")
-                (println "run: nbb scripts/run-task.cljk docs:registry"))
+                (println "run: kbb --backend sci scripts/run-task.cljk docs:registry"))
               1)
 
           :else

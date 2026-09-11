@@ -27,7 +27,7 @@
 ;; does. The wire format + signature validity (what kotoba verifies) are identical;
 ;; only the key-input interface differs (PKCS8 base64, not raw-seed hex).
 ;;
-;; Usage (bb task `issue-cacao`, or `bb 70-tools/src/etzhayyim/issue_cacao.cljk …`):
+;; Usage (kbb -M:task `issue-cacao`, or `kbb 70-tools/src/etzhayyim/issue_cacao.cljk …`):
 ;;   ;; generate a throwaway member key + a 30-day leash on graph 'ibuki':
 ;;   bb issue-cacao --node-did did:key:zNODE --graph ibuki \
 ;;       --exp 2026-07-11T00:00:00Z --out data/ibuki-delegation.json --gen-key

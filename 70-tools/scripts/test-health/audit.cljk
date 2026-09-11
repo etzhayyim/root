@@ -2,14 +2,14 @@
 ;;
 ;; Institutionalises the manual "measure the debt" scans that surfaced the py->cljc
 ;; port-wave debt (PRs #2041 tsumugi seed-drift, #2042 uchiwake .clj shadows, #2043
-;; broken `bb test:<actor>` shims). Run anytime to re-measure:
+;; broken `kbb -M:test:<actor>` shims). Run anytime to re-measure:
 ;;
-;;   nbb scripts/run-task.cljk audit:test-health            # print the triage summary + self-check
+;;   kbb --backend sci scripts/run-task.cljk audit:test-health            # print the triage summary + self-check
 ;;
-;; which is `clojure -Sdeps … -M -m test-health.audit --check`. Add --write for the markdown
+;; which is `kbb -Sdeps … -M -m test-health.audit --check`. Add --write for the markdown
 ;; snapshot, --probe to classify broken shims.
 ;;
-;; It used to be `bb 70-tools/scripts/test-health/audit.cljk`, and until ADR-2608135000 the registry
+;; It used to be `kbb 70-tools/scripts/test-health/audit.cljk`, and until ADR-2608135000 the registry
 ;; entry still shelled out to that retired binary. This file also carried
 ;; `(when (= *file* (System/getProperty "babashka.file")) (apply -main …))` — a guard that is FALSE
 ;; under every runtime except babashka, so running the audit any other way loaded the namespace,
@@ -53,7 +53,7 @@
        (sort-by :clj)
        vec))
 
-;; ── 2. broken `bb test:<name>` shims ─────────────────────────────────────────
+;; ── 2. broken `kbb -M:test:<name>` shims ─────────────────────────────────────────
 
 (defn defined-tasks
   "Task names the repo's registry defines. This used to read bb.edn; ADR-2607173000 retired
@@ -77,7 +77,7 @@
     (->> (fs/glob "20-actors" "*/run_tests.sh")
          (map str)
          (keep (fn [sh]
-                 ;; match the ACTUAL command (`exec bb test:<name>`), never a `bb test:<name>`
+                 ;; match the ACTUAL command (`exec bb test:<name>`), never a `kbb -M:test:<name>`
                  ;; mention inside a `#` comment (the #2043-fixed shims reference the old task
                  ;; name in their explanatory comment).
                  (when-let [task (some->> (slurp sh)
@@ -96,11 +96,11 @@
 ;; shims are safe to repoint (#2043 pattern: green) vs surface a real pre-existing bug.
 
 (def ^:private probe-runtime
-  ;; was `bb -e <code>`; babashka is retired (ADR-2607173000). clojure.main -e is the JVM
+  ;; was `kbb -e <code>`; babashka is retired (ADR-2607173000). clojure.main -e is the JVM
   ;; equivalent and the probe code was already JVM-shaped (requiring-resolve, clojure.test).
   ;; Unreachable in practice while broken-shims is empty -- ported anyway so it is not a landmine
   ;; for whoever restores an actor root.
-  ["clojure" "-M" "-e"])
+  ["kbb" "-M" "-e"])
 
 (defn probe-shim
   "Run `actor`'s discovery-filtered tests in a subprocess. Returns
@@ -129,11 +129,11 @@
         {:actor actor :status :load-error :detail (or (some-> msg str/trim) "load/require error")}))))
 
 (def ^:private probe-runtime
-  ;; was `bb -e <code>`; babashka is retired (ADR-2607173000). clojure.main -e is the JVM
+  ;; was `kbb -e <code>`; babashka is retired (ADR-2607173000). clojure.main -e is the JVM
   ;; equivalent and the probe code was already JVM-shaped (requiring-resolve, clojure.test).
   ;; Unreachable in practice while broken-shims is empty -- ported anyway so it is not a landmine
   ;; for whoever restores an actor root.
-  ["clojure" "-M" "-e"])
+  ["kbb" "-M" "-e"])
 
 (defn probe-shims [shims] (mapv (comp probe-shim :actor) shims))
 
@@ -164,7 +164,7 @@
      "(stale-risk, cleanup candidates) · **" (count same) "** `:identical` (harmless dup).\n\n"
      "| actor | shadow pairs | of which :different |\n|---|---|---|\n"
      (str/join "\n" (for [[a n d] by-actor] (str "| " a " | " n " | " d " |")))
-     "\n\n## 2. Broken `bb test:<name>` shims\n\n"
+     "\n\n## 2. Broken `kbb -M:test:<name>` shims\n\n"
      "`run_tests.sh` that `exec bb test:<name>` a task no longer in bb.edn (removed when "
      "`test:actors` auto-discovery superseded per-actor lists) → the suite never runs.\n\n"
      "- **" (count shims) "** broken shims.\n\n"

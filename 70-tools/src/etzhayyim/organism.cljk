@@ -27,7 +27,7 @@
 ;; fleet node is unreachable a deterministic template line is transacted instead,
 ;; marked :narration/source "template" so the degraded path stays legible.
 ;;
-;; CLI (bb tasks):
+;; CLI (kbb -Saliases):
 ;;   bb organism:narrate                 ; one narration beat (joucho-derived prompt)
 ;;   bb organism:heartbeat               ; the resident loop (Ctrl-C / launchd to stop)
 ;;   bb organism:heartbeat --once        ; one beat of every layer, then exit (smoke)

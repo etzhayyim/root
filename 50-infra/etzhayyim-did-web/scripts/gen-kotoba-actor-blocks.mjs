@@ -13,10 +13,10 @@
  *
  * SSoT = the same actor-profile seed the did:web Worker resolves from
  * (00-contracts/schemas/actor-profile-seed.kotoba.edn → materialised via
- * `npx nbb scripts/publish-actor-records.cljs` into ./out/actor-records/*.record.json).
+ * `kbb --backend sci scripts/publish-actor-records.cljk` into ./out/actor-records/*.record.json).
  *
  * Run (after the wasm is built with exportBlocks — build-kotoba-wasm.sh):
- *   npx nbb scripts/publish-actor-records.cljs            # refresh out/actor-records
+ *   kbb --backend sci scripts/publish-actor-records.cljk            # refresh out/actor-records
  *   node scripts/gen-kotoba-actor-blocks.mjs
  *
  * Datom schema (one entity per actor, e = "actor.<handle>"):
@@ -69,7 +69,7 @@ const GRAPH = 'actors-v1';
 
 if (!existsSync(recordsDir)) {
   console.error(
-    `✗ ${recordsDir} missing — run \`npx nbb scripts/publish-actor-records.cljs\` first.`,
+    `✗ ${recordsDir} missing — run \`kbb --backend sci scripts/publish-actor-records.cljk\` first.`,
   );
   process.exit(1);
 }

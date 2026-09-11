@@ -28,7 +28,7 @@
 ;; NOTE: scoped-cache-key uses java.security.MessageDigest (available in bb/JVM).
 ;;       In SCI/WASM contexts use a pure implementation or skip this fn.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.auth :as auth])
 ;;   (auth/scoped-cache-key "mytoken" "com.atproto.server.getServiceAuth")
 ;;   ;=> "a1b2c3d4e5f60011:com.atproto.server.getServiceAuth"

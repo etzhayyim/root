@@ -27,7 +27,7 @@
 ;;   (find-go-mod-dirs go-dir)               → seq of paths
 ;;   (run-checks ws-root rust-dir go-dir ts-dir skip-set) → CQReport
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.code-quality :as cq])
 ;;   (cq/cap 105.0) ;; → 100.0
 

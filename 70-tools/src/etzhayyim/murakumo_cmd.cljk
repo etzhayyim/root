@@ -62,8 +62,8 @@
 ;;     models list (concurrent probe fan-out, SSH-bound, no offline surface)
 ;;     fleet-plan + optimize (complex multi-path scripts, XRPC-only legs done)
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.murakumo-cmd)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.murakumo-cmd)(println :ok)"
 
 (ns etzhayyim.murakumo-cmd
   (:require [clojure.string :as str]

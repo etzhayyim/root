@@ -17,7 +17,7 @@
 ;; IO functions (scan_kosei, CLI commands, duckdb snapshot, JSON r/w) are
 ;; NOT ported here; they stay in the Python module.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.kosei-tiers :as kt])
 ;;   (kt/suggest-tier {"name" "gateway" "dir" "50-infra/..."}) ;=> "T3"
 ;;   (kt/next-tier "T1")                                       ;=> "T2"

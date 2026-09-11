@@ -1,6 +1,6 @@
 ;; Tests for regen-registry.clj (babashka port of regen-registry.py).
-;; Run: nbb scripts/run-task.cljk test:docs-registry
-;; (which is `clojure -Sdeps … -M 70-tools/scripts/docs/test_regen_registry.cljk`, from the repo
+;; Run: kbb --backend sci scripts/run-task.cljk test:docs-registry
+;; (which is `kbb -Sdeps … -M 70-tools/scripts/docs/test_regen_registry.cljk`, from the repo
 ;; root -- `here` is derived from *file*, so the working directory matters.)
 ;; Covers parse-frontmatter (happy + edge), entry build/order, JSON+EDN
 ;; encoders, byte-identity round-trip, and the live-repo freshness guard.
@@ -88,7 +88,7 @@
 (deftest live-repo-in-sync
   ;; The committed registry must match what we'd regenerate (json + edn).
   ;;
-  ;; This used to shell out to `bb 70-tools/scripts/docs/regen-registry.cljk --check`. Two things
+  ;; This used to shell out to `kbb 70-tools/scripts/docs/regen-registry.cljk --check`. Two things
   ;; were wrong with that after ADR-2607173000 retired babashka: the binary is gone on any fleet
   ;; node, and the subprocess bought nothing -- the implementation is ALREADY load-file'd into this
   ;; process above, and its -main RETURNS an exit code rather than calling System/exit (the exit is

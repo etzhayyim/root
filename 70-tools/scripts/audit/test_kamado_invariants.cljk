@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; test_kamado_invariants.clj — Lock-in tests for the kamado (竈) constitutional
 ;; invariants (ADR-2606051500). bb/cljc port of the retired test_kamado_invariants.py
 ;; (kamado py→cljc port wave, ADR-2606160842): the guard is now `feedstock_guard.cljc`,
@@ -12,7 +12,7 @@
 ;;   #2 lexicons  (orgs/etzhayyim/com-etzhayyim-kamado/wire/lex/*.json)  feedstockClass enum + consts
 ;;   #3 guard     (orgs/etzhayyim/com-etzhayyim-kamado/methods/feedstock_guard.cljc)      screen-feedstock raises on fossil
 ;;
-;; Run: bb 70-tools/scripts/audit/test_kamado_invariants.cljk   (exit 1 on any drift)
+;; Run: kbb 70-tools/scripts/audit/test_kamado_invariants.cljk   (exit 1 on any drift)
 (ns test-kamado-invariants
   (:require [clojure.string :as str]
             [clojure.java.io :as io]

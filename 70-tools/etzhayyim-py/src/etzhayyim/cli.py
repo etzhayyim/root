@@ -41,7 +41,7 @@ from .kagami import kagami
 from .kaizen import kaizen
 from .kashika import kashika
 from .kosei import kosei
-# .lint retired (ADR-2606222000): ported to etzhayyim.lint.cljc → `bb e7m lint`.
+# .lint retired (ADR-2606222000): ported to etzhayyim.lint.cljc → `kbb -M:e7m lint`.
 from .logs import logs
 from .metrics import metrics
 from .mitama import mitama

@@ -17,7 +17,7 @@
 ;; IO LEGS DEFERRED (not ported — httpx POST / time.time / Click):
 ;;   agent_token (Click command) — httpx POST getServiceAuth → bb leg
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.agent-token :as at])
 ;;   (at/build-agent-token-payload "com.etzhayyim.myLex" 1750000000)
 ;;   ;=> {"lxm" "com.etzhayyim.myLex" "exp" 1750000000}

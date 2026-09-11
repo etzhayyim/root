@@ -28,7 +28,7 @@ pre-commit:
       # (git diff --cached --diff-filter=ACR) so extension-less junk like Chrome's
       # `Cookies` / `Login Data` / leveldb `MANIFEST-*` is caught too.
       # Escape hatch: 70-tools/scripts/lint/ignorable-allowlist.edn (:allow).
-      run: nbb 70-tools/scripts/lint/no-ignorable-staged.cljk
+      run: kbb --backend sci 70-tools/scripts/lint/no-ignorable-staged.cljk
     secret-scan:
       # Block obvious credentials before they hit git history.
       # Per the GitGuardian incident (2026-05-17): the RisingWave
@@ -442,7 +442,7 @@ pre-commit:
         - "90-docs/**/*.md"
         - "90-docs/**/*.edn"
       run: |
-        bb 70-tools/scripts/docs/regen-registry.cljk --check \
+        kbb 70-tools/scripts/docs/regen-registry.cljk --check \
           > /tmp/docs-registry-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
@@ -451,7 +451,7 @@ pre-commit:
           rm -f /tmp/docs-registry-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    bb 70-tools/scripts/docs/regen-registry.cljk"
+          echo "    kbb 70-tools/scripts/docs/regen-registry.cljk"
           echo "    git add 90-docs/_registry/docs.json 90-docs/_registry/docs.edn"
           exit 1
         fi
@@ -471,7 +471,7 @@ pre-commit:
         - "90-docs/**/*.edn"
         - "90-docs/_registry/docs.edn"
       run: |
-        bb 70-tools/scripts/docs/regen-graph-edn.cljk --check \
+        kbb 70-tools/scripts/docs/regen-graph-edn.cljk --check \
           > /tmp/docs-graph-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
@@ -480,7 +480,7 @@ pre-commit:
           rm -f /tmp/docs-graph-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    bb 70-tools/scripts/docs/regen-graph-edn.cljk"
+          echo "    kbb 70-tools/scripts/docs/regen-graph-edn.cljk"
           echo "    git add 90-docs/_registry/graph.edn"
           exit 1
         fi
@@ -490,7 +490,7 @@ pre-commit:
 
     adr-index-freshness:
       # When any ADR .md/.md.edn changes, verify 90-docs/adr/adr-index.edn is in
-      # sync (bb adr:index-check → etzhayyim.tools.adr-mdedn, the SSoT generator
+      # sync (kbb -M:adr:index-check → etzhayyim.tools.adr-mdedn, the SSoT generator
       # per ADR-2606162200 + ADR-2606121143). adr-index.edn is GENERATED from front
       # matter and must NEVER be hand-edited — this gate catches the prose-written-
       # as-map-literal corruption class that silently made the file un-parseable
@@ -503,7 +503,7 @@ pre-commit:
       run: |
         # bb.edn tasks may be absent on sparse/shallow checkouts; invoke the
         # generator on classpath directly (EDN-only SSoT, 2026-07-17).
-        if ! bb --classpath "70-tools/src" \
+        if ! kbb --classpath "70-tools/src" \
             -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (let [r (a/check-index "90-docs/adr")] (when-not (:ok r) (println r) (System/exit 1)))' \
             > /tmp/adr-index-check.$$.txt 2>&1; then
           echo "✘ adr-index.edn drift/corruption detected:"
@@ -511,7 +511,7 @@ pre-commit:
           rm -f /tmp/adr-index-check.$$.txt
           echo ""
           echo "  adr-index.edn is GENERATED — never hand-edit it. Regenerate + stage:"
-          echo "    bb --classpath 70-tools/src -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (println (a/write-index! \"90-docs/adr\"))'"
+          echo "    kbb --classpath 70-tools/src -e '(require (quote [etzhayyim.tools.adr-mdedn :as a])) (println (a/write-index! \"90-docs/adr\"))'"
           echo "    git add 90-docs/adr/adr-index.edn"
           exit 1
         fi

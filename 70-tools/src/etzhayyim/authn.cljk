@@ -23,7 +23,7 @@
 ;;       It is safe only for extracting display/store fields from already-
 ;;       trust-established tokens (e.g., the PDS just returned them).
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.authn :as authn])
 ;;   (authn/parse-jwt-claims "eyJhbGc.eyJzdWIiOiJkaWQ6cGxjOmFiYyIsImVtYWlsIjoiYUBiLmNvbSJ9.sig")
 ;;   ;=> {:sub "did:plc:abc" :email "a@b.com"}

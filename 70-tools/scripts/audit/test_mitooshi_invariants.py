@@ -120,7 +120,7 @@ def test_g1_guard_rejects_point_asserted_forecast():
         "            :no-throw (catch Exception e :threw)))"
         "(pr r)"
     )
-    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    assert result.returncode == 0, f"kbb -M:failed: {result.stderr}"
     assert ":threw" in result.stdout, (
         "G1: score-pair MUST throw on point-asserted=true (非終末論 — deterministic "
         f"assertion unrepresentable); stdout={result.stdout!r}"
@@ -150,7 +150,7 @@ def test_g2_guard_rejects_speculative_use_and_review_const():
         "(require '[mitooshi.methods.score :as s])"
         "(pr (into #{} (map #(clojure.string/replace % #\"^:\" \"\") s/allowed-use)))"
     )
-    assert result_uses.returncode == 0, f"bb failed: {result_uses.stderr}"
+    assert result_uses.returncode == 0, f"kbb -M:failed: {result_uses.stderr}"
     # Parse the printed set from stdout (it will look like #{...})
     uses_str = result_uses.stdout.strip()
     for expected in _EXPECTED_USE:
@@ -170,7 +170,7 @@ def test_g2_guard_rejects_speculative_use_and_review_const():
         "            :no-throw (catch Exception e :threw)))"
         "(pr r)"
     )
-    assert result_trade.returncode == 0, f"bb failed: {result_trade.stderr}"
+    assert result_trade.returncode == 0, f"kbb -M:failed: {result_trade.stderr}"
     assert ":threw" in result_trade.stdout, (
         "G2: score-pair MUST throw on use='trade' (speculation is structurally "
         f"unrepresentable); stdout={result_trade.stdout!r}"
@@ -221,7 +221,7 @@ def test_g5_guard_refuses_look_ahead_leak():
         "(def r3 (s/score-pair fc (s/->observation \"o-ok\" :observed-at 200 :value 0.5)))"
         "(pr {:r1 r1 :r2 r2 :r3-is-map (map? r3) :r3-has-crps (contains? r3 \"crps\")})"
     )
-    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    assert result.returncode == 0, f"kbb -M:failed: {result.stderr}"
     assert ":r1 :threw" in result.stdout, (
         f"G5: score-pair MUST throw on observed_at==info_as_of (look-ahead); stdout={result.stdout!r}"
     )

@@ -9,9 +9,9 @@ resume-safe, content-addressed append-only **commit-DAGs** with deterministic he
 
 ```bash
 # from the repo root (bb.edn :paths already include 20-actors)
-bb 70-tools/scripts/datomic-health/fleet_audit.cljk            # full fleet
-bb 70-tools/scripts/datomic-health/fleet_audit.cljk --actors tate,inochi   # subset
-bb 70-tools/scripts/datomic-health/fleet_audit.cljk --quiet    # summary line only
+kbb 70-tools/scripts/datomic-health/fleet_audit.cljk            # full fleet
+kbb 70-tools/scripts/datomic-health/fleet_audit.cljk --actors tate,inochi   # subset
+kbb 70-tools/scripts/datomic-health/fleet_audit.cljk --quiet    # summary line only
 ```
 
 Pure audit: writes only to `java.io.tmpdir` (throwaway ledgers), touches no actor data,

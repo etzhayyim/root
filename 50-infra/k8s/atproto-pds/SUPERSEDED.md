@@ -5,7 +5,7 @@ PV + k8s Secret) has been **removed**. The independent etzhayyim atproto PDS now
 **k8s-free on the Murakumo mesh**:
 
 - **State** = the kotoba Datom log on the local kotoba engine (`KotobaStore`), not a PV.
-- **Run** = a launchd LaunchAgent (`bb serve`), not a Deployment/kubelet.
+- **Run** = a launchd LaunchAgent (`kbb -M:serve`), not a Deployment/kubelet.
 - **Ingress** = a Cloudflare Tunnel, not a Service/LoadBalancer.
 - **Signing** = an actor-sealed P-256 keystore (present-only, no-server-key), not a k8s Secret.
 

@@ -203,12 +203,12 @@ reasons the actors are being ported py→cljc (the clj-port waves).
 
 Concretely:
 - **Author daemons/heartbeats/CLIs as tasks** in `scripts/tasks.edn`, run with
-  `nbb scripts/run-task.cljk <task>`, backed by a clj/cljc namespace under
+  `kbb --backend sci scripts/run-task.cljk <task>`, backed by a clj/cljc namespace under
   `70-tools/src/etzhayyim/…`. **Check that the namespace actually loads under the runtime
   you register**: the 2026-07 bb→nbb conversion rewrote `["bb" …]` into `["nbb" …]`
   without that check, and a namespace requiring `babashka.fs` or `clojure.java.io` does
   not load under nbb — those are bb/JVM namespaces. Register such code as
-  `["clojure" "-Sdeps" … "-M" …]` and declare `babashka/fs` and `babashka/process` as the
+  `["kbb" "-Sdeps" … "-M" …]` and declare `babashka/fs` and `babashka/process` as the
   ordinary maven artifacts they are (see `audit:test-health`), or port the requires.
   Measured 2026-08-13 (ADR-2608135000): of the two nbb tasks this file names below,
   BOTH fail at load for exactly this reason (reference: `etzhayyim.organism` =
@@ -228,15 +228,15 @@ Concretely:
 - **Exemptions**: 3rd-party/vendored code (`lib/`, `vendor/`, `*-fork/`), generated
   build artifacts, and an actor's still-unported legacy `py/` during an in-flight
   cljc port (the port itself is the fix).
-- **Enforced-forward (ADR-2606072802)**: `nbb scripts/run-task.cljk lint:no-new-shell` FAILS on a NEW first-party
+- **Enforced-forward (ADR-2606072802)**: `kbb --backend sci scripts/run-task.cljk lint:no-new-shell` FAILS on a NEW first-party
   `.sh` under `orgs/etzhayyim/com-etzhayyim-*/` (existing ones are GRANDFATHERED in
   `70-tools/src/etzhayyim/lint/shell-baseline.edn`; the baseline is shrinks-only — port a
-  `.sh` to Clojure + delete it, then `nbb scripts/run-task.cljk lint:no-new-shell --update`).
+  `.sh` to Clojure + delete it, then `kbb --backend sci scripts/run-task.cljk lint:no-new-shell --update`).
   ⚠ **REGISTERED BUT NON-FUNCTIONAL** (measured 2026-08-13): `lint:no-new-shell` is in
   `scripts/tasks.edn` as an nbb task, but `etzhayyim.lint.no-new-shell` requires
   `babashka.fs`, which nbb does not provide — it exits with
   `Could not find namespace: babashka.fs`. So this rule is currently unenforced. Fixing it
-  is a port of the linter's requires (or a `clojure -Sdeps` registration), not a rename.
+  is a port of the linter's requires (or a `kbb -Sdeps` registration), not a rename.
   New actors ship
   `run_tests.clj`, not `run_tests.sh`; `etzhayyim.vitals` prefers the `.clj` runner. The 218
   grandfathered `.sh` are not mass-ported (low value, high churn) — they convert opportunistically.
@@ -347,7 +347,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/CHARTER-RIDER.md` — license addendum canonical text
 - `/LANDS.md` — Land Trust roster
 - `/MEMBERS.md` — 信者 roster
-- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `nbb scripts/run-task.cljk fleet:probe` — definition ≠ running daemon.
+- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `kbb --backend sci scripts/run-task.cljk fleet:probe` — definition ≠ running daemon.
   ⚠ **REGISTERED BUT NON-FUNCTIONAL** (measured 2026-08-13): that task exits with
   `Could not find namespace: clojure.java.io`, which nbb does not provide — same defect as
   `lint:no-new-shell` above. So residency is currently NOT verified by anything

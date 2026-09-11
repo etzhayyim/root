@@ -20,9 +20,9 @@
 ;; so re-running on unchanged input is byte-identical.
 ;;
 ;; Usage:
-;;   bb 70-tools/scripts/docs/regen-graph-edn.cljk
-;;   bb 70-tools/scripts/docs/regen-graph-edn.cljk --check   ; exit 1 on drift
-;;   bb 70-tools/scripts/docs/regen-graph-edn.cljk --edn     ; plan-only EDN (stdout)
+;;   kbb 70-tools/scripts/docs/regen-graph-edn.cljk
+;;   kbb 70-tools/scripts/docs/regen-graph-edn.cljk --check   ; exit 1 on drift
+;;   kbb 70-tools/scripts/docs/regen-graph-edn.cljk --edn     ; plan-only EDN (stdout)
 
 (ns regen-graph-edn
   (:require [babashka.fs :as fs]
@@ -176,7 +176,7 @@
           (binding [*out* *err*]
             (let [old-n (try (count (:graph (edn/read-string on-disk))) (catch Exception _ 0))]
               (println (str "graph.edn drift detected: disk=" n " nodes, file=" old-n " nodes"))
-              (println "run: nbb scripts/run-task.cljk docs:graph-edn")
+              (println "run: kbb --backend sci scripts/run-task.cljk docs:graph-edn")
               1))))
 
       :else

@@ -1,10 +1,10 @@
 (ns etzhayyim.fleet-deploy
   "fleet-deploy (bb) — render + install the resident LaunchAgents that make the
-  self-evolution loop ACTUALLY run (ADR-2606271400 D4/D5). Today `bb fleet:probe`
+  self-evolution loop ACTUALLY run (ADR-2606271400 D4/D5). Today `kbb -M:fleet:probe`
   reports 1/24 heartbeats resident + the leashed-PDS post path code-complete-but-idle;
   this closes that gap by installing:
 
-    - the post-drain agent  — runs `bb drain` (etzhayyim PDS project) on an interval,
+    - the post-drain agent  — runs `kbb -M:drain` (etzhayyim PDS project) on an interval,
       presenting a member leash so ibuki's prepared posts flow to the PDS, attributed
       to the consenting member (the leashed-autonomous posting RUNTIME, ADR-2606111400);
     - (referenced) the cell-runner agent — the per-node heartbeat supervisor.
@@ -17,8 +17,8 @@
   from the member-provided env at run time, never embedded).
 
   Run:  bb fleet:deploy                 (render the post-drain plist to stdout)
-        bb fleet:deploy --install-local (write + bootstrap the LaunchAgent here)
-        bb fleet:deploy --uninstall-local"
+        kbb -M:fleet:deploy --install-local (write + bootstrap the LaunchAgent here)
+        kbb -M:fleet:deploy --uninstall-local"
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             #?(:bb [babashka.process :as proc]
@@ -108,5 +108,5 @@
                        {:working-dir (str "<repo>/" pds-project)
                         :env (merge {"PDS_DRAIN_BASE" "http://127.0.0.1:2583"
                                      "PDS_DRAIN_QUEUE" "<ibuki posts queue>"
-                                     "PDS_DRAIN_LEASH" "<member leash from `bb leash-issue`>"}
+                                     "PDS_DRAIN_LEASH" "<member leash from `kbb -M:leash-issue`>"}
                                     (drain-env-from-process))})))))

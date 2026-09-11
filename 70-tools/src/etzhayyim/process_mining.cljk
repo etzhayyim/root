@@ -12,7 +12,7 @@
 ;;   `scan-handler-dir` reads *.ts from a Path and calls analyze-handler-content.
 ;;   Not loaded at namespace-load time — call explicitly when running on live fs.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.process-mining :as pm])
 ;;   (pm/compute-pm-summary [])
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- etzhayyim independent atproto PDS — RESIDENT on the Murakumo mesh (NO k8s).
      Generated from this template by install.clj (@TOKEN@ → resolved values). The PDS
-     is a babashka HTTP server (`bb serve`) whose canonical STATE is the kotoba Datom
+     is a babashka HTTP server (`kbb -M:serve`) whose canonical STATE is the kotoba Datom
      log on the LOCAL kotoba engine (KOTOBA_URL=loopback) — there is no StatefulSet,
      no PersistentVolume, no Deployment. Every write is signed per-actor from the
      SEALED P-256 keystore (PDS_ACTOR_KEYS_DIR + MURAKUMO_SEAL_KEY; present-only,
@@ -14,9 +14,9 @@
      there is no public ingress / LoadBalancer either.
 
      Install (operator step — writes to ~/Library; MURAKUMO_SEAL_KEY from the node env):
-       MURAKUMO_SEAL_KEY=… PDS_ACTOR_KEYS_DIR=… bb deploy/install.clj install
+       MURAKUMO_SEAL_KEY=… PDS_ACTOR_KEYS_DIR=… kbb deploy/install.cljk install
      Stop / uninstall:
-       bb deploy/install.clj uninstall -->
+       kbb deploy/install.cljk uninstall -->
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>

@@ -1,4 +1,4 @@
-;; etzhayyim.actor-publish — `bb actor:publish <name>` orchestrator.
+;; etzhayyim.actor-publish — `kbb -M:actor:publish <name>` orchestrator.
 ;;
 ;; ADR-2606231200. Idempotent pipeline that takes one actor from
 ;; a flat west actor repository to a DID-bearing, aozora-registerable unit:

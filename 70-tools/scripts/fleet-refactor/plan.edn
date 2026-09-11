@@ -67,7 +67,7 @@
             :file-gate "clj-kondo full (ns-mismatch のみ :off — 実出力パスは by construction 一致)"
             :demote "組立 lint エラー行→単位逆引き→スタブ降格→再組立"}
    :next [:escalate-todo-units-to-12b
-          "bb load-file smoke を最終ゲートに追加 (warning 止まりの未解決 alias (str/trim-leading 等) を捕捉)"]}
+          "kbb -M:load-file smoke を最終ゲートに追加 (warning 止まりの未解決 alias (str/trim-leading 等) を捕捉)"]}
   {:stage 1 :name :cpt-clojure-corpus :status :data-ready-rerun-pending
    :approach "(b) founder 指示: Fable gold 30本で CPT パイプライン疎通 → 増幅 → 本番 CPT"
    :base "google/gemma-4-E4B-it-qat-q4_0-unquantized (= fleet gemma4:e4b-it-qat の dequant QAT 同一重み; gated なし; arch Gemma4ForConditionalGeneration)"

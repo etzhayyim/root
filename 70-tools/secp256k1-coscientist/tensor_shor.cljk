@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; tensor_shor.clj — Shor 前段状態のテンソルネットワーク圧縮性を *厳密に* 測る
 ;;
 ;; 仮説(ユーザ提案): 「ある N,a では Shor 状態が低ランク構造を持ち、特殊ケースの

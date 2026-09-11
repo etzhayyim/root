@@ -16,8 +16,8 @@
 ;;                       cljs core does not (yet) own — this is what makes the
 ;;                       migration incremental and rollback-safe.
 ;;
-;; Build:  npx shadow-cljs release worker   (or `npm run build:cljs`)
-;; Watch:  npx shadow-cljs watch   worker
+;; Build:  amu compile --target wasm32-browser worker   (or `npm run build:cljs`)
+;; Watch:  amu compile --target wasm32-browser   worker
 {:source-paths ["src" "test"]
  :dependencies [[hiccups/hiccups "0.3.0"]
                 [com.thheller/shadow-css "0.6.4"]]

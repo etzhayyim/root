@@ -18,7 +18,7 @@
 ;; API (IO — Clojure/bb only):
 ;;   (discover-actors ws-path)    → seq of actor maps
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.hinshitsu :as h])
 ;;   (h/grade 92)  ;; → "S"
 

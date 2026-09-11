@@ -39,8 +39,8 @@
 ;;   passed on the command line and the workspace-wide auth/default-pds.
 ;;   See the note above t-pds.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.training)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.training)(println :ok)"
 
 (ns etzhayyim.training
   (:require [clojure.string :as str]

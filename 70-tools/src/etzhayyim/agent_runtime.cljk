@@ -28,7 +28,7 @@
 ;; NOTE: The dry-run legs of publish/register/publish-agent/holochain-plan
 ;;       are PURE JSON assembly — no I/O — and are fully ported here.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.agent-runtime :as ar])
 ;;   (ar/build-publish-result "prod" "0xabc123" 512 true)
 ;;   ;=> {"ok" true "dryRun" true "sha256" "0xabc123" ...}

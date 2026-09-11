@@ -8,7 +8,7 @@
 ;; IO (httpx PDS calls, fs walks) is DEFERRED — call from bb operator legs.
 ;;
 ;; ns: etzhayyim.kagami
-;; Load check: bb --classpath 70-tools/src -e "(require 'etzhayyim.kagami)(println :ok)"
+;; Load check: kbb --classpath 70-tools/src -e "(require 'etzhayyim.kagami)(println :ok)"
 
 (ns etzhayyim.kagami)
 

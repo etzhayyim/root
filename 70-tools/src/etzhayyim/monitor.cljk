@@ -46,8 +46,8 @@
 ;;   Default = real babashka.http-client; tests inject a fake that records
 ;;   calls WITHOUT touching the network.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.monitor)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.monitor)(println :ok)"
 
 (ns etzhayyim.monitor
   (:require [clojure.string :as str]

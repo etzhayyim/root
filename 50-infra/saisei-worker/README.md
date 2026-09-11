@@ -74,7 +74,7 @@ are generated (do not hand-edit):
 
 ```bash
 bb 70-tools/scripts/saisei-worker/gen-ui.bb    # from 50-infra/saisei-worker/ui-src/page.html
-nbb 70-tools/scripts/saisei-worker/gen-data.cljk  # from orgs/etzhayyim/com-etzhayyim-saisei/data/*.edn
+kbb --backend sci 70-tools/scripts/saisei-worker/gen-data.cljk  # from orgs/etzhayyim/com-etzhayyim-saisei/data/*.edn
 ```
 
 Re-run both after editing `ui-src/page.html` or saisei's own `data/*.edn`,

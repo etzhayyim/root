@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 (ns gen-actor-rad
   (:require [clojure.edn :as edn]
             [clojure.string :as str]))

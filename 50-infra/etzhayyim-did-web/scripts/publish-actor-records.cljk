@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 ;; publish-actor-records.cljs — materialize actor identity + profile from the
 ;; canonical kotoba seed into (a) CF KV (`actor:<handle>` → ActorRecord JSON,
 ;; read by the Worker for dynamic did.json + getProfile) and (b) the kotoba
@@ -24,7 +24,7 @@
 ;; The toDidDoc / toGetProfileView logic here MIRRORS src/registry/actor-profiles.ts
 ;; — keep them in sync (one is TS for the Worker, this is cljs for the publisher).
 ;;
-;; Run:  npx nbb scripts/publish-actor-records.cljs [flags]
+;; Run:  kbb --backend sci scripts/publish-actor-records.cljk [flags]
 (ns publish-actor-records
   (:require [clojure.edn :as edn]
             [clojure.string :as str]))

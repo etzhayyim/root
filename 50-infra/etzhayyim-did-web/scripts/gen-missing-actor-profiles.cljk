@@ -1,12 +1,12 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;;
 ;; gen-missing-actor-profiles.clj — one-shot generator that reads each
 ;; missing repo's manifest.jsonld and produces EDN entries for
 ;; actor-profile-seed.kotoba.edn.
 ;;
 ;; Usage:
-;;   bb gen-missing-actor-profiles.clj            ;; print to stdout
-;;   bb gen-missing-actor-profiles.clj --append   ;; append to seed directly
+;;   kbb gen-missing-actor-profiles.cljk            ;; print to stdout
+;;   kbb gen-missing-actor-profiles.cljk --append   ;; append to seed directly
 ;;
 (ns gen-missing-actor-profiles
   (:require [clojure.string :as str]

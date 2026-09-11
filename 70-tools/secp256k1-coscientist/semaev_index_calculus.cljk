@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; semaev_index_calculus.clj — H2: Semaev 総和多項式 × index-calculus による ECDLP 解析
 ;;
 ;; Co-Scientist H2 仮説の実証 (m=2 = 2点分解)。小さい素体 E(F_p) 上で:

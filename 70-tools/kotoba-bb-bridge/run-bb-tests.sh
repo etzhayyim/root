@@ -30,7 +30,7 @@ for t in "${FILES[@]}"; do
   n=$((n+1))
   actor_root="${t%%/methods/*}"
   actor_root="${actor_root%%/tests/*}"
-  if ! bb --classpath "$actor_root" "$t" >"$tmp" 2>&1; then
+  if ! kbb --classpath "$actor_root" "$t" >"$tmp" 2>&1; then
     failed=$((failed+1)); failed_names+=("$t")
     echo "✗ FAILED: $t"
     # show failing detail, but strip any green sub-suite phrase so the gate regex can't match it

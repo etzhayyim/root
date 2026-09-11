@@ -120,7 +120,7 @@ def test_n1_guard_refuses_weaponised_use():
         "(def intersection (clojure.set/intersection (set aa/permitted-uses) weapon-terms))"
         "(pr {:permitted aa/permitted-uses :intersection intersection :forbidden aa/forbidden-uses})"
     )
-    assert result_permitted.returncode == 0, f"bb failed: {result_permitted.stderr}"
+    assert result_permitted.returncode == 0, f"kbb -M:failed: {result_permitted.stderr}"
     out = result_permitted.stdout
     assert ":intersection #{}" in out, (
         f"N1: permitted-uses must contain no weapon term; stdout={out!r}"
@@ -136,7 +136,7 @@ def test_n1_guard_refuses_weaponised_use():
         "                   aa/forbidden-uses))"
         "(pr {:all-threw (every? #{:threw} results) :results results})"
     )
-    assert result_forbidden.returncode == 0, f"bb failed: {result_forbidden.stderr}"
+    assert result_forbidden.returncode == 0, f"kbb -M:failed: {result_forbidden.stderr}"
     assert ":all-threw true" in result_forbidden.stdout, (
         "N1: enable-laser MUST throw (LaserSafetyError) for all forbidden-uses "
         f"(directed-energy/weapon/dazzle/fire-control); stdout={result_forbidden.stdout!r}"
@@ -148,7 +148,7 @@ def test_n1_guard_refuses_weaponised_use():
         "(def r (aa/enable-laser (aa/laser-spec :laser-class \"1\" :use \"alignment\")))"
         "(pr (nil? r))"
     )
-    assert result_clean.returncode == 0, f"bb failed: {result_clean.stderr}"
+    assert result_clean.returncode == 0, f"kbb -M:failed: {result_clean.stderr}"
     assert "true" in result_clean.stdout, (
         f"N1: a civilian Class-1 alignment laser MUST energise (return nil); "
         f"stdout={result_clean.stdout!r}"
@@ -211,7 +211,7 @@ def test_iec60825_hazardous_laser_requires_interlock_and_attestation():
         "                                        :safety-attestation-ref \"attest:noroshi-lsm-001\")))"
         "(pr {:r1 r1 :r2 r2 :r3-nil (nil? r3)})"
     )
-    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    assert result.returncode == 0, f"kbb -M:failed: {result.stderr}"
     out = result.stdout
     assert ":r1 :threw" in out, (
         f"IEC 60825: a Class-4 laser WITHOUT interlock MUST be refused; stdout={out!r}"

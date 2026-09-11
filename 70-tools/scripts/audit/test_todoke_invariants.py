@@ -122,7 +122,7 @@ def test_n2_g7_envelope_refuses_violations():
         "(def r4 (lm/plan-last-mile sidewalk :sae-level 4 :commanded-mps sidewalk-cap))"
         "(pr {:ceiling ceiling :r1 r1 :r2 r2 :r3 r3 :r4-ok (not (nil? r4))})"
     )
-    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    assert result.returncode == 0, f"kbb -M:failed: {result.stderr}"
     out = result.stdout
     assert ":ceiling 4" in out, (
         f"N2: sae-level-ceiling MUST be 4 (Level 5 is a non-goal); stdout={out!r}"
@@ -153,7 +153,7 @@ def test_clj_and_rust_zone_caps_agree():
         "(require '[todoke.methods.last-mile :as lm])"
         "(pr lm/zone-speed-cap-mps)"
     )
-    assert result.returncode == 0, f"bb failed: {result.stderr}"
+    assert result.returncode == 0, f"kbb -M:failed: {result.stderr}"
     # Parse the EDN map printed by pr (format: {sidewalk 1.8, crosswalk 1.4, ...})
     caps_str = result.stdout.strip()
     # Extract key-value pairs from the printed map

@@ -44,7 +44,7 @@ MST root ──────────────────▶ unsigned v3 c
 
 ### Verification (spec-exact, cross-checked against the official impls)
 
-`bb test` (**14 tests / 57 assertions**) checks:
+`kbb -M:test` (**14 tests / 57 assertions**) checks:
 
 - record/node **CIDs byte-identical to go-ipfs 0.41 `ipfs dag put --store-codec
   dag-cbor`** (9 data vectors + tag-42 CID-link);
@@ -56,7 +56,7 @@ MST root ──────────────────▶ unsigned v3 c
   body) with its embedded CAR re-verified under `@ipld/car` (cross-checked, see PR).
 
 ```bash
-bb test   # 14 tests / 57 assertions green
+kbb -M:test   # 14 tests / 57 assertions green
 ```
 
 ## Status

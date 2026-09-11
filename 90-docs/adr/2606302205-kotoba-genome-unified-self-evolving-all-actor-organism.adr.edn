@@ -47,7 +47,7 @@
 
  ;; ── realization status (2026-07-01) ───────────────────────────────────────
  :realization
- {:substrate "runnable + tested reference substrate in 70-tools/src/etzhayyim/*.cljc; bb test:genome-all = 11 suites / 55 tests green."
+ {:substrate "runnable + tested reference substrate in 70-tools/src/etzhayyim/*.cljc; kbb -M:test:genome-all = 11 suites / 55 tests green."
   :landed {:W1-channel        "defprotocol Channel + registry + at-proto/email/telegram drivers + channel-neutral envelope + content-scan hook."
            :W1-x-line         "x + line drivers added behind the same scan (PR #2794); channel = one defrecord + one app.<channel>.* family."
            :W2-genome         "pure closed learning loop: Brier-score -> kaizen -> prior-consensus -> decide -> pre-register."

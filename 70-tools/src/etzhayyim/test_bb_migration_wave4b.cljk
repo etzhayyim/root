@@ -1,6 +1,6 @@
 ;; test_bb_migration_wave4b.clj — parity smoke tests for wave-4b cljc ports.
 ;;
-;; Run with:  bb 70-tools/src/etzhayyim/test_bb_migration_wave4b.cljk
+;; Run with:  kbb 70-tools/src/etzhayyim/test_bb_migration_wave4b.cljk
 ;; from repo root (classpath 70-tools/src already in bb.edn :paths).
 ;;
 ;; Modules ported: bunseki, process_mining, systemofsystem, complex_stubs

@@ -1,4 +1,4 @@
-;; tasks.edn — shell + nbb -m promotions (ADR-2607173000)
+;; tasks.edn — shell + kbb --backend sci -m promotions (ADR-2607173000)
 ;;
 ;; WITHDRAWN 2026-08-13 (ADR-2608135000): `vitals:joucho`. It was a `["bb" …]` facade, and porting
 ;; it off the retired binary would not have made it run, for a reason independent of babashka:

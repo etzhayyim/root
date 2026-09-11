@@ -233,7 +233,7 @@
 ;; ── CLI ──────────────────────────────────────────────────────────────────────
 
 (defn -publish
-  "bb pages:publish <graph> <journal.edn> [out-dir] [--prolly] [--bits=N]. Packs a
+  "kbb -M:pages:publish <graph> <journal.edn> [out-dir] [--prolly] [--bits=N]. Packs a
    kotoba journal into a static Pages CAR bundle (out-dir default
    80-data/pages/<graph>). --prolly = multi-level Merkle B-tree (O(log n) seek)."
   [& args]
@@ -255,7 +255,7 @@
       (println "  serve : commit" dir "-> GitHub Pages; query by root CID over HTTPS Range"))))
 
 (defn -query
-  "bb pages:query <dir-or-base> [--http]. Reconstructs + summarizes a published
+  "kbb -M:pages:query <dir-or-base> [--http]. Reconstructs + summarizes a published
    graph by its root CID. Default reads local files; --http treats the arg as a
    base URL (…/<graph>) and uses HTTP Range."
   [& args]
@@ -278,7 +278,7 @@
                (if http? "HTTPS Range" "local CAR")))))
 
 (defn -deploy
-  "bb pages:deploy <dir> <owner/repo> <graph> [--verify]. Deploys a published
+  "kbb -M:pages:deploy <dir> <owner/repo> <graph> [--verify]. Deploys a published
    Pages dir to a REAL GitHub repo (creates it, pushes, enables Pages). --verify
    polls the live URL and reconstructs the graph over HTTPS Range."
   [& args]

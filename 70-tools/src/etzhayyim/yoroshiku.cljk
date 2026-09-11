@@ -25,8 +25,8 @@
 ;;   one passed on the command line and the workspace-wide auth/default-pds.
 ;;   See the note above the `register` branch in -main.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.yoroshiku)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.yoroshiku)(println :ok)"
 
 (ns etzhayyim.yoroshiku
   (:require [clojure.string :as str]

@@ -22,7 +22,7 @@ from etzhayyim.workspace import workspace
 
 # ── lint ───────────────────────────────────────────────────────────────────────
 # lint retired from the python e7m (ADR-2606222000): its CLI + logic are fully ported
-# to etzhayyim.lint.cljc (`bb e7m lint [all|rules|<rule>] [--root D] [--json]`, read-only
+# to etzhayyim.lint.cljc (`kbb -M:e7m lint [all|rules|<rule>] [--root D] [--json]`, read-only
 # parity verified green). lint.py + its tests removed in the same finishing pass.
 
 

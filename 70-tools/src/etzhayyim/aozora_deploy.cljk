@@ -1,4 +1,4 @@
-;; etzhayyim.aozora-deploy — `bb aozora:deploy <name>` — write an actor's
+;; etzhayyim.aozora-deploy — `kbb -M:aozora:deploy <name>` — write an actor's
 ;; profile record to the app-aozora PDS via com.atproto.repo.createRecord.
 ;;
 ;; Per-repo deploy: each com-etzhayyim-* repo has its own artificial-organism

@@ -1,13 +1,13 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 ;; etzhayyim independent atproto PDS — install/uninstall the RESIDENT mesh server (NO k8s).
-;; The PDS runs as a per-user macOS LaunchAgent (`bb serve`) whose state is the kotoba
+;; The PDS runs as a per-user macOS LaunchAgent (`kbb -M:serve`) whose state is the kotoba
 ;; Datom log on the LOCAL kotoba engine (KOTOBA_URL=loopback) and whose writes are signed
 ;; per-actor from the SEALED P-256 keystore — no StatefulSet/PV/Deployment/Ingress, the
 ;; launchd agent + a Cloudflare Tunnel replace the entire k8s footprint.
 ;;
-;;   bb deploy/install.clj install    → render the plist from env, load it, kickstart
-;;   bb deploy/install.clj uninstall  → bootout + remove the plist
-;;   bb deploy/install.clj status     → agent state + tail the log
+;;   kbb deploy/install.cljk install    → render the plist from env, load it, kickstart
+;;   kbb deploy/install.cljk uninstall  → bootout + remove the plist
+;;   kbb deploy/install.cljk status     → agent state + tail the log
 ;;
 ;; Required env at install time (from the mesh node — NEVER committed):
 ;;   MURAKUMO_SEAL_KEY    seal for the actor-sealed P-256 keystore (present-only)
@@ -94,4 +94,4 @@
     "install"   (install)
     "uninstall" (uninstall)
     "status"    (status)
-    (do (println "usage: bb deploy/install.clj [install|uninstall|status]") (System/exit 2))))
+    (do (println "usage: kbb deploy/install.cljk [install|uninstall|status]") (System/exit 2))))

@@ -5,8 +5,8 @@
   known compile blockers, generates a kotoba.app.edn mesh manifest, and writes it
   to orgs/etzhayyim/com-etzhayyim-<name>/kotoba.app.edn.
 
-  Usage (bb task):
-    bb actor:mesh <name> [--trigger on-http|on-kse|on-tick] [--dry-run] [--survey]
+  Usage (kbb -M:task):
+    kbb -M:actor:mesh <name> [--trigger on-http|on-kse|on-tick] [--dry-run] [--survey]
 
   kotoba-clj compile constraints (compile_str_with_prelude):
     - assoc is SINGLE key-value: (assoc m k v) — multi-pair must chain via ->

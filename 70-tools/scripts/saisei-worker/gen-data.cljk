@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 ;; --- nbb shims (auto, ADR-2607173000) ---------------------------------
 (def ^:private __fs (js/require "node:fs"))
 (def ^:private __path (js/require "node:path"))
@@ -24,7 +24,7 @@
 ;; Embeds orgs/etzhayyim/com-etzhayyim-saisei/data/{jurisdictions,procedure-registry,legal-directory}.edn
 ;; as CLJS string constants, generated so the saisei-worker Worker never needs a
 ;; runtime fetch/asset round-trip to load its own registries. Run from the
-;; repo root: `nbb 70-tools/scripts/saisei-worker/gen-data.cljk`. Idempotent —
+;; repo root: `kbb --backend sci 70-tools/scripts/saisei-worker/gen-data.cljk`. Idempotent —
 ;; re-run any time the source EDN changes, before `npm run build`.
 (require '[clojure.string :as str])
 

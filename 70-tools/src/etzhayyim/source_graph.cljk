@@ -13,7 +13,7 @@
 ;;
 ;; files = seq of {:path str :content str} — callers supply pre-read content.
 ;;
-;; bb usage (classpath 70-tools/src):
+;; kbb -M:usage (classpath 70-tools/src):
 ;;   (require '[etzhayyim.source-graph :as sg])
 ;;   (let [report (sg/scan-source-graph
 ;;                  [{:path "src/app.ts" :content (slurp "src/app.ts")}])]

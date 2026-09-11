@@ -35,8 +35,8 @@
 ;;   the one passed on the command line and the workspace-wide auth/default-pds.
 ;;   See the note above the pds-url binding in -main.
 ;;
-;; bb load check:
-;;   bb --classpath 70-tools/src -e "(require 'etzhayyim.xrpc)(println :ok)"
+;; kbb -M:load check:
+;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.xrpc)(println :ok)"
 
 (ns etzhayyim.xrpc
   (:require [clojure.string :as str]

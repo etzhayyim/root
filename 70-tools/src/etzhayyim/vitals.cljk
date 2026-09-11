@@ -87,8 +87,8 @@
    as bb.edn always used; network fetch on a cold cache, same as before)
    and returns the FULL classpath, not just :paths. Exported as
    BABASHKA_CLASSPATH for every per-actor subprocess run-suite spawns — both
-   `bb run_tests.clj` directly and `bash run_tests.sh` (the latter itself
-   shells out to a bare `bb -e '...'` with no -cp of its own, but inherits the
+   `kbb run_tests.cljk` directly and `bash run_tests.sh` (the latter itself
+   shells out to a bare `kbb -e '...'` with no -cp of its own, but inherits the
    env var from its parent process)."
   (delay
     (let [tmp (doto (java.io.File/createTempFile "etz-bb-config" ".edn")

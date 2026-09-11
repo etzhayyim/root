@@ -4,9 +4,9 @@
   "private": true,
   "description": "ClojureScript core for the saisei Cloudflare Worker (compiled to ../cljs-out/worker_core.js)",
   "scripts": {
-    "build": "npx shadow-cljs release worker",
-    "watch": "npx shadow-cljs watch worker",
-    "gen-data": "nbb ../../../70-tools/scripts/saisei-worker/gen-data.cljk"
+    "build": "amu compile --target wasm32-browser worker",
+    "watch": "amu compile --target wasm32-browser worker",
+    "gen-data": "kbb --backend sci ../../../70-tools/scripts/saisei-worker/gen-data.cljk"
   },
   "devDependencies": {
     "shadow-cljs": "^3.4.11"

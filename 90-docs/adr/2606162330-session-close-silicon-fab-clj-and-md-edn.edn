@@ -48,18 +48,18 @@ Four build legs landed (commits on `clj-port-pilot-and-stub-repairs`):
    assembly; G1 dual-use force-review, G11 council-gated dispatch), `wafer_handler`
    (cluster-tool transfer + loadlock + throughput + SCARA 2-link FK/IK), `lot_ledger`
    (`:silicon.lot/*`/`:silicon.step/*` EAVT datoms, sha256 commit-DAG, tamper-evident),
-   `fab_cell` (orchestration). 32 tests / 81 assertions; full `bb test:pywasm` 654 green.
+   `fab_cell` (orchestration). 32 tests / 81 assertions; full `kbb -M:test:pywasm` 654 green.
 
 2. **`.md.edn` doc format** (ADR-2606162200; `34005086b4`). An ADR as ONE commented EDN map:
    typed metadata (`;;` comments + `#_` discard) + body as a `#md \"…\"` markdown string.
    `.md.edn` canonical, `.md` generated. Bidirectional bridge `etzhayyim.tools.adr-mdedn`,
    round-trip-exact on the data.
 
-3. **generated `adr-index.edn`** (ADR-2606162200; `5ad9f9530b`). `bb adr:index` regenerates
+3. **generated `adr-index.edn`** (ADR-2606162200; `5ad9f9530b`). `kbb -M:adr:index` regenerates
    the index from front matter (the SSoT): **750 → 847 entries**, canonical one-entry-per-line,
    `clojure.edn`-parseable — the old 2.8 MB single-line blob **did not even parse**. Safety-
    verified: all 87 dropped old ids were **orphans** (no file); 0 real ADRs lost.
-   `bb adr:index-check` is the drift gate.
+   `kbb -M:adr:index-check` is the drift gate.
 
 4. **silicon manifest + 2 ADRs converted to `.md.edn`** (`2606162030`, `2606162200`).
 
@@ -69,7 +69,7 @@ Four build legs landed (commits on `clj-port-pilot-and-stub-repairs`):
   parity; live fab equipment + N5 tape-out stay Phase 2-4 + Council-gated. Deterministic
   first-order models, NOT TCAD-calibrated (honest scope).
 - ADR docs can now be authored as typed, commented `.md.edn`; the machine index is a
-  generated artifact (`bb adr:index`), no longer a hand-edited blob.
+  generated artifact (`kbb -M:adr:index`), no longer a hand-edited blob.
 - **Open follow-ups** (not done this session): register `adr:index-check` as a lefthook
   pre-commit gate; bridge `wafer_handler` to the real kami-genesis Featherstone solver;
   feed the silicon lot Datom stream to danjo/kanae observability when live fab is authorized;

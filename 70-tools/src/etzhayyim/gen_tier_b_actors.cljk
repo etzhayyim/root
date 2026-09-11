@@ -1,4 +1,4 @@
-;; etzhayyim.gen-tier-b-actors — `bb gen:tier-b-actors`
+;; etzhayyim.gen-tier-b-actors — `kbb -M:gen:tier-b-actors`
 ;;
 ;; clj/bb port of the legacy 70-tools/scripts/entity-actors/gen-tier-b-actors.mjs
 ;; (repo "Operational code = clj/bb over the kotoba Datom log" rule). Behaviour is
