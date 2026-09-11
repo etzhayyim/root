@@ -1,7 +1,7 @@
 # kotoba-rad — actor sovereign-identity journals
 
 per-actor append-only identity journal (`<actor>.identity.journal.edn`)。
-tooling: `70-tools/src/etzhayyim/kotoba_rad.cljc`（pure）+
+tooling: `70-tools/src/etzhayyim/kotoba_rad.cljk`（pure）+
 `kotoba_rad_sign.clj`（no-server-key: 署名は Keychain/1Password の member 鍵
 でのみ、platform は署名しない）。ADR-2606231200。
 

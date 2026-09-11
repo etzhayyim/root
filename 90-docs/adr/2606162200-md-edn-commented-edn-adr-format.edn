@@ -99,4 +99,4 @@ for lefthook. `adr-index.edn` is henceforth GENERATED, never hand-edited.
 - ADR-2605170900 (root = canonical home for open ADRs) · `90-docs/CLAUDE.edn` (docs rules)
 - ADR-2606121143 (deps.edn canonical line-split — the single-line-EDN failure class)
 - ADR-2606162030 (silicon fab-flow port — first ADR converted to `.md.edn`)
-- `70-tools/src/etzhayyim/tools/adr_mdedn.cljc` + `test_adr_mdedn.cljc`"}]
+- `70-tools/src/etzhayyim/tools/adr_mdedn.cljk` + `test_adr_mdedn.cljc`"}]

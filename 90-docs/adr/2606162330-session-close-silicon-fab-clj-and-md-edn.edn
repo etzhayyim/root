@@ -84,5 +84,5 @@ Four build legs landed (commits on `clj-port-pilot-and-stub-repairs`):
 - ADR-2606162200 (.md.edn format + adr-index generation — authoritative)
 - ADR-2606160842 (py→clj port wave) · ADR-2606121143 (single-line-EDN failure class)
 - ADR-2605242500 / 2605242545 (silicon + fab-equipment charters)
-- `20-actors/silicon/methods/` · `70-tools/src/etzhayyim/tools/adr_mdedn.cljc`
+- `20-actors/silicon/methods/` · `70-tools/src/etzhayyim/tools/adr_mdedn.cljk`
 "}]

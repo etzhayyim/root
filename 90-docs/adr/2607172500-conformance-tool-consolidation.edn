@@ -16,7 +16,7 @@
   :adr/decision
   {:classification :shared-tool
    :retired-location "20-actors/_conformance"
-   :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljc"
+   :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljk"
    :language :clojure
    :repository :etzhayyim/root
    :verification {:tests 4 :assertions 19 :failures 0 :errors 0}}

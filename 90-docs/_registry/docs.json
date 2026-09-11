@@ -24228,8 +24228,8 @@
       ],
       "related": [
         "90-docs/260617-r2-autonomous-live-gate-removal-charter-audit.edn  # the reverted anti-pattern",
-        "50-infra/etzhayyim-atproto-pds-clj/src/etzhayyim/pds/leash.clj   # the PDS-side leash (already built)",
-        "70-tools/src/etzhayyim/fleet_probe.cljc                          # residency probe (the gap evidence)"
+        "50-infra/etzhayyim-atproto-pds-clj/src/etzhayyim/pds/leash.cljk   # the PDS-side leash (already built)",
+        "70-tools/src/etzhayyim/fleet_probe.cljk                          # residency probe (the gap evidence)"
       ],
       "last_verified": "2026-06-27",
       "supersedes": [],
@@ -24645,11 +24645,11 @@
       "topic": "actor-data-ownership-model",
       "authoritative": true,
       "authoritative_for": [
-        "70-tools/src/etzhayyim/kotoba_rad.cljc (holding-datoms / publish-identity! :holds / add-holding!)",
-        "70-tools/src/etzhayyim/data_provenance.cljc (validator)",
-        "70-tools/src/etzhayyim/ownership_matrix.cljc (generator)",
-        "70-tools/src/etzhayyim/datalad.cljc (DataLad pipeline bridge)",
-        "70-tools/src/etzhayyim/actor_publish.cljc (manifest->holds / -add-holding CLI)",
+        "70-tools/src/etzhayyim/kotoba_rad.cljk (holding-datoms / publish-identity! :holds / add-holding!)",
+        "70-tools/src/etzhayyim/data_provenance.cljk (validator)",
+        "70-tools/src/etzhayyim/ownership_matrix.cljk (generator)",
+        "70-tools/src/etzhayyim/datalad.cljk (DataLad pipeline bridge)",
+        "70-tools/src/etzhayyim/actor_publish.cljk (manifest->holds / -add-holding CLI)",
         "RAD data-holding vocabulary (:rad/holds-dataset RID-side datom + dataset:<id> sub-entity)",
         "00-contracts/lexicons/com/etzhayyim/kotoba/datasetPointer.json (graph-layer binding record)",
         "90-docs/data-layering-rule.edn (normative two-layer rule)",

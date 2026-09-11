@@ -79,7 +79,7 @@ H5 を「単なる nonce 再利用検知」から記事の発想で強化：
 ```bash
 # babashka が要る。リポ root の bb.edn を避けて空 config で走らせる:
 echo '{}' > /tmp/empty-bb.edn
-bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/ecdsa_coscientist.clj
+bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/ecdsa_coscientist.cljk
 ```
 
 ### 実測結果（自分で発行した鍵 `our-key.json` を攻撃）
@@ -137,7 +137,7 @@ factor base |V|=42 → |FB|=25, Semaev 分解試行=846
 - 記事の AI（新パラメータ化）が刺さるのは『分解= S_m=0 を解く段』だが、素体では
   その段の改善が **線形代数 O(p^1.5) の壁を崩さない**。これが H2 を回した実測の核心。
 
-実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/semaev_index_calculus.clj`
+実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/semaev_index_calculus.cljk`
 
 ## 6. H2 次段 — S₄ (m=3) + AI 構造探索プローブ（`semaev_m3_ai.clj`）
 
@@ -177,7 +177,7 @@ speedup≈1** = 突ける構造が存在しない。
 - ∴ **H2 はどう強化しても（S₄/m=3 でも AI 探索でも）secp256k1 を破れない** — を定量実証した。
   これが「AI で新アプローチを」という問いへの、誠実かつ実測に基づく答え。
 
-実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/semaev_m3_ai.clj`
+実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/semaev_m3_ai.cljk`
 
 ## 7. テンソルネットワークで Shor を古典圧縮できるか（`tensor_shor.clj`）
 
@@ -214,7 +214,7 @@ SVD 無しに厳密計算できる。
   一般には χ≈r で指数的）。FFT で巨大配列を殴るより構造を盗む方が賢い、という直感は正しいが、
   盗むべき構造＝周期そのもの、という循環が壁。
 
-実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/tensor_shor.clj`
+実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/tensor_shor.cljk`
 
 ## 7b. Tree Tensor Network を modexp 構造に合わせる（`tensor_shor_ttn.clj`）
 
@@ -238,7 +238,7 @@ SVD 無しに厳密計算できる。
 → 結論: TN（MPS→TTN）は Shor を *定数倍* 軽くするが、RSA 一般を多項式時間で破る古典手法には
 ならない。χ≈r/2 も Θ(r) であり、§7 の循環の壁は健在。
 
-実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/tensor_shor_ttn.clj`
+実行: `bb --config /tmp/empty-bb.edn 70-tools/secp256k1-coscientist/tensor_shor_ttn.cljk`
 
 ## 8. 残ロードマップ
 

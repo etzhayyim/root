@@ -72,7 +72,7 @@
    :consolidation-details
    {"_conformance"
     {:previous-location "20-actors/_conformance/test_lexicon_consts.py"
-     :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljc"
+     :canonical-location "70-tools/src/etzhayyim/lint/test_lexicon_consts.cljk"
      :category :tool
      :reason :cross-actor-lint-not-an-actor
      :canonical-format :clojure}}
@@ -135,7 +135,7 @@
      :category :actor
      :canonical-format :edn
      :verification {:tests 12 :assertions 178 :failures 0 :errors 0}
-     :root-consumer "70-tools/scripts/meibo-worker/gen-data.cljs"
+     :root-consumer "70-tools/scripts/meibo-worker/gen-data.cljk"
      :root-copy :edn-tombstone-only}
     "monosashi"
     {:repository "https://github.com/etzhayyim/com-etzhayyim-monosashi"
@@ -171,7 +171,7 @@
      :canonical-format :edn
      :canonical-metadata "manifest.edn"
      :root-consumers ["50-infra/saisei-worker"
-                      "70-tools/scripts/saisei-worker/gen-data.cljs"]
+                      "70-tools/scripts/saisei-worker/gen-data.cljk"]
      :consumer-rewiring #{:cljs-classpath :embedded-edn-data :source-links}
      :verification {:tests 17 :assertions 98 :failures 0 :errors 0
                     :data-generation :passed
@@ -267,7 +267,7 @@
      :depends-on
      {com.etzhayyim/ie-flow "35d36d912c9596dbc5094947b60202d9abdf61e6"
       com.etzhayyim/kotoba-datom "3c4b3b92234e59ba285119fd8b2ca4c2ee172ff8"}
-     :root-consumers ["70-tools/src/etzhayyim/ie_flow/scoreboard.clj"]
+     :root-consumers ["70-tools/src/etzhayyim/ie_flow/scoreboard.cljk"]
      :consumer-rewiring #{:flat-west-classpath :external-seed-path :environment-override}
      :canonicalization #{:standalone-namespace-root :shell-runner-retired
                          :repository-local-edn-data}

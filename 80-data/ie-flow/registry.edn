@@ -34,7 +34,7 @@
  {:adr "2606212200"
   :weights-file "70-tools/src/etzhayyim/ie_flow/score-weights.edn"
   :lib "etzhayyim.ie-flow.score"
-  :demo "70-tools/src/etzhayyim/ie_flow/scoreboard.clj"
+  :demo "70-tools/src/etzhayyim/ie_flow/scoreboard.cljk"
   :snapshot "80-data/ie-flow/scoreboard.edn"
   :organism-source :colony-order
   :note "info-control-score = active-inference 利得 per actor (rectify/eta/phi/efficiency − surprise, gated by 子孫 :descendant); colony-order = Σ score×√throughput → ibuki metabolic intake. Default :descendant = 0.7 (score-weights.edn) when an actor omits it."}

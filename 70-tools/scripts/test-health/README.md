@@ -10,10 +10,10 @@ A read-only repo-wide audit of actor test-suite health, institutionalising the m
 ## Run
 
 ```bash
-bb 70-tools/scripts/test-health/audit.clj            # print the triage summary (fast static scan)
-bb 70-tools/scripts/test-health/audit.clj --check    # + self-check the detector's invariants (exit 1 on violation)
-bb 70-tools/scripts/test-health/audit.clj --probe    # + RUN each broken shim's tests in isolation → classify
-bb 70-tools/scripts/test-health/audit.clj --write    # + (re)write AUDIT.md, the committed snapshot
+bb 70-tools/scripts/test-health/audit.cljk            # print the triage summary (fast static scan)
+bb 70-tools/scripts/test-health/audit.cljk --check    # + self-check the detector's invariants (exit 1 on violation)
+bb 70-tools/scripts/test-health/audit.cljk --probe    # + RUN each broken shim's tests in isolation → classify
+bb 70-tools/scripts/test-health/audit.cljk --write    # + (re)write AUDIT.md, the committed snapshot
 ```
 
 ## Companion: `fn-coverage.clj` — per-function coverage triage
@@ -27,9 +27,9 @@ candidate). This institutionalises the manual scan that surfaced the analytical-
 real closed-form worth pinning).
 
 ```bash
-bb 70-tools/scripts/test-health/fn-coverage.clj             # summary table, all actors
-bb 70-tools/scripts/test-health/fn-coverage.clj --isolated  # + the full ISOLATED worklist
-bb 70-tools/scripts/test-health/fn-coverage.clj <actor>     # one actor, full per-fn breakdown
+bb 70-tools/scripts/test-health/fn-coverage.cljk             # summary table, all actors
+bb 70-tools/scripts/test-health/fn-coverage.cljk --isolated  # + the full ISOLATED worklist
+bb 70-tools/scripts/test-health/fn-coverage.cljk <actor>     # one actor, full per-fn breakdown
 ```
 
 It is a **triage aid, not a verdict**: an ISOLATED fn may still be exercised by an integration
@@ -68,7 +68,7 @@ Removing a stale `.clj` shadow → running the suite → keeping the removal **o
   **Verified clean + fixed: uchiwake (#2042), meyasu + the cross-actor kakaku agent (#2048).**
 - **deeper — PAUSED MID-MIGRATION between two CID families (ADR-gated, NOT autonomous).** The
   root cause of the `.clj`-vs-`.cljc` divergence for the kotoba-emitter actors is a documented
-  cross-actor split: per `70-tools/scripts/clj-test-sweep/canonical_form_invariant.clj`, the
+  cross-actor split: per `70-tools/scripts/clj-test-sweep/canonical_form_invariant.cljk`, the
   commit-DAG emitters fall into **two content-addressing families** — **Family A** (Clojure
   `{:datoms <pr-str> :prev <pr-str>}`, empty-tx cid `b752d9f3…`: **kabuto · watatsuna · watari ·
   kanjo**) and **Family B** (JSON `{"datoms":…,"prev":…}`, empty-tx cid `b2fc787b…`: kakaku ·

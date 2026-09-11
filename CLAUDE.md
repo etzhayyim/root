@@ -203,7 +203,7 @@ reasons the actors are being ported py→cljc (the clj-port waves).
 
 Concretely:
 - **Author daemons/heartbeats/CLIs as tasks** in `scripts/tasks.edn`, run with
-  `nbb scripts/run-task.cljs <task>`, backed by a clj/cljc namespace under
+  `nbb scripts/run-task.cljk <task>`, backed by a clj/cljc namespace under
   `70-tools/src/etzhayyim/…`. **Check that the namespace actually loads under the runtime
   you register**: the 2026-07 bb→nbb conversion rewrote `["bb" …]` into `["nbb" …]`
   without that check, and a namespace requiring `babashka.fs` or `clojure.java.io` does
@@ -228,10 +228,10 @@ Concretely:
 - **Exemptions**: 3rd-party/vendored code (`lib/`, `vendor/`, `*-fork/`), generated
   build artifacts, and an actor's still-unported legacy `py/` during an in-flight
   cljc port (the port itself is the fix).
-- **Enforced-forward (ADR-2606072802)**: `nbb scripts/run-task.cljs lint:no-new-shell` FAILS on a NEW first-party
+- **Enforced-forward (ADR-2606072802)**: `nbb scripts/run-task.cljk lint:no-new-shell` FAILS on a NEW first-party
   `.sh` under `orgs/etzhayyim/com-etzhayyim-*/` (existing ones are GRANDFATHERED in
   `70-tools/src/etzhayyim/lint/shell-baseline.edn`; the baseline is shrinks-only — port a
-  `.sh` to Clojure + delete it, then `nbb scripts/run-task.cljs lint:no-new-shell --update`).
+  `.sh` to Clojure + delete it, then `nbb scripts/run-task.cljk lint:no-new-shell --update`).
   ⚠ **REGISTERED BUT NON-FUNCTIONAL** (measured 2026-08-13): `lint:no-new-shell` is in
   `scripts/tasks.edn` as an nbb task, but `etzhayyim.lint.no-new-shell` requires
   `babashka.fs`, which nbb does not provide — it exits with
@@ -347,7 +347,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/CHARTER-RIDER.md` — license addendum canonical text
 - `/LANDS.md` — Land Trust roster
 - `/MEMBERS.md` — 信者 roster
-- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `nbb scripts/run-task.cljs fleet:probe` — definition ≠ running daemon.
+- `50-infra/murakumo/fleet.edn` — religious-corp cell placement (10 nodes × 15 cells). NB: cron/lan-api heartbeat RESIDENCY (defined here + in `50-infra/cluster/murakumo/cell-runner/cells.edn`) is verified live with `nbb scripts/run-task.cljk fleet:probe` — definition ≠ running daemon.
   ⚠ **REGISTERED BUT NON-FUNCTIONAL** (measured 2026-08-13): that task exits with
   `Could not find namespace: clojure.java.io`, which nbb does not provide — same defect as
   `lint:no-new-shell` above. So residency is currently NOT verified by anything

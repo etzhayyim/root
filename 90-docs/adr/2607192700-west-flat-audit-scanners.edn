@@ -20,7 +20,7 @@
   {:tool "70-tools/scripts/lint/substrate-boundary.mjs"
    :action :normalize
    :detail "Apply policy to cwd-relative and absolute orgs/... west paths."}
-  {:tool "70-tools/src/etzhayyim/actor_publish.cljc"
+  {:tool "70-tools/src/etzhayyim/actor_publish.cljk"
    :action :verify
    :detail "Actor source prefix is orgs/etzhayyim/com-etzhayyim-<actor>."}
   {:tool "70-tools/scripts/audit/manifest-lexicon-drift.py"
