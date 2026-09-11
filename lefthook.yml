@@ -28,7 +28,7 @@ pre-commit:
       # (git diff --cached --diff-filter=ACR) so extension-less junk like Chrome's
       # `Cookies` / `Login Data` / leveldb `MANIFEST-*` is caught too.
       # Escape hatch: 70-tools/scripts/lint/ignorable-allowlist.edn (:allow).
-      run: nbb 70-tools/scripts/lint/no-ignorable-staged.cljs
+      run: nbb 70-tools/scripts/lint/no-ignorable-staged.cljk
     secret-scan:
       # Block obvious credentials before they hit git history.
       # Per the GitGuardian incident (2026-05-17): the RisingWave
@@ -433,7 +433,7 @@ pre-commit:
 
     docs-registry-freshness:
       # When any 90-docs/**/*.{md,edn} changes, verify 90-docs/_registry/{docs.json,docs.edn}
-      # are in sync (70-tools/scripts/docs/regen-registry.clj --check; babashka port
+      # are in sync (70-tools/scripts/docs/regen-registry.cljk --check; babashka port
       # of the former regen-registry.py, ADR-2605271100 cycle 48). Parallel pattern
       # to deps-toml-paths. Catches operators adding/editing docs without regenerating
       # the machine-readable sidecar index. ~0.3s overhead.
@@ -442,7 +442,7 @@ pre-commit:
         - "90-docs/**/*.md"
         - "90-docs/**/*.edn"
       run: |
-        bb 70-tools/scripts/docs/regen-registry.clj --check \
+        bb 70-tools/scripts/docs/regen-registry.cljk --check \
           > /tmp/docs-registry-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
@@ -451,7 +451,7 @@ pre-commit:
           rm -f /tmp/docs-registry-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    bb 70-tools/scripts/docs/regen-registry.clj"
+          echo "    bb 70-tools/scripts/docs/regen-registry.cljk"
           echo "    git add 90-docs/_registry/docs.json 90-docs/_registry/docs.edn"
           exit 1
         fi
@@ -463,7 +463,7 @@ pre-commit:
       # When docs.edn changes (which happens via docs-registry-freshness
       # hook above) or any 90-docs/**/*.md changes, verify
       # 90-docs/_registry/graph.edn stays in sync
-      # (70-tools/scripts/docs/regen-graph-edn.clj --check). Chain:
+      # (70-tools/scripts/docs/regen-graph-edn.cljk --check). Chain:
       # .md → docs.edn → graph.edn. Successor to the retired
       # graph.jsonld (JSON-LD) hook, per "use EDN, not JSON-LD". ~0.3s.
       glob:
@@ -471,7 +471,7 @@ pre-commit:
         - "90-docs/**/*.edn"
         - "90-docs/_registry/docs.edn"
       run: |
-        bb 70-tools/scripts/docs/regen-graph-edn.clj --check \
+        bb 70-tools/scripts/docs/regen-graph-edn.cljk --check \
           > /tmp/docs-graph-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
@@ -480,7 +480,7 @@ pre-commit:
           rm -f /tmp/docs-graph-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    bb 70-tools/scripts/docs/regen-graph-edn.clj"
+          echo "    bb 70-tools/scripts/docs/regen-graph-edn.cljk"
           echo "    git add 90-docs/_registry/graph.edn"
           exit 1
         fi

@@ -81,11 +81,11 @@ metabolic intake (`metabolism/intake-weights` → Φ → reserves → survival).
 ```bash
 # the SoS scoreboard: score every actor with a measured flow + fold into the organism reward
 bb -cp "20-actors:70-tools/src:orgs/kotoba-lang/kotodama/src" \
-   70-tools/src/etzhayyim/ie_flow/scoreboard.clj --write   # → scoreboard.edn + scoreboard.md
+   70-tools/src/etzhayyim/ie_flow/scoreboard.cljk --write   # → scoreboard.edn + scoreboard.md
 # scoreboard.md is the human-readable SoS report (ranked 利得 table + organism-reward delta).
 # integration test (needs the actor adapters on the classpath):
 bb -cp "20-actors:70-tools/src:orgs/kotoba-lang/kotodama/src" \
-   70-tools/src/etzhayyim/ie_flow/test_scoreboard.clj      # 3 tests / 14 assertions
+   70-tools/src/etzhayyim/ie_flow/test_scoreboard.cljk      # 3 tests / 14 assertions
 ```
 
 ### Embedding a gate / observatory actor (`gate-adapter.cljc`)
@@ -110,7 +110,7 @@ an actor supplies only its DOMAIN model (a config map), not 80 forks:
 
 ```bash
 # tests (36 tests / 102 assertions — incl. score)
-bb -cp "70-tools/src:orgs/kotoba-lang/kotodama/src" 70-tools/src/etzhayyim/ie_flow/run_tests.clj
+bb -cp "70-tools/src:orgs/kotoba-lang/kotodama/src" 70-tools/src/etzhayyim/ie_flow/run_tests.cljk
 
 # real-world ingest: the monorepo measures its OWN development metabolism (git → IE-flow)
 bb -cp "70-tools/src:orgs/kotoba-lang/kotodama/src" \

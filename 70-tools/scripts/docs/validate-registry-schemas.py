@@ -19,7 +19,7 @@ Source chain:
 
 Note: the relation graph moved JSON-LD → EDN (graph.jsonld → graph.edn,
 "use EDN, not JSON-LD" directive). graph.edn is a *pure deterministic
-projection* of docs.edn by 70-tools/scripts/docs/regen-graph-edn.clj —
+projection* of docs.edn by 70-tools/scripts/docs/regen-graph-edn.cljk —
 its structure (incl. the registry↔graph 1:1 invariant) is guaranteed by
 construction + the generator's bb unit tests + docs-graph-edn-freshness,
 so a separate JSON-Schema re-check of the graph is no longer needed here.
