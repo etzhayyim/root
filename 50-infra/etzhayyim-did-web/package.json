@@ -19,7 +19,7 @@
     "@cloudflare/workers-types": "^5.20260910.1",
     "esbuild": "^0.28.2",
     "typescript": "^7.0.2",
-    "wrangler": "^4.128.0"
+    "wrangler": "^4.135.0"
   },
   "dependencies": {
     "@noble/post-quantum": "^0.7.0"
