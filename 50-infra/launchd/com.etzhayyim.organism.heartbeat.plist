@@ -28,7 +28,10 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/bb</string>
+    <string>/Users/junkawasaki/.local/bin/kbb</string>
+    <string>--backend</string>
+    <string>sci</string>
+    <string>scripts/run-task.cljk</string>
     <string>organism:heartbeat</string>
   </array>
 

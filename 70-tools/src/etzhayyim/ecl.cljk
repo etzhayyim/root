@@ -9,12 +9,13 @@
   catastrophe → :non-aligned; else J ≥ aligned → :aligned / ≤ non-aligned →
   :non-aligned / else :hold. Loads the Tier-0/1 spec (objective-function.edn);
   fail-open: `available?` is false if the spec can't be read."
-  (:require [clojure.edn :as edn]))
+  (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]))
 
 (def ^:private spec-path "90-docs/licenses/ecl/objective-function.edn")
 
 (def spec
-  (delay (try (edn/read-string (slurp spec-path)) (catch Exception _ nil))))
+  (delay (try (edn/read-string (io/slurp spec-path)) (catch :default _ nil))))
 
 (defn available? [] (some? @spec))
 

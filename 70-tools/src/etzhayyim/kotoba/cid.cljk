@@ -34,10 +34,11 @@
 (def blake3-256 0x1e)
 
 (defn sha2-256-digest
-  "32-byte SHA2-256 digest of `^bytes b`. Runnable on babashka/JVM."
+  "32-byte SHA2-256 digest of `^bytes b`. Runs on bb/JVM (MessageDigest) or
+   kbb/SCI-on-Node (the same digest via Node's builtin crypto module)."
   [^bytes b]
   #?(:clj (.digest (MessageDigest/getInstance "SHA-256") b)
-     :cljs (throw (ex-info "cljs digest not wired (root engine runs on bb/JVM)" {}))))
+     :cljs (-> (js/require "crypto") (.createHash "sha256") (.update b) (.digest))))
 
 ;; A pluggable [code digest-fn] pair. Default = interim SHA2-256.
 ;; Rebind to [blake3-256 <blake3-fn>] once a blake3 impl is available to reach
@@ -48,45 +49,60 @@
 (def ^:private b32-alphabet "abcdefghijklmnopqrstuvwxyz234567")
 
 (defn- base32-lower*
+  "No StringBuilder (JVM-only, absent under kbb/SCI): accumulate chars in a vector,
+   join at the end -- identical semantics on bb and kbb."
   [^bytes data]
-  (let [n (alength data)
-        sb (StringBuilder.)]
-    (loop [i 0 buf 0 bits 0]
+  (let [n (alength data)]
+    (loop [i 0 buf 0 bits 0 out []]
       (cond
         (>= bits 5)
         (let [idx (bit-and (unsigned-bit-shift-right buf (- bits 5)) 0x1f)]
-          (.append sb (.charAt b32-alphabet idx))
-          (recur i buf (- bits 5)))
+          (recur i buf (- bits 5) (conj out (.charAt b32-alphabet idx))))
 
         (< i n)
         (recur (inc i)
                (bit-or (bit-shift-left buf 8) (bit-and (aget data i) 0xff))
-               (+ bits 8))
+               (+ bits 8) out)
 
         (pos? bits)
         (let [idx (bit-and (bit-shift-left buf (- 5 bits)) 0x1f)]
-          (.append sb (.charAt b32-alphabet idx))
-          (recur i 0 0))
+          (recur i 0 0 (conj out (.charAt b32-alphabet idx))))
 
-        :else (.toString sb)))))
+        :else (apply str out)))))
 
 (def ^:private b32-idx
   (into {} (map-indexed (fn [i c] [c i]) b32-alphabet)))
 
+(defn- bytes-of
+  "Build a byte-array (bb/JVM) or Uint8Array (kbb/SCI-on-Node) from a seq of
+   ints. `byte-array` itself is unresolved under SCI's cljs core, so every
+   call site here goes through this instead."
+  ^bytes [coll]
+  #?(:clj (byte-array coll)
+     :cljs (js/Uint8Array.from (clj->js (vec coll)))))
+
+(defn- array->seq
+  "Read any byte-array/Uint8Array/Buffer back into a plain Clojure seq of ints,
+   so results (e.g. a digest) can be concat'd/conj'd portably before re-framing
+   with `bytes-of`."
+  [a]
+  #?(:clj (seq a)
+     :cljs (js->clj (js/Array.from a))))
+
 (defn- base32-lower-decode
-  "Inverse of base32-lower* (RFC4648 lower, no pad) -> byte-array."
+  "Inverse of base32-lower* (RFC4648 lower, no pad) -> byte-array.
+   No ByteArrayOutputStream (JVM-only, absent under kbb/SCI): accumulate into
+   a vector and bytes-of at the end, mirroring base32-lower* above."
   ^bytes [^String s]
-  (let [out (java.io.ByteArrayOutputStream.)]
-    (loop [cs (seq s) buf 0 bits 0]
-      (if (empty? cs)
-        (.toByteArray out)
-        (let [v (b32-idx (first cs))
-              buf (bit-or (bit-shift-left buf 5) (int v))
-              bits (+ bits 5)]
-          (if (>= bits 8)
-            (do (.write out (bit-and (unsigned-bit-shift-right buf (- bits 8)) 0xff))
-                (recur (rest cs) buf (- bits 8)))
-            (recur (rest cs) buf bits)))))))
+  (loop [cs (seq s) buf 0 bits 0 out []]
+    (if (empty? cs)
+      (bytes-of out)
+      (let [v (b32-idx (first cs))
+            buf (bit-or (bit-shift-left buf 5) (int v))
+            bits (+ bits 5)]
+        (if (>= bits 8)
+          (recur (rest cs) buf (- bits 8) (conj out (bit-and (unsigned-bit-shift-right buf (- bits 8)) 0xff)))
+          (recur (rest cs) buf bits out))))))
 
 (defn cid-str->bytes
   "The raw binary CID a CIDv1 string addresses — base32-decode after the 'b'
@@ -105,7 +121,7 @@
 
 (defn- ->bytes ^bytes [s]
   #?(:clj (.getBytes ^String s "UTF-8")
-     :cljs (throw (ex-info "cljs not wired" {}))))
+     :cljs (js/Buffer.from s "utf8")))
 
 (defn cid
   "Compute the CIDv1 string for `content` (a String or byte-array).
@@ -117,10 +133,10 @@
         ^bytes digest (fn body)
         dlen (alength digest)
         ;; <version=1> <codec=raw=0x55> <mh-code> <mh-len> <digest...>
-        header (byte-array [0x01 0x55 code dlen])
-        framed (byte-array (+ (alength header) dlen))]
-    (System/arraycopy header 0 framed 0 (alength header))
-    (System/arraycopy digest 0 framed (alength header) dlen)
+        header (bytes-of [0x01 0x55 code dlen])
+        ;; No System/arraycopy (JVM-only, absent under kbb/SCI): concat via
+        ;; plain seqs, then re-frame with bytes-of.
+        framed (bytes-of (concat (array->seq header) (array->seq digest)))]
     (str "b" (base32-lower* framed))))
 
 (defn cid-of-edn

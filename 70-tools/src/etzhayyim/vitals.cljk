@@ -31,6 +31,7 @@
             [clojure.java.io :as io]
             [babashka.process :as p]
             [cheshire.core :as json]
+            [scripts.nbb-compat :as compat]
             [etzhayyim.kotoba.engine :as kt]))
 
 (def ^:private actors-root "..")
@@ -91,9 +92,9 @@
    shells out to a bare `kbb -e '...'` with no -cp of its own, but inherits the
    env var from its parent process)."
   (delay
-    (let [tmp (doto (java.io.File/createTempFile "etz-bb-config" ".edn")
-                (.deleteOnExit))]
-      (spit tmp bb-config-edn)
+    (let [tmp (io/file (.tmpdir (js/require "node:os"))
+                        (str "etz-bb-config-" (rand-int 1000000) ".edn"))]
+      (io/spit tmp bb-config-edn)
       (let [res @(p/process {:out :string :err :string}
                              "bb" "--config" (.getPath tmp)
                              "print-deps" "--format" "classpath")]
@@ -154,8 +155,8 @@
   (let [jf (io/file actor-dir "manifest.jsonld")
         ef (io/file actor-dir "manifest.edn")]
     (cond
-      (.exists jf) (try (json/parse-string (slurp jf)) (catch Exception _ {}))
-      (.exists ef) (try (edn->manifest-view (edn/read-string (slurp ef))) (catch Exception _ {}))
+      (.exists jf) (try (json/parse-string (io/slurp jf)) (catch :default _ {}))
+      (.exists ef) (try (edn->manifest-view (edn/read-string (io/slurp ef))) (catch :default _ {}))
       :else {})))
 
 ;; ── axis signals ────────────────────────────────────────────────────────────
@@ -213,25 +214,25 @@
   (let [newest (->> ["methods" "data" "out"]
                     (map #(io/file actor-dir %))
                     (filter #(.isDirectory ^java.io.File %))
-                    (mapcat file-seq)
+                    (mapcat compat/file-seq)
                     (filter #(.isFile ^java.io.File %))
                     (map #(.lastModified ^java.io.File %))
                     (reduce max 0))]
     {:bio/heartbeat-mtime newest
      :bio/heartbeat-days (if (pos? newest)
-                           (quot (- (System/currentTimeMillis) newest) 86400000)
+                           (quot (- (js/Date.now) newest) 86400000)
                            9999)}))
 
 (defn- atproto-signs
   "外界代謝: does it project app.bsky.feed.post, and has it recently excreted?"
   [actor-dir]
   (let [methods (io/file actor-dir "methods")
-        bsky?   (boolean (some #(re-find bsky-re (slurp %))
+        bsky?   (boolean (some #(re-find bsky-re (io/slurp %))
                                (files-in methods #"\.(cljc|clj|py)$")))
         social? (.exists (io/file methods "social.cljc"))
         out     (io/file actor-dir "out")
         out-mtime (when (.isDirectory out)
-                    (->> (file-seq out) (filter #(.isFile ^java.io.File %))
+                    (->> (compat/file-seq out) (filter #(.isFile ^java.io.File %))
                          (map #(.lastModified ^java.io.File %))
                          (reduce max 0)))]
     {:atproto/bsky-post bsky?
@@ -269,14 +270,16 @@
     (if-not path
       {:reflex :absent}
       (let [actor-src (.getPath (io/file actor-dir "src"))
-            cp (str actor-src java.io.File/pathSeparator @bb-classpath)
-            proc (apply p/process {:dir "." :out :string :err :string
-                                    :extra-env {"BABASHKA_CLASSPATH" cp}} cmd)
-            res  (deref (future @proc) timeout-ms ::timeout)]
-        (if (= res ::timeout)
-          (do (try (p/destroy-tree proc) (catch Exception _ nil)) {:reflex :timeout})
+            cp (str actor-src ":" @bb-classpath)
+            ;; nbb/SCI is single-threaded (no java.lang.Thread) — spawnSync's own
+            ;; :timeout kills the child directly instead of a future+destroy-tree race.
+            res @(apply p/process (conj (vec cmd) {:dir "." :out :string :err :string
+                                                     :extra-env {"BABASHKA_CLASSPATH" cp}
+                                                     :timeout-ms timeout-ms}))]
+        (if (:signal res)
+          {:reflex :timeout}
           (try {:reflex (if (zero? (:exit res)) :green :red) :exit (:exit res)}
-               (catch Exception e {:reflex :error :msg (.getMessage e)})))))))
+               (catch :default e {:reflex :error :msg (ex-message e)})))))))
 
 (def ^:private reflex-timeout-overrides
   "Per-cell reflex budget overrides (ms) for suites that legitimately exceed the default 60s.
@@ -402,14 +405,14 @@
 (defn report->md [vitals head]
   (let [by-class (frequencies (map :class vitals))]
     (str "# etzhayyim — actor vitals (per-cell life activity)\n\n"
-         (format "**%d cells** — 生 %d · 休眠 %d · 死 %d   ·   Datom head `%s…`\n\n"
+         (compat/format "**%d cells** — 生 %d · 休眠 %d · 死 %d   ·   Datom head `%s…`\n\n"
                  (count vitals) (:alive by-class 0) (:dormant by-class 0)
                  (:stub by-class 0) (subs head 0 (min 16 (count head))))
          "| actor | class | score | clj | actor | atproto | reflex | port | →out | ←in | ♥days | bsky |\n"
          "|---|:--:|--:|--:|--:|--:|:--:|--:|--:|--:|--:|:--:|\n"
          (str/join "\n"
            (for [v (sort-by (juxt (comp - :score)) vitals)]
-             (format "| %s | %s | %d | %d | %d | %d | %s | %.2f | %d | %d | %d | %s |"
+             (compat/format "| %s | %s | %d | %d | %d | %d | %s | %.2f | %d | %d | %d | %s |"
                      (:actor v) (class-glyph (:class v)) (:score v)
                      (:score/clj v) (:score/actor v) (:score/atproto v)
                      (clojure.core/name (:reflex v)) (:clj/port-ratio v)
@@ -453,14 +456,14 @@
         edges (for [v vitals, t (:actor/integrate-names v)
                     :when (names t)] {:from (:actor v) :to t})
         fq (frequencies (map :class vitals))
-        payload {:run run :generatedAt (str (java.time.Instant/ofEpochMilli run))
+        payload {:run run :generatedAt (.toISOString (js/Date. run))
                  :summary {:cells (count vitals) :alive (:alive fq 0)
                            :dormant (:dormant fq 0) :stub (:stub fq 0)}
                  :nodes (vec nodes) :edges (vec edges)}
         out (json/generate-string payload {:pretty true})]
     (doseq [p [viz-data viz-data-mirror]]
       (io/make-parents p)
-      (spit p out))
+      (io/spit p out))
     payload))
 
 ;; ── pulse: the organism's live activity (息遣い・生産・呼吸) ──────────────────
@@ -482,7 +485,7 @@
 (declare load-trajectory)
 
 (defn- git-out [& args]
-  (try (:out (apply p/sh args)) (catch Exception _ "")))
+  (try (:out (apply p/sh args)) (catch :default _ "")))
 
 (defn pulse->datoms
   "Turn one pulse observation into kotoba datoms: a per-actor live-state entity + the recent
@@ -507,7 +510,7 @@
   "Per-actor live activity over the last `hours`: commit production (newest-first
    in git log → first occurrence is latest), plus working-tree dirty counts."
   [hours]
-  (let [now   (System/currentTimeMillis)
+  (let [now   (js/Date.now)
         repos (actor-dirs)
         commits (->> repos
                      (mapcat (fn [repo]
@@ -519,7 +522,7 @@
                                                     "--pretty=format:C|%ct|%s"))
                                        :when (str/starts-with? ln "C|")
                                        :let [[_ ct subj] (str/split ln #"\|" 3)]]
-                                   {:ct (Long/parseLong ct) :subj subj :actors #{actor}}))))
+                                   {:ct (js/parseInt ct 10) :subj subj :actors #{actor}}))))
                      (sort-by :ct >)
                      vec)
         per (reduce (fn [m c]
@@ -543,7 +546,7 @@
         per (reduce (fn [m [a n]] (assoc-in m [a "dirty"] n)) per dirty)
         stream (->> commits (take 20)
                     (map (fn [c] {"at" (* 1000 (:ct c)) "actor" (first (:actors c)) "subj" (:subj c)})))]
-    {"generatedAt" (str (java.time.Instant/ofEpochMilli now)) "now" now
+    {"generatedAt" (.toISOString (js/Date. now)) "now" now
      "sinceHours" hours "actors" per "stream" (vec stream)
      "working" (vec (sort (keys dirty)))
      ;; placeholder: -pulse overwrites "head" with the pulse-journal snapshot CID. Connecting to
@@ -556,7 +559,7 @@
    emit pulse.json as the projection. Args: [hours]. Live state → fresh journal each run (the
    activity HISTORY lives in git + the vitals/joucho logs; pulse is current-state, bounded)."
   [& args]
-  (let [hours (if (seq args) (Long/parseLong (first args)) 48)
+  (let [hours (if (seq args) (js/parseInt (first args) 10) 48)
         d (pulse-data hours)
         run (get d "now")]
     (io/delete-file pulse-journal true)                 ;; live state: bounded, not append-history
@@ -565,9 +568,9 @@
       (let [head (snapshot-to! conn "pulse.kotoba.edn")
             d (assoc d "head" head "store" "kotoba-datom-log" "snapshot" "pulse.kotoba.edn")
             out (json/generate-string d {:pretty true})]
-        (doseq [p pulse-paths] (io/make-parents p) (spit p out))
+        (doseq [p pulse-paths] (io/make-parents p) (io/spit p out))
         (binding [*out* *err*]
-          (println (format "[pulse] kotoba head=%s · %d working"
+          (println (compat/format "[pulse] kotoba head=%s · %d working"
                            (subs head 0 (min 16 (count head)))
                            (count (re-seq #"\"dirty\"" out)))))))))
 
@@ -633,7 +636,7 @@
         ;; #1: fold the organism's REAL recent trajectory (not a synthetic (mod i k) schedule).
         ;; Fail-open to the synthetic stream if the trajectory log isn't readable / has <2 runs.
         runs     (try (vec (take-last (inc n) (load-trajectory (kt/connect {:journal trajectory-journal}))))
-                      (catch Throwable _ nil))
+                      (catch :default _ nil))
         real-evs (when (>= (count runs) 2) (real-beat-events runs))
         n-beats  (if (seq real-evs) (count real-evs) n)
         evs-at   (fn [i] (or (when real-evs (filter known? (nth real-evs (dec i))))
@@ -645,7 +648,7 @@
                     (recur (inc i) sc' (conj acc (assoc sc' :beat i :mood (mood-of sc')))))))
         final (last beats)
         wb (readout of (map #(select-keys % [:joy :calm :stress :gratitude :focus]) beats))]
-    {:generatedAt (str (java.time.Instant/now)) :of of
+    {:generatedAt (.toISOString (js/Date.)) :of of
      :mood (:mood final) :baseline baseline
      :axes (select-keys final [:joy :calm :stress :gratitude :focus])
      :beats beats
@@ -677,7 +680,7 @@
    content-addressed, and emit joucho.json as the projection. Args: [of=ibuki] [beats=24]."
   [caps & args]
   (let [of (or (first args) "ibuki")
-        n  (if (second args) (Long/parseLong (second args)) 24)
+        n  (if (second args) (js/parseInt (second args) 10) 24)
         d  (joucho-data-with caps of n)]
     (io/delete-file joucho-journal true)               ;; deterministic replay → fresh each run
     (let [conn (kt/connect {:journal joucho-journal})]
@@ -685,9 +688,9 @@
       (let [head (snapshot-to! conn "joucho.kotoba.edn")
             d (assoc d :head head :store "kotoba-datom-log" :snapshot "joucho.kotoba.edn")
             out (json/generate-string d {:pretty true})]
-        (doseq [p joucho-paths] (io/make-parents p) (spit p out))
+        (doseq [p joucho-paths] (io/make-parents p) (io/spit p out))
         (binding [*out* *err*]
-          (println (format "[joucho] kotoba head=%s · %s mood=%s wellbecoming=%s net=%d"
+          (println (compat/format "[joucho] kotoba head=%s · %s mood=%s wellbecoming=%s net=%d"
                            (subs head 0 (min 16 (count head)))
                            of (:mood d) (get-in d [:wellbecoming :direction])
                            (get-in d [:wellbecoming :net]))))))))
@@ -703,9 +706,9 @@
     (if-let [x (first a)]
       (case x
         "--no-tests" (recur (rest a) (assoc o :run-tests? false))
-        "--limit"    (recur (drop 2 a) (assoc o :limit (Long/parseLong (second a))))
+        "--limit"    (recur (drop 2 a) (assoc o :limit (js/parseInt (second a) 10)))
         "--actors"   (recur (drop 2 a) (assoc o :only (set (str/split (second a) #","))))
-        "--timeout-ms" (recur (drop 2 a) (assoc o :timeout-ms (Long/parseLong (second a))))
+        "--timeout-ms" (recur (drop 2 a) (assoc o :timeout-ms (js/parseInt (second a) 10)))
         (recur (rest a) o))
       o)))
 
@@ -719,16 +722,16 @@
                only  (filter #(only (.getName ^java.io.File %)))
                limit (take limit))
         _ (binding [*out* *err*]
-            (println (format "[vitals] %d cells, suites=%s, timeout=%dms"
+            (println (compat/format "[vitals] %d cells, suites=%s, timeout=%dms"
                              (count dirs) run-tests? timeout-ms)))
         vitals (vec (for [d dirs]
                       (let [v (vitals-for d indeg run-tests? timeout-ms)]
                         (binding [*out* *err*]
-                          (println (format "  %-14s %-6s score=%d reflex=%s"
+                          (println (compat/format "  %-14s %-6s score=%d reflex=%s"
                                            (:actor v) (class-glyph (:class v))
                                            (:score v) (clojure.core/name (:reflex v)))))
                         v)))
-        run    (System/currentTimeMillis)
+        run    (js/Date.now)
         head   (persist! run vitals)]
     (export-json! run vitals)
     ;; content-addressed snapshot of THIS run's cells only (no KV; D2 of ADR-2606172200).
@@ -756,7 +759,7 @@
 ;; per run, which stays instant. Still kotoba Datom log, no KV (ADR-2606172200).
 ;; trajectory-journal is defined up with the other journal paths (joucho reads it for #1)
 
-(defn- iso [ms] (str (java.time.Instant/ofEpochMilli ms)))
+(defn- iso [ms] (.toISOString (js/Date. ms)))
 
 (defn- ->traj-entity
   "One cohort-summary datom for a finished vitals run. Keyed :db/id ⇒ idempotent."
@@ -804,20 +807,20 @@
     (doseq [p ["orgs/etzhayyim/com-etzhayyim-app-organism/public/trajectory.json"
                "50-infra/etzhayyim-did-web/public/organism/trajectory.json"]]
       (io/make-parents p)
-      (spit p out))
+      (io/spit p out))
     {:head head :runs (count runs)}))
 
 (defn- trajectory->md [runs]
   (let [rows (map-indexed
                (fn [i r]
                  (let [d (when (pos? i) (- (:sum r) (:sum (nth runs (dec i)))))]
-                   (format "| %d | %s | %d | %d | %d | %d | %d | %s |"
+                   (compat/format "| %d | %s | %d | %d | %d | %d | %d | %s |"
                            (:run r) (:at r) (:cells r) (:alive r)
                            (:dormant r) (:stub r) (:sum r)
-                           (if d (format "%+d" d) "—"))))
+                           (if d (compat/format "%+d" d) "—"))))
                runs)]
     (str "# etzhayyim — organism evolution (生命進化)\n\n"
-         (format "**%d runs** recorded · trajectory.kotoba.edn\n\n" (count runs))
+         (compat/format "**%d runs** recorded · trajectory.kotoba.edn\n\n" (count runs))
          "| run | at | cells | 生 | 休眠 | 死 | Σscore | Δ |\n"
          "|--:|---|--:|--:|--:|--:|--:|--:|\n"
          (str/join "\n" rows) "\n")))
@@ -826,5 +829,5 @@
   (let [{:keys [head runs]} (export-trajectory!)
         conn (kt/connect {:journal trajectory-journal})]
     (binding [*out* *err*]
-      (println (format "[trajectory] %d runs · head %s…" runs (subs head 0 (min 16 (count head))))))
+      (println (compat/format "[trajectory] %d runs · head %s…" runs (subs head 0 (min 16 (count head))))))
     (println (trajectory->md (load-trajectory conn)))))

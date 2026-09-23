@@ -33,6 +33,24 @@
   ;; "expand 32-byte k" as four little-endian u32 words
   [0x61707865 0x3320646e 0x79622d32 0x6b206574])
 
+;; byte-array/Arrays.copyOfRange/System.arraycopy are JVM-only (absent under
+;; kbb/SCI's cljs core), so every allocation/copy here routes through these —
+;; same convention as etzhayyim.kotoba.cid's bytes-of.
+(defn- bytes-of-len
+  ^bytes [n]
+  #?(:clj (byte-array n)
+     :cljs (js/Uint8Array. n)))
+
+(defn- array-slice
+  ^bytes [^bytes arr start end]
+  #?(:clj (java.util.Arrays/copyOfRange arr start end)
+     :cljs (.slice arr start end)))
+
+(defn- array-copy!
+  [^bytes src src-pos ^bytes dest dest-pos len]
+  #?(:clj (System/arraycopy src src-pos dest dest-pos len)
+     :cljs (dotimes [i len] (aset dest (+ dest-pos i) (aget src (+ src-pos i))))))
+
 (defn- le32 ^long [^bytes b ^long off]
   (bit-or (bit-and (aget b off) 0xff)
           (bit-shift-left (bit-and (aget b (+ off 1)) 0xff) 8)
@@ -40,7 +58,7 @@
           (bit-shift-left (bit-and (aget b (+ off 3)) 0xff) 24)))
 
 (defn- words->le-bytes ^bytes [words]
-  (let [out (byte-array (* 4 (count words)))]
+  (let [out (bytes-of-len (* 4 (count words)))]
     (doseq [[i w] (map-indexed vector words)]
       (let [o (* 4 i)]
         (aset out o (unchecked-byte (bit-and w 0xff)))
@@ -114,18 +132,18 @@
   "Encrypt with XChaCha20-Poly1305. key=32B, nonce24=24B, aad may be nil.
    Returns ciphertext||tag (tag = last 16 bytes)."
   ^bytes [^bytes key ^bytes nonce24 ^bytes aad ^bytes plaintext]
-  (let [subkey (hchacha20 key (java.util.Arrays/copyOfRange nonce24 0 16))
-        n12 (byte-array 12)]
-    (System/arraycopy nonce24 16 n12 4 8) ; 0x00000000 || nonce[16..24)
+  (let [subkey (hchacha20 key (array-slice nonce24 0 16))
+        n12 (bytes-of-len 12)]
+    (array-copy! nonce24 16 n12 4 8) ; 0x00000000 || nonce[16..24)
     #?(:clj (chacha20-poly1305 Cipher/ENCRYPT_MODE subkey n12 aad plaintext)
        :cljs nil)))
 
 (defn xchacha20-poly1305-decrypt
   "Decrypt+verify. `ct+tag` = ciphertext||tag (16-byte tag). Throws on bad tag."
   ^bytes [^bytes key ^bytes nonce24 ^bytes aad ^bytes ct+tag]
-  (let [subkey (hchacha20 key (java.util.Arrays/copyOfRange nonce24 0 16))
-        n12 (byte-array 12)]
-    (System/arraycopy nonce24 16 n12 4 8)
+  (let [subkey (hchacha20 key (array-slice nonce24 0 16))
+        n12 (bytes-of-len 12)]
+    (array-copy! nonce24 16 n12 4 8)
     #?(:clj (chacha20-poly1305 Cipher/DECRYPT_MODE subkey n12 aad ct+tag)
        :cljs nil)))
 
