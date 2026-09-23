@@ -15,6 +15,7 @@
 (ns etzhayyim.kotoba.schema
   (:require [clojure.edn :as edn]
             [clojure.set :as set]
+            [clojure.java.io :as io]
             [etzhayyim.kotoba.datom :as d]))
 
 (declare type-ok?)
@@ -34,7 +35,7 @@
    Handles all Datomic-style dialects: attrs under :attributes or :schema, as a
    vector of {:db/ident …} maps OR a map of {ident -> spec}."
   [path]
-  (let [m (edn/read-string (slurp path))]
+  (let [m (edn/read-string (io/slurp path))]
     (into {} (for [[ident spec] (concat (attr-pairs (:attributes m)) (attr-pairs (:schema m)))]
                [ident (assoc spec :db/ident ident)]))))
 
@@ -62,7 +63,7 @@
 (defn load-vocabulary
   "Read a .kotoba.edn schema and return its declared-attribute set."
   [path]
-  (declared-attrs (edn/read-string (slurp path))))
+  (declared-attrs (edn/read-string (io/slurp path))))
 
 (defn used-attrs
   "All attribute keywords appearing across a seq of entity maps (sans :db/id).
@@ -95,7 +96,7 @@
                          (:derived/attrs schema-map))]
            [(:attr a) {}]))))
 
-(defn load-registry [path] (attr-registry (edn/read-string (slurp path))))
+(defn load-registry [path] (attr-registry (edn/read-string (io/slurp path))))
 
 (defn- value-ok?
   [{:keys [valueType cardinality allowed]} v]

@@ -39,6 +39,7 @@
             [cheshire.core :as json]
             [babashka.process :as p]
             [babashka.http-client :as http]
+            [scripts.nbb-compat :as compat]
             [etzhayyim.kotoba.engine :as kt]
             [etzhayyim.vitals :as vitals]
             [etzhayyim.genome :as genome]
@@ -66,25 +67,28 @@
   {"joyful" "喜" "grateful" "感謝" "calm" "平静"
    "focused" "集中" "stressed" "緊張" "weary" "疲" "idle" "静"})
 
+(defn- iso-of [ms] (.toISOString (js/Date. ms)))
+(defn- iso-now [] (.toISOString (js/Date.)))
+
 ;; ── fleet selection over Tailscale ───────────────────────────────────────────
 (defn- tailscale-ip [host]
   (try
     (let [out (-> (p/sh "tailscale" "ip" "-4" host) :out str/trim)]
       (when (seq out) (first (str/split-lines out))))
-    (catch Exception _ nil)))
+    (catch :default _ nil)))
 
 (defn- node-models [ip]
   (try
-    (let [r (http/get (format "http://%s:%d/api/tags" ip ollama-port) {:timeout 2000})]
+    (let [r (http/get (compat/format "http://%s:%d/api/tags" ip ollama-port) {:timeout 2000})]
       (when (= 200 (:status r))
         (set (map #(get % "name") (get (json/parse-string (:body r)) "models")))))
-    (catch Exception _ nil)))
+    (catch :default _ nil)))
 
 (defn- read-cursor []
-  (try (:i (edn/read-string (slurp cursor-file))) (catch Exception _ 0)))
+  (try (:i (edn/read-string (io/slurp cursor-file))) (catch :default _ 0)))
 
 (defn- write-cursor! [i]
-  (try (io/make-parents cursor-file) (spit cursor-file (pr-str {:i i})) (catch Exception _ nil)))
+  (try (io/make-parents cursor-file) (io/spit cursor-file (pr-str {:i i})) (catch :default _ nil)))
 
 (defn- pick-node
   "Round-robin over the fleet (cursor on the Datom-adjacent state file), returning the
@@ -124,15 +128,15 @@
                     "Wellbecoming は" wb-ja "。この瞬間を生きている自分を、一文で詠んで。")}]))
 
 (defn- infer [{:keys [ip model]} messages]
-  (let [t0 (System/currentTimeMillis)
+  (let [t0 (js/Date.now)
         body (json/generate-string
                {:model model :think false :messages messages :stream false
                 :options {:temperature 0.7 :num_predict 120}})
-        r (http/post (format "http://%s:%d/api/chat" ip ollama-port)
+        r (http/post (compat/format "http://%s:%d/api/chat" ip ollama-port)
                      {:headers {"Content-Type" "application/json"} :body body :timeout 30000})
         txt (-> (json/parse-string (:body r)) (get-in ["message" "content"]) (or "")
                 str/trim (str/replace #"^[*「\s]+|[*」\s]+$" ""))]
-    [txt (- (System/currentTimeMillis) t0)]))
+    [txt (- (js/Date.now) t0)]))
 
 (defn- template-line [jo]
   (let [mood (get jo "mood" "calm")]
@@ -162,7 +166,7 @@
   (some (fn [d]
           (let [f (str d "/joucho.json")]
             (when (.exists (io/file f))
-              (try (json/parse-string (slurp f)) (catch Exception _ nil)))))
+              (try (json/parse-string (io/slurp f)) (catch :default _ nil)))))
         snapshot-dirs))
 
 (defn narrate
@@ -176,20 +180,20 @@
         node (pick-node)
         [text latency source rec-extra]
         (if node
-          (let [[t ms] (try (infer node msgs) (catch Exception e
+          (let [[t ms] (try (infer node msgs) (catch :default e
                                                  (binding [*out* *err*]
-                                                   (println "[narrate] infer failed:" (.getMessage e)))
+                                                   (println "[narrate] infer failed:" (ex-message e)))
                                                  [nil nil]))]
             (if (and t (seq t))
               [t ms (str "murakumo:" (:host node) ":" (:model node)) {:node (:host node) :model (:model node)}]
               [(template-line jo) nil "template (fleet unreachable)" {}]))
           [(template-line jo) nil "template (fleet unreachable)" {}])
-        at (System/currentTimeMillis)
+        at (js/Date.now)
         rec (merge {:text text :mood (get jo "mood") :axes (get jo "axes")
                     :wellbecoming (get-in jo ["wellbecoming" "direction"])
                     :source source :via (if node "tailscale" "local")
                     :latency-ms latency
-                    :generatedAt (str (java.time.Instant/ofEpochMilli at))}
+                    :generatedAt (iso-of at)}
                    rec-extra)
         conn (kt/connect {:journal narration-journal})]   ; APPEND-ONLY (no delete → evolution)
     (kt/transact conn (narration->datoms of at rec))
@@ -205,9 +209,9 @@
                                :snapshot "narration.kotoba.edn" :said n-said)
                         (dissoc :source))
                     {:pretty true})]
-          (spit (str d "/narration.json") out)))
+          (io/spit (str d "/narration.json") out)))
       (binding [*out* *err*]
-        (println (format "[narrate] %s via %s %s · said#%d :: %s"
+        (println (compat/format "[narrate] %s via %s %s · said#%d :: %s"
                          source (:via rec) (if latency (str latency "ms") "") n-said text)))
       rec)))
 
@@ -217,8 +221,8 @@
    so the loop can stamp the layer's last-success for the watchdog."
   [label f]
   (try (f) true
-       (catch Throwable t (binding [*out* *err*]
-                            (println (format "[heartbeat] %s error: %s" label (.getMessage t))))
+       (catch :default t (binding [*out* *err*]
+                            (println (compat/format "[heartbeat] %s error: %s" label (ex-message t))))
               false)))
 
 ;; ── watchdog: per-layer liveness (#4) ────────────────────────────────────────
@@ -251,11 +255,11 @@
     (when-let [gone (seq (remove stale-now prev))]
       (binding [*out* *err*] (println (str "[heartbeat] ✓ layer(s) recovered: " (vec gone)))))
     (swap! health assoc ::stale-set stale-now)
-    (let [payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
+    (let [payload {:generatedAt (iso-of now)
                    :now now :store "heartbeat-watchdog" :anyStale any-stale :layers layers}
           out (json/generate-string payload {:pretty true})]
       (doseq [d snapshot-dirs]
-        (let [p (str d "/health.json")] (io/make-parents p) (spit p out))))))
+        (let [p (str d "/health.json")] (io/make-parents p) (io/spit p out))))))
 
 ;; ── 社会活動 social layer: the organism's outward voice, gated at no-server-key ──────────
 ;; The organism narrates its 情緒 every beat; the social layer turns that voice into a
@@ -273,7 +277,7 @@
     :social/ts now :social/actor-did actor-did :social/mood (or mood "")
     :social/text text :social/lexicon "app.bsky.feed.post"
     :social/voice-of "etzhayyim" :social/is-observatory true   ; disclosure-honest (voiceOf=etzhayyim)
-    :social/created-at (str (java.time.Instant/ofEpochMilli now))
+    :social/created-at (iso-of now)
     :social/requires-member-signature true     ; only a member's key can sign it
     :social/server-held-key false              ; the organism holds NO key, signs nothing
     :social/status "prepared"}])               ; :published is not writable by the organism
@@ -287,8 +291,8 @@
    before-emit is the seed that makes an autonomous voice safe). Returns the prepared
    count, or nil when there is nothing (safe) to say."
   [now]
-  (let [narr (try (json/parse-string (slurp (str (first snapshot-dirs) "/narration.json")))
-                  (catch Throwable _ nil))
+  (let [narr (try (json/parse-string (io/slurp (str (first snapshot-dirs) "/narration.json")))
+                  (catch :default _ nil))
         text (some-> narr (get "text") str/trim)
         mood (get narr "mood")
         ;; self-expression floor: disclosure (voiceOf=etzhayyim, never impersonating,
@@ -302,7 +306,7 @@
       (not (and text (seq text))) nil
       blocked?
       (binding [*out* *err*]
-        (println (format "[social] DROPPED narration — tripped the self-expression floor: %s"
+        (println (compat/format "[social] DROPPED narration — tripped the self-expression floor: %s"
                          (vec (concat (:reasons meta-scan) (:reasons text-scan)))))
         nil)
       :else
@@ -313,9 +317,9 @@
                                               [?e :social/mood ?mood] [?e :social/status ?status]]})
                          (map (fn [[ts text mood status]]
                                 {:ts ts :text text :mood mood :status status
-                                 :createdAt (str (java.time.Instant/ofEpochMilli ts))}))
+                                 :createdAt (iso-of ts)}))
                          (sort-by :ts >) vec)
-              payload {:generatedAt (str (java.time.Instant/ofEpochMilli now))
+              payload {:generatedAt (iso-of now)
                        :actorDid actor-did :lexicon "app.bsky.feed.post"
                        :voiceOf "etzhayyim" :isObservatory true :scanned true
                        :requiresMemberSignature true :serverHeldKey false
@@ -325,9 +329,9 @@
           (doseq [d snapshot-dirs]
             (io/make-parents (str d "/social.json"))
             (kt/snapshot! conn (str d "/social.kotoba.edn"))
-            (spit (str d "/social.json") out))
+            (io/spit (str d "/social.json") out))
           (binding [*out* *err*]
-            (println (format "[social] prepared post #%d (mood=%s, %d chars, scanned✓) — outbox, UNPUBLISHED (member-sign-required)"
+            (println (compat/format "[social] prepared post #%d (mood=%s, %d chars, scanned✓) — outbox, UNPUBLISHED (member-sign-required)"
                              (count posts) mood (count text))))
           (count posts))))))
 
@@ -354,24 +358,24 @@
   most, 休眠 some — rises as cells reach 生. Nil-safe (missing snapshot → 0)."
   []
   (let [path (str (first snapshot-dirs) "/organism.json")
-        sum  (try (-> (slurp path) (json/parse-string true) :summary) (catch Exception _ nil))]
+        sum  (try (-> (io/slurp path) (json/parse-string true) :summary) (catch :default _ nil))]
     (+ (* 3 (long (:alive sum 0))) (long (:dormant sum 0)))))
 
 (defn- load-genome-state []
-  (try (let [s (clojure.edn/read-string (slurp genome-state-file))]
+  (try (let [s (clojure.edn/read-string (io/slurp genome-state-file))]
          (if (map? s) s genome/empty-state))
-       (catch Exception _ genome/empty-state)))
+       (catch :default _ genome/empty-state)))
 
 (defn- write-genome-snapshot! [state reading]
   (let [{:keys [recommendation weights beat history]} state
         last-scored (some :scored (reverse history))
-        payload {:beat beat :reading reading :generatedAt (str (java.time.Instant/now))
+        payload {:beat beat :reading reading :generatedAt (iso-now)
                  :weights weights :recommendation recommendation :lastScored last-scored
                  :note "kotoba-genome W2 — dry-run learning; recommendation never auto-applied (ADR-2606302205 D1 / 2605240200)."}
         out (json/generate-string payload {:pretty true})]
     (doseq [d snapshot-dirs]
       (io/make-parents (str d "/genome.json"))
-      (spit (str d "/genome.json") out))))
+      (io/spit (str d "/genome.json") out))))
 
 (defn learn!
   "One closed learning beat on the real vitality reading; persists state +
@@ -380,10 +384,10 @@
   (let [reading (organism-reading)
         state'  (genome/beat (load-genome-state) organism-catalog reading)]
     (io/make-parents genome-state-file)
-    (spit genome-state-file (pr-str state'))
+    (io/spit genome-state-file (pr-str state'))
     (write-genome-snapshot! state' reading)
     (binding [*out* *err*]
-      (println (format "[learn] beat %d · reading %d · → recommend %s (p=%.2f, dry-run)"
+      (println (compat/format "[learn] beat %d · reading %d · → recommend %s (p=%.2f, dry-run)"
                        (:beat state') reading
                        (name (get-in state' [:recommendation :mechanism]))
                        (double (get-in state' [:recommendation :predicted-up])))))
@@ -406,27 +410,27 @@
   no fabricated growth for channels that cannot yet post)."
   []
   (let [path (str (first snapshot-dirs) "/organism.json")
-        chs  (try (-> (slurp path) (json/parse-string true) :channels) (catch Exception _ nil))]
+        chs  (try (-> (io/slurp path) (json/parse-string true) :channels) (catch :default _ nil))]
     (if (map? chs)
       (into {} (map (fn [[k v]] [(keyword k) (double v)])) chs)
       (let [r (double (organism-reading))]
         {:at-proto r :email 0.0 :telegram 0.0 :x 0.0 :line 0.0}))))
 
 (defn- load-channel-state []
-  (try (let [s (clojure.edn/read-string (slurp channel-genome-file))]
+  (try (let [s (clojure.edn/read-string (io/slurp channel-genome-file))]
          (if (map? s) s cgenome/empty-state))
-       (catch Exception _ cgenome/empty-state)))
+       (catch :default _ cgenome/empty-state)))
 
 (defn- write-channel-snapshot! [state readings]
   (let [pref (cgenome/preferred-channel state)
         payload {:round (:round state) :readings readings
-                 :generatedAt (str (java.time.Instant/now))
+                 :generatedAt (iso-now)
                  :preferredChannel (:channel pref) :ranked (:ranked pref)
                  :note "kotoba-genome W1×W2 — the organism learns WHICH channel to grow on by realised growth-rate; dry-run, never auto-applied (ADR-2606302205 / 2605240200)."}
         out (json/generate-string payload {:pretty true})]
     (doseq [d snapshot-dirs]
       (io/make-parents (str d "/channel-genome.json"))
-      (spit (str d "/channel-genome.json") out))))
+      (io/spit (str d "/channel-genome.json") out))))
 
 (defn channel-learn!
   "One channel-choice beat on real per-channel growth readings; persists state +
@@ -436,10 +440,10 @@
         state'   (cgenome/beat-channels (load-channel-state) readings)
         pref     (cgenome/preferred-channel state')]
     (io/make-parents channel-genome-file)
-    (spit channel-genome-file (pr-str state'))
+    (io/spit channel-genome-file (pr-str state'))
     (write-channel-snapshot! state' readings)
     (binding [*out* *err*]
-      (println (format "[channel-learn] round %d · → grow on %s (dry-run)"
+      (println (compat/format "[channel-learn] round %d · → grow on %s (dry-run)"
                        (:round state') (name (:channel pref)))))
     (:channel pref)))
 
@@ -468,11 +472,11 @@
         social-last (atom 0)                                 ; throttle the social outbox (~10min)
         reflex!    (fn [] (safe "vitals" #(vitals/-main "--timeout-ms" "60000")))]
     (binding [*out* *err*]
-      (println (format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals-reflex %ds%s"
+      (println (compat/format "[heartbeat] resident loop start — pulse %ds · joucho+narrate %ds · vitals-reflex %ds%s"
                        (quot pulse-ms 1000) (quot joucho-ms 1000) (quot vitals-ms 1000)
                        (if once? " (--once)" ""))))
     (loop [next-pulse 0, next-joucho 0, next-vitals 0]
-      (let [now (System/currentTimeMillis)
+      (let [now (js/Date.now)
             do-pulse  (>= now next-pulse)
             do-joucho (>= now next-joucho)
             do-vitals (>= now next-vitals)]
@@ -485,18 +489,20 @@
                           (when (safe "social" #(prepare-social! now)) (reset! social-last now))))
         (when do-vitals
           (if once?
-            (do (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))   ; smoke: inline
+            (do (when (reflex!) (swap! health assoc :vitals (js/Date.now)))   ; smoke: inline
                 (safe "learn" learn!)                                                        ; 学習: WHAT predicts growth
                 (safe "channel-learn" channel-learn!))                                       ; 経路学習: WHERE to grow
+            ;; nbb/SCI is single-threaded (no java.lang.Thread) — the sweep runs inline
+            ;; here instead of on a background thread; 脈/情緒 resume on the next tick.
             (when (compare-and-set! reflexing? false true)   ; never overlap sweeps
-              (future (try (when (reflex!) (swap! health assoc :vitals (System/currentTimeMillis)))
-                           (safe "learn" learn!)                                             ; 学習 after the reflex sweep
-                           (safe "channel-learn" channel-learn!)                             ; 経路学習: WHERE to grow
-                           (finally (reset! reflexing? false)))))))
+              (try (when (reflex!) (swap! health assoc :vitals (js/Date.now)))
+                   (safe "learn" learn!)                                             ; 学習 after the reflex sweep
+                   (safe "channel-learn" channel-learn!)                             ; 経路学習: WHERE to grow
+                   (finally (reset! reflexing? false))))))
         (safe "health" #(write-health! health now))         ; #4 watchdog projection, every tick
         (if once?
           (binding [*out* *err*] (println "[heartbeat] --once complete"))
-          (do (Thread/sleep tick-ms)
+          (do (compat/sleep! tick-ms)
               (recur (if do-pulse  (+ now pulse-ms)  next-pulse)
                      (if do-joucho (+ now joucho-ms) next-joucho)
                      (if do-vitals (+ now vitals-ms) next-vitals))))))))

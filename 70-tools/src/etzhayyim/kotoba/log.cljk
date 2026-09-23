@@ -17,26 +17,30 @@
 (defn ensure-journal! [path]
   (let [f (io/file path)]
     (io/make-parents f)
-    (when-not (.exists f) (spit f ""))
+    (when-not (.exists f) (io/spit f ""))
     path))
 
 (defn read-log
   "Read the append-only journal into a vector of [e a v tx op] datoms."
   [path]
   (if (.exists (io/file path))
-    (->> (str/split-lines (slurp path))
+    (->> (str/split-lines (io/slurp path))
          (remove str/blank?)
          (mapv edn/read-string))
     []))
 
 (defn append!
-  "Append `datoms` (seq of [e a v tx op]) to the journal. Returns count."
+  "Append `datoms` (seq of [e a v tx op]) to the journal. Returns count.
+   No with-open (JVM-only, absent under kbb/SCI): io/writer's .close is a
+   no-op anyway (every write is already synchronous via fs), so a plain
+   let is equivalent."
   [path datoms]
   (ensure-journal! path)
-  (with-open [w (io/writer path :append true)]
+  (let [w (io/writer path :append true)]
     (doseq [dm datoms]
       (.write w (pr-str (vec dm)))
-      (.write w "\n")))
+      (.write w "\n"))
+    (.close w))
   (count datoms))
 
 (defn max-tx
@@ -66,7 +70,7 @@
                   (sort-by (fn [[e a _]] [(str e) (str a)]))
                   (mapv (fn [[e a v]] [e a v (get tx-of [e a v] 1) :add])))]
     (io/make-parents (io/file out-path))
-    (spit out-path
+    (io/spit out-path
           (str (or header
                    ";; GENERATED kotoba Datom snapshot (etzhayyim.kotoba.log).\n;; Canonical live EAVT state [e a v tx op]. DO NOT hand-edit.\n")
                "[\n"

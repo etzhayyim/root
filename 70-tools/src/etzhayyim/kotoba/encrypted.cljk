@@ -18,6 +18,7 @@
 
 (ns etzhayyim.kotoba.encrypted
   (:require #?(:clj [clojure.edn :as edn])
+            [scripts.nbb-compat :as compat]
             [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.crypto :as crypto])
   #?(:clj (:import (java.util Base64))))
@@ -29,7 +30,7 @@
 
 (defn- sha256 ^bytes [^bytes b] (cid/sha2-256-digest b))
 (defn- hexpref [^bytes b ^long nchars]
-  (apply str (take nchars (mapcat #(format "%02x" (bit-and % 0xff)) b))))
+  (apply str (take nchars (mapcat #(compat/format "%02x" (bit-and % 0xff)) b))))
 
 (def ^:dynamic *encode-plaintext*
   "Plaintext -> bytes. Default = UTF-8 of canonical EDN. Bind to a CBOR encoder
