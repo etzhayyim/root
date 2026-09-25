@@ -47,7 +47,7 @@
 ;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.deploy)(println :ok)"
 
 (ns etzhayyim.deploy
-  (:require [clojure.string :as str]
+  (:require [kotoba.io :as kio] [clojure.string :as str]
             [cheshire.core  :as json]
             #?(:bb [babashka.process :as proc])
             #?(:bb [babashka.fs :as bfs])))
@@ -570,13 +570,13 @@
   Mirrors Python _find_git_root().
   Uses java.io.File for portability across bb and JVM."
   [start-path]
-  (loop [d (-> (java.io.File. (str start-path)) .getCanonicalFile)]
-    (let [git (java.io.File. d ".git")]
+  (loop [d (-> (kio/file (str start-path)) kio/canonical-file)]
+    (let [git (kio/file d ".git")]
       (cond
-        (.exists git)             (.getAbsolutePath d)
-        (nil? (.getParentFile d)) nil
-        (= d (.getParentFile d))  nil
-        :else                     (recur (.getParentFile d))))))
+        (kio/exists? git)             (kio/absolute-path d)
+        (nil? (kio/parent-file d)) nil
+        (= d (kio/parent-file d))  nil
+        :else                     (recur (kio/parent-file d))))))
 
 (defn find-pg-alias
   "Find pg/lib/index.js in node_modules under root-path.
@@ -584,13 +584,13 @@
   Mirrors Python _find_pg_alias()."
   [root-path]
   (let [direct (str root-path "/node_modules/pg/lib/index.js")]
-    (if (.exists (java.io.File. direct))
+    (if (kio/exists? (kio/file direct))
       direct
       ;; pnpm shim pattern
-      (let [pnpm-dir (java.io.File. (str root-path "/node_modules/.pnpm"))]
-        (when (.exists pnpm-dir)
+      (let [pnpm-dir (kio/file (str root-path "/node_modules/.pnpm"))]
+        (when (kio/exists? pnpm-dir)
           (let [candidates (sort (map str (filter #(re-find #"pg@" (str %))
-                                                   (file-seq pnpm-dir))))]
+                                                   (kio/file-seq pnpm-dir))))]
             (first (filter #(.endsWith ^String % "/pg/lib/index.js") candidates))))))))
 
 (defn find-xrpc-aliases
@@ -599,12 +599,12 @@
   Mirrors Python _find_xrpc_alias()."
   [root-path]
   (let [xrpc-dir (str root-path "/../com-etzhayyim-xrpc/src")]
-    (if-not (.exists (java.io.File. xrpc-dir))
+    (if-not (kio/exists? (kio/file xrpc-dir))
       {}
       (into {}
             (keep (fn [sub]
                     (let [p (str xrpc-dir "/" sub ".ts")]
-                      (when (.exists (java.io.File. p))
+                      (when (kio/exists? (kio/file p))
                         [(str "@etzhayyim/xrpc/" sub) p])))
                   ["transport" "auth" "error" "nsid" "encode"])))))
 
@@ -617,8 +617,8 @@
   Returns parsed map or throws ex-info.
   Mirrors Python _read_kotodama_jsonld()."
   [comp-dir]
-  (let [p (java.io.File. (str comp-dir "/kotodama.jsonld"))]
-    (when-not (.exists p)
+  (let [p (kio/file (str comp-dir "/kotodama.jsonld"))]
+    (when-not (kio/exists? p)
       (throw (ex-info (str "kotodama.jsonld required in " comp-dir) {:comp-dir comp-dir})))
     (try
       (json/parse-string (slurp p))
@@ -673,7 +673,7 @@
     (println)
     (when-not no-build?
       (let [svelte-dir (str comp-dir "/svelte")]
-        (when (and (not no-svelte?) (.exists (java.io.File. svelte-dir)))
+        (when (and (not no-svelte?) (kio/exists? (kio/file svelte-dir)))
           (println "-- PNPM (svelte install)")
           (println (str "  " (str/join " " (build-pnpm-command ["install" "--frozen-lockfile"]))))
           (when-not no-check?

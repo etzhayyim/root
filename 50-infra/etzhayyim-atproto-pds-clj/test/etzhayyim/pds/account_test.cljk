@@ -2,11 +2,11 @@
   "PDS account + session-auth invariants: the HS256 session JWT (issue → verify →
   reject forged/expired) that gates write methods when PDS_REQUIRE_AUTH is set, and
   the PBKDF2 password store. A forged or expired Bearer MUST NOT authorize a write."
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [etzhayyim.pds.account :as account]))
 
-(defn- secret ^bytes [s] (.getBytes ^String s "UTF-8"))
+(defn- secret ^bytes [s] (kbytes/utf8-bytes ^String s))
 (defn- tmp-file []
   (str (System/getProperty "java.io.tmpdir") "/pds-accounts-" (System/nanoTime) ".edn"))
 
@@ -37,8 +37,8 @@
       (is (= did (account/verify-jwt sec (account/make-jwt sec did 3600)))))))
 
 (deftest secret-from-key-is-stable-and-key-bound
-  (let [k1 (.getBytes "signing-key-material-A" "UTF-8")
-        k2 (.getBytes "signing-key-material-B" "UTF-8")]
+  (let [k1 (kbytes/utf8-bytes "signing-key-material-A")
+        k2 (kbytes/utf8-bytes "signing-key-material-B")]
     (testing "the same key bytes derive the same HMAC secret (stable across boots)"
       (is (= (seq (account/secret-from-key k1)) (seq (account/secret-from-key k1)))))
     (testing "a different key derives a different secret"

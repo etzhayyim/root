@@ -26,7 +26,7 @@
 
   Pure, deterministic, stdlib + clojure.set only — no I/O, no held key. A reward is content-
   addressable and a tournament reproducible (same substrate discipline as metrics/dynamics)."
-  (:require [clojure.set :as set]))
+  (:require [kotoba.lang.coll :as set]))
 
 ;; ── the charter-mandated DEFAULTS (weights are tunable per actor; the GATES are not) ─
 

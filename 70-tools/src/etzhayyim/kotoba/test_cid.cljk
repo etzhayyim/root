@@ -2,14 +2,14 @@
 ;; Known-answer tests pin byte-identical parity with
 ;; `ipfs add --cid-version=1 --raw-leaves` (CIDv1 / raw 0x55 / sha2-256 / base32).
 (ns etzhayyim.kotoba.test-cid
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [etzhayyim.kotoba.cid :as cid]))
 
 (deftest sha2-256-digest-shape
-  (let [d (cid/sha2-256-digest (.getBytes "x" "UTF-8"))]
+  (let [d (cid/sha2-256-digest (kbytes/utf8-bytes "x"))]
     (is (= 32 (alength d)))
-    (is (= (vec (cid/sha2-256-digest (.getBytes "x" "UTF-8"))) (vec d)))))  ;; deterministic
+    (is (= (vec (cid/sha2-256-digest (kbytes/utf8-bytes "x"))) (vec d)))))  ;; deterministic
 
 (deftest cid-known-answers
   (testing "byte-identical to ipfs add --cid-version=1 --raw-leaves"
@@ -18,7 +18,7 @@
     (is (= "bafkreibm6jg3ux5qumhcn2b3flc3tyu6dmlb4xa7u5bf44yegnrjhc4yeq"
            (cid/cid "hello"))))                                        ;; 5 bytes "hello"
   (testing "string and equivalent bytes hash identically"
-    (is (= (cid/cid "hello") (cid/cid (.getBytes "hello" "UTF-8")))))
+    (is (= (cid/cid "hello") (cid/cid (kbytes/utf8-bytes "hello")))))
   (testing "framing: multibase 'b' + CIDv1 raw prefix 'bafkrei'"
     (is (str/starts-with? (cid/cid "hello") "bafkrei")))
   (testing "deterministic; distinct content → distinct CID"

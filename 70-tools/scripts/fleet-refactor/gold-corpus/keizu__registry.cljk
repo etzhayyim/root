@@ -6,7 +6,7 @@
 ;;
 ;; WASM premise: I/O は注入する。registry の読み取りは load-fn 経由 (slurp/fetch を host が渡す)。
 (ns keizu.methods.registry
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.error :as kerror] [clojure.string :as str]))
 
 ;; Charter Rider §2(e)/N5 — 禁止された商用 gov-intel ターミナル (簡略 deny-set)。
 (def source-deny #{"janes" "stratfor" "recordedfuture" "palantir"})
@@ -36,7 +36,7 @@
   未知 id は保守的に :representative (自動 authoritative にしない)。"
   [registry source-id]
   (let [status (try (get (get-source registry source-id) "verificationStatus" "")
-                    (catch clojure.lang.ExceptionInfo _ nil))]
+                    (catch kerror/ExceptionInfo _ nil))]
     (if (= status "verified") :authoritative :representative)))
 
 (defn assert-source-allowed

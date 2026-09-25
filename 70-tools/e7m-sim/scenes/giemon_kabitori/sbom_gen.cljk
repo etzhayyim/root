@@ -13,7 +13,7 @@
 ;; matching `_EdnReader._read_kw`. Pure fns; file I/O behind #?(:clj ...).
 ;; The Python `__main__` demo is provided as `-main` (file I/O on :clj only).
 (ns e7m-sim.scenes.giemon-kabitori.sbom-gen
-  (:require [clojure.string :as str]))
+  (:require [kotoba.io :as kio] [clojure.string :as str]))
 
 ;; ── minimal EDN reader (controlled subset: maps, vectors, keywords, strings,
 ;;    ints, bool, nil; `;` line comments; `,` is whitespace) ──────────────────
@@ -249,7 +249,7 @@
        "Faithful port of the Python __main__/main: read parts.edn, write the two
        JSON artifacts next to it (or under out-dir), print a summary."
        [& args]
-       (let [here (str (.getParent (java.io.File. (str *file*))))
+       (let [here (str (kio/parent (kio/file (str *file*))))
              edn-path (if (>= (count args) 1) (first args) (str here "/parts.edn"))
              out-dir (if (>= (count args) 2) (second args) here)
              doc (parse-edn (slurp edn-path))

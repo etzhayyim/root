@@ -7,7 +7,7 @@
 ;; own test/tomoshibi/operation_test.cljc pattern for the same lexicon.
 (ns etzhayyim.test-evangelism-journal
   (:require [cheshire.core :as json]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim.evangelism-journal :as ej]))
 

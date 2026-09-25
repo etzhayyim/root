@@ -31,7 +31,7 @@
 ;;   ;=> "tok_id"
 
 (ns etzhayyim.authn
-  (:require [clojure.string :as str])
+  (:require [kotoba.bytes :as kbytes] [kotoba.io :as kio] [clojure.string :as str])
   #?(:clj (:import [java.util Base64])))
 
 ;; ── base64url ────────────────────────────────────────────────────────────────
@@ -59,7 +59,7 @@
           padded (if (pos? pad)
                    (str segment (apply str (repeat (- 4 pad) "=")))
                    segment)]
-      #?(:clj  (String. (.decode (Base64/getUrlDecoder) padded) "UTF-8")
+      #?(:clj  (kbytes/utf8-string (.decode (Base64/getUrlDecoder) padded))
          :cljs (js/atob (-> padded
                             (str/replace "-" "+")
                             (str/replace "_" "/")))))
@@ -196,7 +196,7 @@
                                    "Run the Python CLI for live sign-in."))
            ("signout" "logout")
                      (println (str "authn " sub " (guarded, no-op): would remove " auth-file
-                                   (if (.exists (java.io.File. auth-file)) "" " (not signed in)")))
+                                   (if (kio/exists? (kio/file auth-file)) "" " (not signed in)")))
            "revoke"  (println (str "authn revoke (guarded, no-op): would POST /oauth/revoke for stored "
                                    "tokens and remove " auth-file
                                    (when (get opts "--keep-local") " (--keep-local: file kept)")

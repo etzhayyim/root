@@ -26,7 +26,7 @@
   an off-bb signer; it is a one-line `+curve+` switch + multicodec entry away (see
   `+multicodec+`), deliberately NOT wired so this stays pure-bb. Pure JVM/babashka, no
   external deps — same constraint as util.clj."
-  (:require [cheshire.core :as json])
+  (:require [kotoba.bytes :as kbytes] [cheshire.core :as json])
   (:import [java.security KeyPairGenerator KeyFactory Signature SecureRandom MessageDigest]
            [java.security.spec ECGenParameterSpec PKCS8EncodedKeySpec X509EncodedKeySpec]
            [javax.crypto Cipher]
@@ -305,7 +305,7 @@
 
 ;; ── at-rest sealing (AES-256-GCM under the node sealing secret) ───────────────
 (defn- aes-key ^SecretKeySpec [^String secret]
-  (SecretKeySpec. (sha256 (.getBytes secret "UTF-8")) "AES"))
+  (SecretKeySpec. (sha256 (kbytes/utf8-bytes secret)) "AES"))
 
 (defn seal
   "Seal a handle for at-rest persistence. Returns a JSON-safe map: the multikey and the

@@ -12,7 +12,7 @@
 
   clj/bb, deterministic (logical time = the snapshot's as-of), no network I/O, no held key — the
   same substrate discipline as vitals/pulse/joucho."
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [clojure.edn :as edn]
             [clojure.string :as cstr]
             [cheshire.core :as json]
@@ -132,7 +132,7 @@
      "Fold an actor's own flow ledger if it has one; nil when the actor is registered but unmeasured."
      [actor]
      (let [p (str data-root "/" actor "/flow.kotoba.edn")]
-       (when (.exists (io/file p))
+       (when (io/exists? (io/file p))
          (let [st (metrics/flow-state (ledger/read-events (kd/read-log p)))]
            {:netGain (jnum (:net-gain st)) :orderIndex (jnum (:order-index st))
             :flowsN (:flows-n st) :parasitic (:parasitic? st)})))))
@@ -346,10 +346,10 @@
      (let [rule (read-sos-rule)
            specs (:actors rule)
            ;; the roster = every actor dir carrying a manifest (the actor marker, like vitals)
-           roster (->> (.listFiles (io/file "20-actors"))
-                       (filter #(.isDirectory %))
-                       (filter #(.exists (io/file % "manifest.jsonld")))
-                       (map #(.getName %)) sort vec)
+           roster (->> (io/list-files (io/file "20-actors"))
+                       (filter #(io/directory? %))
+                       (filter #(io/exists? (io/file % "manifest.jsonld")))
+                       (map #(io/file-name %)) sort vec)
            specced (set (map :actor specs))
            validated (map (fn [s] (assoc (reward/validate-spec (reward/spec-for s)) :actor (:actor s))) specs)
            invalid (remove :valid? validated)
@@ -375,8 +375,8 @@
      [& _]
      (let [rule (read-sos-rule)
            specs (:actors rule)
-           roster (->> (.listFiles (io/file "20-actors")) (filter #(.isDirectory %))
-                       (filter #(.exists (io/file % "manifest.jsonld"))) (map #(.getName %)) sort vec)
+           roster (->> (io/list-files (io/file "20-actors")) (filter #(io/directory? %))
+                       (filter #(io/exists? (io/file % "manifest.jsonld"))) (map #(io/file-name %)) sort vec)
            specced (set (map :actor specs))
            valid (count (filter #(:valid? (reward/validate-spec (reward/spec-for %))) specs))
            cov (if (seq roster) (* 100.0 (/ (count (filter specced roster)) (count roster))) 0.0)

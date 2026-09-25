@@ -1,7 +1,7 @@
 (ns etzhayyim.lint.test-lexicon-consts
   "Cross-actor constitutional const guard owned by shared root tooling."
   (:require [cheshire.core :as json]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.test :refer [deftest is run-tests]]))
 
 (def expectations
@@ -40,7 +40,7 @@
            :hataori ["fairLaborProvenance" "finishedLotAttestation"]
            :kiyome ["cleaningPassAttestation" "siteAssessmentRecord" "wasteSegregationRecord"]}
           lexicon lexicons]
-    (is (.isFile (io/file
+    (is (io/file? (io/file
                   (str "orgs/etzhayyim/com-etzhayyim-" (name actor) "/lex/" lexicon ".edn"))))))
 
 (deftest no-python-coded-cells-remain-in-wave

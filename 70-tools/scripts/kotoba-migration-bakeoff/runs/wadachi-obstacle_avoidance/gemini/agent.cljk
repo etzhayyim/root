@@ -1,7 +1,7 @@
 ;; ported from 70-tools/scripts/kotoba-migration-bakeoff/runs/wadachi-obstacle_avoidance/gemini/agent.py (unit_refactor stage 0)
 ;; Obstacle avoidance cell - Kotoba WASM port.
 (ns runs.wadachi-obstacle-avoidance.gemini.agent
-  (:require [clojure.string] [clojure.set] [clojure.edn]))
+  (:require [clojure.string] [kotoba.lang.coll] [clojure.edn]))
 
 (declare obstacle-phase transition-to-lidar-scanning transition-to-obstacles-detected transition-to-course-correction transition-to-avoidance-complete initialize-state scan-lidar detect-objects apply-correction witness-attestation g wit-world)
 

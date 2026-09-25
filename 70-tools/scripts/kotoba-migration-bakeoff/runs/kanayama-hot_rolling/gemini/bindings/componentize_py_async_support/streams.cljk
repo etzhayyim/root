@@ -1,6 +1,6 @@
 ;; ported from 70-tools/scripts/kotoba-migration-bakeoff/runs/kanayama-hot_rolling/gemini/bindings/componentize_py_async_support/streams.py (unit_refactor stage 0)
 (ns gemini.bindings.componentize-py-async-support.streams
-  (:require [clojure.string] [clojure.set] [clojure.edn]))
+  (:require [clojure.string] [kotoba.lang.coll] [clojure.edn]))
 
 (declare byte-stream-reader byte-stream-writer t stream-reader stream-writer)
 

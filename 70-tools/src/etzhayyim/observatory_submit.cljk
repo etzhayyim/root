@@ -23,7 +23,7 @@
   (:require [etzhayyim.channel :as channel]
             [clojure.string :as str]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [babashka.fs :as fs]))
 
 (defn member-context

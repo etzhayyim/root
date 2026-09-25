@@ -1,7 +1,7 @@
 ;; ported from 70-tools/scripts/kotoba-migration-bakeoff/runs/safety-monitoring/gemini/original_cell.py (unit_refactor stage 0)
 ;; Safety monitoring cell - ADR-2605242000.
 (ns runs.safety-monitoring.gemini.original-cell
-  (:require [clojure.string] [clojure.set] [clojure.edn]))
+  (:require [clojure.string] [kotoba.lang.coll] [clojure.edn]))
 
 (declare safety-monitoring-cell all)
 

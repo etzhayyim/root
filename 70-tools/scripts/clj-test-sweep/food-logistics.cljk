@@ -15,7 +15,7 @@
 ;;       (from the repo root; uses `--classpath 20-actors`)
 (ns food-logistics
   (:require [babashka.process :as p]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]))
 
 (def actors
@@ -27,20 +27,20 @@
   (->> actors
        (mapcat (fn [a]
                  (let [d (io/file "20-actors" a)]
-                   (when (.isDirectory d)
-                     (->> (file-seq d)
-                          (filter #(and (.isFile %)
-                                        (re-matches #"test_.*\.clj" (.getName %))))
-                          (map #(.getPath %)))))))))
+                   (when (io/directory? d)
+                     (->> (io/file-seq d)
+                          (filter #(and (io/file? %)
+                                        (re-matches #"test_.*\.clj" (io/file-name %))))
+                          (map #(io/path %)))))))))
 
 (defn- cross-actor-invariant-files []
   ;; substrate-level invariants that span multiple actors live alongside this runner
   ;; (e.g. canonical_form_invariant.clj) — name pattern *_invariant.clj, not test_*.
   (let [d (io/file "70-tools" "scripts" "clj-test-sweep")]
-    (when (.isDirectory d)
-      (->> (.listFiles d)
-           (filter #(and (.isFile %) (re-matches #".*_invariant\.clj" (.getName %))))
-           (map #(.getPath %))))))
+    (when (io/directory? d)
+      (->> (io/list-files d)
+           (filter #(and (io/file? %) (re-matches #".*_invariant\.clj" (io/file-name %))))
+           (map #(io/path %))))))
 
 (defn- test-files []
   (->> (concat (actor-test-files) (cross-actor-invariant-files))

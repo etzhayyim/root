@@ -32,7 +32,7 @@
 ;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.actors)(println :ok)"
 
 (ns etzhayyim.actors
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [cheshire.core  :as json]
             #?(:bb [babashka.http-client :as http])))
 
@@ -72,7 +72,7 @@
   Mirrors Python _stable_rkey()."
   [key]
   (let [md  (java.security.MessageDigest/getInstance "SHA-256")
-        _   (.update md (.getBytes (str key) "UTF-8"))
+        _   (.update md (kbytes/utf8-bytes (str key)))
         hex (apply str (map #(format "%02x" (bit-and % 0xff))
                             (seq (.digest md))))]
     (subs hex 0 16)))

@@ -3,7 +3,7 @@
   a consumer resolves+verifies it from the PDS-served did doc — end to end, OFFLINE
   (the transport is wired to the in-process xrpc + actorkeys, no network)."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]
             [etzhayyim.pds.client :as client]
             [etzhayyim.pds.actorkeys :as ak]
@@ -22,9 +22,9 @@
 
 (defn- rm-rf [dir]
   (let [d (io/file dir)]
-    (when (.exists d)
-      (doseq [f (.listFiles d)] (.delete f))
-      (.delete d))))
+    (when (io/exists? d)
+      (doseq [f (io/list-files d)] (io/delete f))
+      (io/delete d))))
 
 ;; A fake PDS: routes the client's HTTP calls into the in-process xrpc + actorkeys,
 ;; backed by a signed mem-store whose signer is the actor's registry key.

@@ -11,7 +11,7 @@
 (ns etzhayyim.kotoba.roster
   (:require [clojure.edn :as edn]
             [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [etzhayyim.kotoba.ingest :as ingest]))
 
 (defn- vocab-of [f]
@@ -22,15 +22,15 @@
   "Seq of {:actor :schema :seed} for every actor seed that names a vocabulary
    present in 00-contracts/schemas/."
   []
-  (->> (file-seq (io/file "20-actors"))
-       (filter #(and (str/includes? (.getPath %) "/data/")
-                     (str/ends-with? (.getName %) ".kotoba.edn")))
+  (->> (io/file-seq (io/file "20-actors"))
+       (filter #(and (str/includes? (io/path %) "/data/")
+                     (str/ends-with? (io/file-name %) ".kotoba.edn")))
        (keep (fn [f]
                (when-let [vh (vocab-of f)]
                  (let [sp (str "00-contracts/schemas/" vh ".kotoba.edn")]
-                   (when (.exists (io/file sp))
-                     {:actor (-> f .getParentFile .getParentFile .getName)
-                      :schema sp :seed (.getPath f)})))))
+                   (when (io/exists? (io/file sp))
+                     {:actor (-> f io/parent-file io/parent-file io/file-name)
+                      :schema sp :seed (io/path f)})))))
        (sort-by :actor)
        vec))
 

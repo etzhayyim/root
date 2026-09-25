@@ -7,7 +7,7 @@
   This is the integration seam — routing + body parsing + the /actor/<h>/did.json route
   + dispatch wiring — that the unit suites each exercise only in isolation."
   (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]
             [cheshire.core :as json]
             [etzhayyim.pds.server :as server]
@@ -27,7 +27,7 @@
 (defn- tmp-dir [] (str (System/getProperty "java.io.tmpdir") "/pds-integ-" (System/nanoTime)))
 (defn- rm-rf [dir]
   (let [d (io/file dir)]
-    (when (.exists d) (doseq [f (.listFiles d)] (.delete f)) (.delete d))))
+    (when (io/exists? d) (doseq [f (io/list-files d)] (io/delete f)) (io/delete d))))
 
 (defn- ->handler-transport
   "Adapt a ring handler to the client's (fn [method url body]) transport, driving the

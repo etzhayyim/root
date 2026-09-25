@@ -23,7 +23,7 @@
   A regression test (`repo-conformance-test`) pins this namespace to the lib's
   @atproto golden vectors."
   (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.edn :as edn]
             [etzhayyim.aozora.repo.dag-cbor :as dc]
             [etzhayyim.aozora.repo.cid :as acid]
@@ -129,7 +129,7 @@
   [path]
   (let [f (io/file path)
         kf (KeyFactory/getInstance "Ed25519")]
-    (if (.exists f)
+    (if (io/exists? f)
       (let [m (edn/read-string (slurp f))]
         {:private (.generatePrivate kf (PKCS8EncodedKeySpec. (b64d (:priv m))))
          :public  (.generatePublic  kf (X509EncodedKeySpec. (b64d (:pub m))))})
@@ -286,14 +286,14 @@
         out
         (let [e (first es)
               ;; key = prevkey[0:p] ‖ suffix-bytes (p counts UTF-8 BYTES, lib-canonical)
-              prevb (.getBytes ^String prevkey "UTF-8")
+              prevb (kbytes/utf8-bytes ^String prevkey)
               keyb (let [pfx (Arrays/copyOfRange prevb 0 (int (get e "p")))
                          suf ^bytes (get e "k")
                          out (byte-array (+ (alength pfx) (alength suf)))]
                      (System/arraycopy pfx 0 out 0 (alength pfx))
                      (System/arraycopy suf 0 out (alength pfx) (alength suf))
                      out)
-              key (String. ^bytes keyb "UTF-8")
+              key (kbytes/utf8-string ^bytes keyb)
               t (get e "t")
               out (conj out [key (cidk (get e "v"))])
               out (if t (into out (mst-records blocks (cidk t))) out)]

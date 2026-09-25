@@ -3,7 +3,8 @@
 ;; content-addressed commit-DAG (tx) を作る。各 designation は ATTRIBUTED event (自分の :asserter を
 ;; 持ち etzhayyim は何も authored しない)。tx-cid = sha256 over (prev-cid, datoms) → commit-DAG。
 (ns kosatsu.methods.kotoba
-  (:import [java.security MessageDigest]))
+  (:import [java.security MessageDigest])
+  (:require [kotoba.bytes :as kbytes]))
 
 (def id-keys [:authority/id :subject/id :designation/id])
 
@@ -32,7 +33,7 @@
   (vec (mapcat flatten-rows [(:authorities g) (:subjects g) (:designations g)])))
 
 (defn- sha256-hex [^String s]
-  (let [d (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
+  (let [d (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes s))]
     (apply str (map #(format "%02x" (bit-and % 0xff)) d))))
 
 (defn- canonical

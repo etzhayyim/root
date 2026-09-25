@@ -95,7 +95,7 @@
 
 (defn graph-cid ^String [^String name]
   ;; KotobaCid::from_bytes(name) — CIDv1 dag-cbor sha2-256, base32lower, 'b' prefix.
-  (let [digest (.digest (MessageDigest/getInstance "SHA-256") (.getBytes name "UTF-8"))
+  (let [digest (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes name))
         raw (byte-array (concat [(unchecked-byte 0x01) (unchecked-byte 0x71)
                                  (unchecked-byte 0x12) (unchecked-byte 0x20)]
                                 (seq digest)))]

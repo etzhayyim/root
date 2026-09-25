@@ -1,7 +1,7 @@
 ;; ported from 70-tools/scripts/kotoba-migration-bakeoff/runs/elv-body-shred/gemma/original_cell.py (unit_refactor stage 0)
 ;; ElvBodyShredCell — hodoki R0 Pregel cell (L4).
 (ns runs.elv-body-shred.gemma.original-cell
-  (:require [clojure.string] [clojure.set] [clojure.edn]))
+  (:require [clojure.string] [kotoba.lang.coll] [clojure.edn]))
 
 (declare elv-body-shred-cell all)
 

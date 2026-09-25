@@ -7,7 +7,7 @@
   them byte-for-byte, which proves the repo's record/MST block CIDs are
   spec-exact (resolving ADR-2606242330 staged #2) while every block lives on the
   kotoba Datom log (never an @atproto/repo side store)."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing]]
             [etzhayyim.aozora.repo.dag-cbor :as dc]
             [etzhayyim.aozora.repo.cid :as cid]
             [etzhayyim.aozora.repo.blockstore :as bs]
@@ -41,7 +41,7 @@
     (is (= (cid/cid-of {"a" 1 "b" 2 "c" 3})
            (cid/cid-of (array-map "c" 3 "a" 1 "b" 2)))))
   (testing "floats are rejected (AT Proto records disallow them)"
-    (is (thrown? clojure.lang.ExceptionInfo (dc/encode {"f" 1.5})))))
+    (is (thrown? kerror/ExceptionInfo (dc/encode {"f" 1.5})))))
 
 (deftest blockstore-on-datom-log
   (let [store (bs/->mem-blockstore)

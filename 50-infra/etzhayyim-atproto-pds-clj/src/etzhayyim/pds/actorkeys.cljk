@@ -14,7 +14,7 @@
   actor; no one — operator or platform — can read its private scalar.
 
   Pure JVM/babashka, no external deps."
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [clojure.string :as str]
             [etzhayyim.pds.keys :as keys]
             [etzhayyim.pds.config :as cfg]))
@@ -38,7 +38,7 @@
                     {:actor actor-did})))
   (let [p (key-path dir actor-did)
         f (io/file p)]
-    (if (.exists f)
+    (if (io/exists? f)
       (keys/unseal (keys/json->seal (slurp f)) secret)
       (let [k (keys/new-actor-key)]
         (io/make-parents p)
@@ -61,8 +61,8 @@
   read). Returns an empty index when the dir is absent."
   [dir]
   (let [d (io/file dir)
-        files (when (and dir (.isDirectory d))
-                (filter #(.endsWith (.getName %) ".json") (seq (.listFiles d))))]
+        files (when (and dir (io/directory? d))
+                (filter #(.endsWith (io/file-name %) ".json") (seq (io/list-files d))))]
     {"actors"
      (->> files
           (keep (fn [f]
@@ -131,6 +131,6 @@
   [dir secret handle]
   (when (and dir (not (str/blank? (str secret))) (not (str/blank? (str handle))))
     (let [actor (handle->actor-did handle)]
-      (if (.exists (io/file (key-path dir actor)))
+      (if (io/exists? (io/file (key-path dir actor)))
         {:status 200 :body (did-document-for dir actor secret (str handle ".etzhayyim.com"))}
         {:status 404 :body {"error" "NotFound" "message" (str "no key for " actor)}}))))

@@ -1,7 +1,7 @@
 ;; etzhayyim.kotoba.test-query — Datalog subset over a live EAVT triple set. Run: bb test:kotoba
 ;; Pins patterns, joins, :in inputs, predicate/not/or clauses, and aggregates.
 (ns etzhayyim.kotoba.test-query
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim.kotoba.query :as q]))
 
 (def live
@@ -26,7 +26,7 @@
   (testing "allowlisted predicate filters bound values"
     (is (= #{["p1"]} (q/q '{:find [?e] :where [[?e :age ?a] [(> ?a 18)]]} live))))
   (testing "an unsupported predicate throws"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (q/q '{:find [?e] :where [[?e :age ?a] [(bogus ?a 1)]]} live)))))
 
 (deftest not-and-or-clauses

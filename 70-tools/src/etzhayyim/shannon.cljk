@@ -49,7 +49,7 @@
 ;;   ;    :items []}
 
 (ns etzhayyim.shannon
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [etzhayyim.shannon-scores :as ss])
   #?(:clj (:import [java.security MessageDigest])))
 
@@ -160,7 +160,7 @@
   [s]
   #?(:clj
      (let [digest (MessageDigest/getInstance "SHA-256")
-           bytes  (.digest digest (.getBytes s "UTF-8"))]
+           bytes  (.digest digest (kbytes/utf8-bytes s))]
        (apply str (map #(format "%02x" (bit-and % 0xff)) (take 8 bytes))))
      :cljs
      ;; In ClojureScript / SCI we fall back to a simple djb2-style hash

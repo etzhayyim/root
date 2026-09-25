@@ -3,7 +3,7 @@
   space (scalars / strings / bytes / arrays / maps / CID links), and reverses
   the record/commit block bytes (`cid/block`). Pairs with repo-test's
   ipfs-verified encode side."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing]]
             [etzhayyim.aozora.repo.dag-cbor :as dc]
             [etzhayyim.aozora.repo.cid :as cid]))
 
@@ -26,7 +26,7 @@
 
 (deftest decode-bytes
   (testing "byte strings round-trip"
-    (let [bs (.getBytes "shalom-bytes" "UTF-8")]
+    (let [bs (kbytes/utf8-bytes "shalom-bytes")]
       (is (= (seq bs) (seq (get (dc/decode (dc/encode {"b" bs})) "b")))))))
 
 (deftest decode-reverses-block

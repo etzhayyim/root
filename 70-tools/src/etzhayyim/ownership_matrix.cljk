@@ -5,7 +5,7 @@
 ;; `kbb -M:rad:ownership-matrix` writes; `--check` is the freshness gate.
 (ns etzhayyim.ownership-matrix
   (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]
             [cheshire.core :as json]
@@ -13,8 +13,8 @@
 
 (defn- read-manifest [f]
   (let [f (io/file f)]
-    (when (.exists f)
-      (if (str/ends-with? (.getName f) ".edn")
+    (when (io/exists? f)
+      (if (str/ends-with? (io/file-name f) ".edn")
         (edn/read-string (slurp f))
         (json/parse-string (slurp f) true)))))
 
@@ -23,14 +23,14 @@
    for every actor that declares a :substrate :datasets block."
   [actors-dir]
   (keep (fn [d]
-          (when (.isDirectory d)
-            (let [name (.getName d)
+          (when (io/directory? d)
+            (let [name (io/file-name d)
                   f (or (io/file (str actors-dir "/" name "/manifest.edn"))
                         (io/file (str actors-dir "/" name "/manifest.jsonld"))
                         (io/file (str actors-dir "/" name "/actor-manifest.jsonld")))]
               (when-let [m (read-manifest f)]
                 {:actor name :datasets (-> m :substrate :datasets)}))))
-        (.listFiles (io/file actors-dir))))
+        (io/list-files (io/file actors-dir))))
 
 (defn generate
   "Join declared (manifests) + attested (RAD journals) holdings into a matrix.
@@ -68,7 +68,7 @@
         out       "80-data/kotoba-rad/ownership-matrix.edn"
         rendered  (render matrix)]
     (if check?
-      (let [disk (when (.exists (io/file out)) (slurp out))]
+      (let [disk (when (io/exists? (io/file out)) (slurp out))]
         (if (= disk rendered)
           (do (println "✓ ownership-matrix.edn up to date")
               (System/exit 0))

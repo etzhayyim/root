@@ -12,13 +12,13 @@
   VERIFIED: the root CIDs this builder produces are byte-identical to the
   official `@atproto/repo` MST (mst_test.clj golden vectors from
   `MST.create(...).add(k, cid).getPointer()`)."
-  (:require [etzhayyim.aozora.repo.cid :as cid]
+  (:require [kotoba.bytes :as kbytes] [etzhayyim.aozora.repo.cid :as cid]
             [etzhayyim.aozora.repo.dag-cbor :as dc]
             [etzhayyim.aozora.repo.blockstore :as bs])
   (:import [java.security MessageDigest]
            [java.util Arrays]))
 
-(defn- utf8 ^bytes [^String s] (.getBytes s "UTF-8"))
+(defn- utf8 ^bytes [^String s] (kbytes/utf8-bytes s))
 (defn- sha256 ^bytes [^bytes b] (.digest (MessageDigest/getInstance "SHA-256") b))
 
 (defn leading-zeros

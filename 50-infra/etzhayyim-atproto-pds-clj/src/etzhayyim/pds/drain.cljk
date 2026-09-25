@@ -11,7 +11,7 @@
 
   Stdlib + the PDS client; no external deps."
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]
             [etzhayyim.pds.client :as client]))
 
@@ -145,7 +145,7 @@
   idempotent, and writing receipts NDJSON to `:receipts-path`. Stdlib file IO; the
   posting uses the live HTTP client (the actor holds no key — the PDS signs)."
   [{:keys [base queue-path cursor-path receipts-path transport leash]}]
-  (let [seed (if (and cursor-path (.exists (io/file cursor-path)))
+  (let [seed (if (and cursor-path (io/exists? (io/file cursor-path)))
                (set (remove str/blank? (str/split-lines (slurp cursor-path)))) #{})
         res (run-queue! base (slurp queue-path)
                         (cond-> {:posted seed}

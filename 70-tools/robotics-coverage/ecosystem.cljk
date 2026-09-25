@@ -11,16 +11,16 @@
 ;; Per ADR-2606142000 (Clojure-first GAP-actor wave).
 (ns robotics-coverage.ecosystem
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 (def wave-actors ["kuramori" "soma" "madomori" "kudamori"])
 
-(defn- slurp* [p] (when (.exists (io/file p)) (slurp p)))
+(defn- slurp* [p] (when (io/exists? (io/file p)) (slurp p)))
 
 (defn actor-exists?
   "True iff `name` is a real flat west actor checkout."
   [name]
-  (.isDirectory (io/file (str "orgs/etzhayyim/com-etzhayyim-" name))))
+  (io/directory? (io/file (str "orgs/etzhayyim/com-etzhayyim-" name))))
 
 (defn edges-of
   "Extract directed handoff edges from one actor's handoff.clj as [from to] pairs.

@@ -8,9 +8,9 @@
 ;;   - ChaCha20-Poly1305 AEAD: RFC 8439 §2.8.2
 
 (ns etzhayyim.kotoba.test-crypto
-  (:require [clojure.edn :as edn]
+  (:require [kotoba.bytes :as kbytes] [clojure.edn :as edn]
             [clojure.test :refer [deftest is testing]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]
             [etzhayyim.kotoba.crypto :as c]
             [etzhayyim.kotoba.encrypted :as enc])
@@ -45,7 +45,7 @@
     ;; XChaCha collapses to IETF AEAD on the derived subkey; here we feed a
     ;; 24-byte nonce whose HChaCha20 path we cross-check via the round-trip below,
     ;; and pin the inner IETF AEAD through the JDK on the documented 12-byte nonce.
-    (let [pt (.getBytes "Ladies and Gentlemen of the class of '99: If I could offer you only one tip for the future, sunscreen would be it." "UTF-8")
+    (let [pt (kbytes/utf8-bytes "Ladies and Gentlemen of the class of '99: If I could offer you only one tip for the future, sunscreen would be it.")
           ;; reach the inner cipher through a 24-byte nonce that makes n12 = the
           ;; RFC nonce 07000000|4041424344454647 and subkey = the RFC key.
           ;; Simpler: validate via the public JDK path used by crypto/*.
@@ -64,7 +64,7 @@
   (let [key (hex->b key-80-9f)
         n24 (hex->b "404142434445464748494a4b4c4d4e4f5051525354555657")
         aad (hex->b "50515253c0c1c2c3c4c5c6c7")
-        pt (.getBytes "kotoba encrypted record" "UTF-8")
+        pt (kbytes/utf8-bytes "kotoba encrypted record")
         ct+tag (c/xchacha20-poly1305-encrypt key n24 aad pt)]
     (testing "decrypt recovers plaintext"
       (is (= (b->hex pt) (b->hex (c/xchacha20-poly1305-decrypt key n24 aad ct+tag)))))
@@ -104,7 +104,7 @@
 (deftest encrypted-plaintext-decoder-rejects-reader-eval
   (is (thrown? RuntimeException
                (enc/*decode-plaintext*
-                (.getBytes "#=(System/getProperty \"user.home\")" "UTF-8")))))
+                (kbytes/utf8-bytes "#=(System/getProperty \"user.home\")")))))
 
 (def ^:private vectors-path
   "00-contracts/lexicons/com/etzhayyim/encrypted/test-vectors.json")
@@ -113,7 +113,7 @@
   ;; The 00-contracts vectors file is the language-neutral bit-identical gate for
   ;; kotoba-crypto. Re-derive it from the reference impl so the JSON and the code
   ;; can never silently drift. Skips if the file is absent.
-  (when (.exists (io/file vectors-path))
+  (when (io/exists? (io/file vectors-path))
     (let [v (json/parse-string (slurp vectors-path) true)
           prim (:primitives v)
           env-v (:envelope v)]

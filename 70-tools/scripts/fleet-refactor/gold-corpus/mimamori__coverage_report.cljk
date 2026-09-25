@@ -6,7 +6,7 @@
 ;; engine は {:kept {bond keeper} :state {bond status} :datoms […]} の純データとして渡す。
 (ns mimamori.methods.coverage-report
   (:require [clojure.string :as str]
-            [clojure.set :as set]))
+            [kotoba.lang.coll :as set]))
 
 (defn coverage-of-engine
   "engine と roster から aggregate-only coverage を計算する (G5)。"

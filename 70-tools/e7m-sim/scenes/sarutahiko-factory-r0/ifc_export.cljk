@@ -14,7 +14,7 @@
 ;; the `__main__` demo) lives behind #?(:clj ...). The Python `main` (which reads
 ;; factory.scene.json + building.edn) is provided as `-main` on :clj only.
 (ns e7m-sim.scenes.sarutahiko-factory-r0.ifc-export
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [kotoba.io :as kio] [clojure.string :as str]
             #?(:clj [cheshire.core :as json])))
 
 (def ^:private guid-chars
@@ -25,7 +25,7 @@
 (defn ifc-guid [^String k]
   #?(:clj
      (let [bytes (.digest (java.security.MessageDigest/getInstance "MD5")
-                          (.getBytes k "UTF-8"))
+                          (kbytes/utf8-bytes k))
            num (reduce (fn [^java.math.BigInteger acc b]
                          (.add (.shiftLeft acc 8)
                                (java.math.BigInteger/valueOf (bit-and b 0xff))))
@@ -307,7 +307,7 @@
      "Faithful port of the Python main(): read factory.scene.json (JSON) +
      building.edn, export factory.ifc, print a summary."
      [& _args]
-     (let [here (str (.getParent (java.io.File. (str *file*))))
+     (let [here (str (kio/parent (kio/file (str *file*))))
            scene (read-scene-json (slurp (str here "/factory.scene.json")))
            ;; building.edn parsed by the sibling sbom-gen EDN reader if loadable,
            ;; else clojure.edn (the file is plain EDN data).

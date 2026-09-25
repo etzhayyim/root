@@ -15,12 +15,12 @@
 ;; Run: kbb 70-tools/scripts/audit/test_kamado_invariants.cljk   (exit 1 on any drift)
 (ns test-kamado-invariants
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]))
 
 (def repo
   ;; this file lives at <repo>/70-tools/scripts/audit/ — repo root is 3 dirs up.
-  (-> (io/file *file*) .getAbsoluteFile .getParentFile .getParentFile .getParentFile .getParentFile))
+  (-> (io/file *file*) io/absolute-file io/parent-file io/parent-file io/parent-file io/parent-file))
 
 (defn- p [& parts] (str (apply io/file repo parts)))
 (def ontology (p "00-contracts" "schemas" "refining-ontology.kotoba.edn"))

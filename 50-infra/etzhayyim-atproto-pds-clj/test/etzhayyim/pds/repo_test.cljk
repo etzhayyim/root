@@ -21,12 +21,12 @@
     (let [kp  (repo/gen-keypair)
           mb  (repo/pubkey-multibase (.getPublic kp))
           pub (repo/multibase->pubkey mb)               ; what a relay reconstructs from did.json
-          msg (.getBytes "etzhayyim-path-b" "UTF-8")
+          msg (kbytes/utf8-bytes "etzhayyim-path-b")
           sig (repo/sign (.getPrivate kp) msg)]
       ;; a sig made with the private key verifies against the RECONSTRUCTED public key
       (is (true? (repo/verify pub msg sig)))
       ;; a tampered message does NOT verify
-      (is (false? (repo/verify pub (.getBytes "tampered" "UTF-8") sig))))))
+      (is (false? (repo/verify pub (kbytes/utf8-bytes "tampered") sig))))))
 
 (deftest base58btc-decode-rejects-invalid-characters
   ;; base58btc-decode's inner reduce used to feed String.indexOf's -1
@@ -105,7 +105,7 @@
           kp2  (repo/load-or-create-keypair path)            ; reloaded from disk
           mb1  (repo/pubkey-multibase (:public kp1))
           mb2  (repo/pubkey-multibase (:public kp2))
-          msg  (.getBytes "stable" "UTF-8")]
+          msg  (kbytes/utf8-bytes "stable")]
       (is (= mb1 mb2) "the published identity is stable across restart")
       ;; a sig from the RELOADED private key verifies against the ORIGINAL public key
       (is (true? (repo/verify (:public kp1) msg (repo/sign (:private kp2) msg))))
@@ -138,7 +138,7 @@
           actor  "did:web:etzhayyim.com:actor:unspsc-2"
           store  (store/->mem-store (ak/registry-signer dir secret))
           mk     (ak/multikey-for dir actor secret)
-          msg    (.getBytes "the-unsigned-commit-bytes" "UTF-8")
+          msg    (kbytes/utf8-bytes "the-unsigned-commit-bytes")
           sig    (store/commit-sig store actor msg)]
       (try
         (is (bytes? sig))

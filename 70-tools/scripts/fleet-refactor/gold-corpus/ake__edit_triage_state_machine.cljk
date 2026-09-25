@@ -6,7 +6,7 @@
 ;;
 ;; cell の状態遷移は「現状態 map → 新状態 map」の純関数。score-edit は I/O 注入。
 (ns ake.cells.edit-triage.state-machine
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.error :as kerror] [clojure.string :as str]))
 
 (def phases #{:init :triaged :refused})
 
@@ -47,5 +47,5 @@
                           :by (:by cs)}
                 :refusal ""
                 :phase :triaged)})
-      (catch clojure.lang.ExceptionInfo e
+      (catch kerror/ExceptionInfo e
         {:cell-state (assoc cs :refusal (ex-message e) :phase :refused)}))))

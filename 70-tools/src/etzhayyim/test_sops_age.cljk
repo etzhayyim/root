@@ -8,7 +8,7 @@
 (ns etzhayyim.test-sops-age
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [etzhayyim.sops-age :as sops]
             [etzhayyim.kotoba-rad :as rad]
             [etzhayyim.kotoba.log :as log]
@@ -73,7 +73,7 @@
           cipher (sops/enc-path plain)
           marker "S3CR3T-pAssw0rd-do-not-leak"]
       (io/delete-file jpath true)
-      (.mkdirs (io/file tmpdir))
+      (io/mkdirs (io/file tmpdir))
       (try
         (let [{:keys [secret recipient]} (sops/gen-key)]
           ;; bind the recipient to the (throwaway) identity so recipients-for works

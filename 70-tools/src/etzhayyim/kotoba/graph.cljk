@@ -7,7 +7,7 @@
 ;; [?e :supply.edge/to ?t]]}). Cycle-safe.
 
 (ns etzhayyim.kotoba.graph
-  (:require [kotoba.lang.coll :as kcoll] [clojure.set :as set]))
+  (:require [kotoba.lang.coll :as kcoll] [kotoba.lang.coll :as set]))
 
 (defn adjacency
   "{node -> #{successors}} from a seq of [from to] edge pairs."

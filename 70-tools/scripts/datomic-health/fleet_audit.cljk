@@ -22,11 +22,11 @@
 ;; touches no actor data, no network (no-server-key). Exit 0 iff every audited actor is healthy.
 (ns datomic-health.fleet-audit
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 (def repo-root
   ;; this file = 70-tools/scripts/datomic-health/fleet_audit.cljk → up 4 = repo root
-  (-> *file* io/file .getCanonicalFile .getParentFile .getParentFile .getParentFile .getParentFile))
+  (-> *file* io/file io/canonical-file io/parent-file io/parent-file io/parent-file io/parent-file))
 
 (def actors-dir (io/file repo-root "orgs" "etzhayyim"))
 
@@ -34,11 +34,11 @@
   "Every com-etzhayyim-* checkout that carries BOTH methods/kotoba.cljc and
   methods/autorun.cljc — the datomic-ledger family. Sorted, deterministic."
   []
-  (->> (.listFiles actors-dir)
-       (filter #(.isDirectory %))
-       (filter (fn [d] (and (.exists (io/file d "methods" "kotoba.cljc"))
-                            (.exists (io/file d "methods" "autorun.cljc")))))
-       (map #(subs (.getName %) (count "com-etzhayyim-")))
+  (->> (io/list-files actors-dir)
+       (filter #(io/directory? %))
+       (filter (fn [d] (and (io/exists? (io/file d "methods" "kotoba.cljc"))
+                            (io/exists? (io/file d "methods" "autorun.cljc")))))
+       (map #(subs (io/file-name %) (count "com-etzhayyim-")))
        sort
        vec))
 

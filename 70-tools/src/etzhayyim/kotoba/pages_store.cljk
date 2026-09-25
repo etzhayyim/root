@@ -21,9 +21,9 @@
 ;; actor:publish git path (no-server-key). clj/bb; HTTP via babashka.http-client.
 
 (ns etzhayyim.kotoba.pages-store
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]
             [babashka.process :as p]
             [babashka.http-client :as http]
@@ -35,7 +35,7 @@
 
 ;; ── log <-> blocks (each datom a block; a root manifest links them) ──────────
 
-(defn- ->bytes ^bytes [s] (.getBytes ^String s "UTF-8"))
+(defn- ->bytes ^bytes [s] (kbytes/utf8-bytes ^String s))
 
 (defn blocks-of-log
   "Map a kotoba Datom log (vector of [e a v tx op]) to content-addressed blocks:
@@ -164,11 +164,11 @@
   (if (= :prolly (:layout index))
     (prolly/walk (get-fn ranger index) (:root index))
     (let [root (:root index)
-          manifest (edn/read-string (String. (get-block ranger index root) "UTF-8"))]
+          manifest (edn/read-string (kbytes/utf8-string (get-block ranger index root)))]
       (when-not (:kotoba/car-root manifest)
         (throw (ex-info "root is not a kotoba CAR manifest" {:root root})))
       (mapv (fn [cid-str]
-              (edn/read-string (String. (get-block ranger index cid-str) "UTF-8")))
+              (edn/read-string (kbytes/utf8-string (get-block ranger index cid-str))))
             (:blocks manifest)))))
 
 (defn seek
@@ -198,7 +198,7 @@
         (when-not (zero? exit)
           (throw (ex-info (str "gh repo create failed: " (str/trim (str err))) {:repo full})))))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/kotoba-deploy-" (System/currentTimeMillis))]
-      (.mkdirs (io/file tmp))
+      (io/mkdirs (io/file tmp))
       (p/sh "cp" "-R" (str dir "/.") tmp)
       (git-c tmp "init" "-q" "-b" branch)
       (git-c tmp "add" "-A")

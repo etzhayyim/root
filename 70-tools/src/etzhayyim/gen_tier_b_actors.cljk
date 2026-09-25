@@ -23,7 +23,7 @@
 (ns etzhayyim.gen-tier-b-actors
   (:require [clojure.string :as str]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]))
 
 (def ^:private actors-dir
@@ -83,7 +83,7 @@
         ef    (io/file dir "manifest.edn")
         ;; Unified manifest view with mjs-equivalent keys.
         m     (cond
-                (.exists jf)
+                (io/exists? jf)
                 (try (let [raw (slurp jf)
                            j (json/parse-string raw)]
                        {:tier (get j "tier")
@@ -94,7 +94,7 @@
                         :adrs (jsonld-adr-ids raw)})
                      (catch Exception _ nil))
 
-                (.exists ef)
+                (io/exists? ef)
                 (try (let [e (edn/read-string (slurp ef))
                            tier (:actor/tier e)]
                        {:tier (if (keyword? tier)
@@ -173,11 +173,11 @@
 
 (defn collect []
   (let [hand (hand-authored)]
-    (->> (sort (keep #(let [n (.getName %)]
-                        (when (and (.isDirectory %)
+    (->> (sort (keep #(let [n (io/file-name %)]
+                        (when (and (io/directory? %)
                                    (str/starts-with? n "com-etzhayyim-"))
                           (subs n (count "com-etzhayyim-"))))
-                      (.listFiles (io/file actors-dir))))
+                      (io/list-files (io/file actors-dir))))
          (keep #(try (read-record % hand) (catch Exception _ nil)))
          ;; Compatibility repositories may temporarily expose the canonical
          ;; actor id until their redirect tombstone pin lands. Keep the first

@@ -3,7 +3,7 @@
 ;; 90-docs/poc/2606251200-squint-tithe; this pins the shared .cljc on the JVM/bb side
 ;; (the actor/TitheRouter face) so "write once, run both" holds.
 (ns etzhayyim.test-tithe
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim.tithe :as t]))
 
 (deftest split-tithe-math
@@ -20,17 +20,17 @@
       (let [{:keys [gross tithe net]} (t/split-tithe g)]
         (is (= gross (+ tithe net))))))
   (testing "negative gross throws"
-    (is (thrown? clojure.lang.ExceptionInfo (t/split-tithe -1N)))))
+    (is (thrown? kerror/ExceptionInfo (t/split-tithe -1N)))))
 
 (deftest parse-micros-validation
   (is (= 123N (t/parse-micros "123")))
   (is (= 0N (t/parse-micros "0")))
   (is (= 123456789012345N (t/parse-micros "123456789012345")))
   (testing "non-numeric / signed / empty input throws"
-    (is (thrown? clojure.lang.ExceptionInfo (t/parse-micros "abc")))
-    (is (thrown? clojure.lang.ExceptionInfo (t/parse-micros "-1")))
-    (is (thrown? clojure.lang.ExceptionInfo (t/parse-micros "")))
-    (is (thrown? clojure.lang.ExceptionInfo (t/parse-micros "12.5")))))
+    (is (thrown? kerror/ExceptionInfo (t/parse-micros "abc")))
+    (is (thrown? kerror/ExceptionInfo (t/parse-micros "-1")))
+    (is (thrown? kerror/ExceptionInfo (t/parse-micros "")))
+    (is (thrown? kerror/ExceptionInfo (t/parse-micros "12.5")))))
 
 (deftest end-to-end-parse-then-split
   (let [{:keys [tithe net]} (t/split-tithe (t/parse-micros "1000000"))]
@@ -48,7 +48,7 @@
            (t/order-tithe [{:unit-price-micros "100" :qty 3} {:unit-price-micros "50" :qty 2}])))
     (is (= {:gross 0N :tithe 0N :net 0N} (t/order-tithe []))))
   (testing "a bad unit-price string in a line throws (parse-micros guard)"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (t/order-total-micros [{:unit-price-micros "x" :qty 1}])))))
 
 (defn -main [& _]

@@ -13,7 +13,7 @@
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is testing]]
             [scripts.lint.verify-no-modal-labs-calls :as v]
-            #?(:clj [clojure.java.io :as io])
+            #?(:clj [kotoba.io :as io])
             #?(:clj [babashka.process :as p])))
 
 ;; ── pure scan: clean strings carry no violation ──────────────────
@@ -92,10 +92,10 @@
      (let [root (str (System/getProperty "java.io.tmpdir")
                      "/modal-gate-parity-" (System/currentTimeMillis))
            pkg (io/file root v/package-root)]
-       (.mkdirs pkg)
+       (io/mkdirs pkg)
        (doseq [[rel content] files]
          (let [f (io/file pkg rel)]
-           (.mkdirs (.getParentFile f))
+           (io/mkdirs (io/parent-file f))
            (spit f content)))
        root)))
 

@@ -24,7 +24,7 @@
 
 (ns etzhayyim.actor-evolve
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [babashka.process :as p]
             [etzhayyim.kotoba.datom :as d]
             [etzhayyim.kotoba.log :as log]
@@ -53,10 +53,10 @@
    (or are git-ignored) — never committed raw."
   [actor]
   (let [dir (io/file (secrets-dir actor))]
-    (when (.isDirectory dir)
-      (->> (file-seq dir)
-           (filter #(.isFile %))
-           (map #(.getPath %))
+    (when (io/directory? dir)
+      (->> (io/file-seq dir)
+           (filter #(io/file? %))
+           (map #(io/path %))
            (remove #(str/includes? % ".enc."))
            (filter #(structured-exts (last (str/split % #"\."))))
            sort))))
@@ -87,7 +87,7 @@
         (data-prefix actor)
         (str rad/journal-dir "/" actor ".identity.journal.edn")
         ".sops.yaml"]
-       (filter #(.exists (io/file %)))
+       (filter #(io/exists? (io/file %)))
        vec))
 
 ;; ── identity: record the evolution + re-attest the signed head ───────────────
@@ -179,7 +179,7 @@
       (when pages?
         (let [dir (pages-dir actor)
               jpath (rad/journal-path actor)]
-          (if (and apply? (.exists (io/file jpath)))
+          (if (and apply? (io/exists? (io/file jpath)))
             (let [r (pages/publish! dir actor (log/read-log jpath))]
               (git "add" "--" dir)
               (println "  [pages]    " (str dir "/" actor ".car")

@@ -3,7 +3,8 @@
 ;; 5-axis scores (各 0-100) を append-only event log の fold で導出。replay-events が as-of mood query。
 ;; scores は不変 map {:joy :calm :stress :gratitude :focus}。fold は純関数 (new scores を返す)。
 (ns ibuki.methods.joucho
-  (:import [java.security MessageDigest]))
+  (:import [java.security MessageDigest])
+  (:require [kotoba.bytes :as kbytes]))
 
 (def axes [:joy :calm :stress :gratitude :focus])
 
@@ -13,7 +14,7 @@
   "決定的な per-organism baseline: sha256(code) → [25,75] の 5 値。stress 軸は [25,65] に制限
   (stress は LIVED event から来る — 生まれつき永久 stressed を避ける)。I/O なし。"
   [code]
-  (let [h (.digest (MessageDigest/getInstance "SHA-256") (.getBytes (str code) "UTF-8"))
+  (let [h (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes (str code)))
         v (fn [i] (+ 25 (mod (bit-or (bit-shift-left (bit-and (aget h (* i 2)) 0xff) 8)
                                      (bit-and (aget h (inc (* i 2))) 0xff))
                              51)))

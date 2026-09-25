@@ -33,7 +33,7 @@
 ;;   kbb --classpath 70-tools/src -e "(require 'etzhayyim.cohort)(println :ok)"
 
 (ns etzhayyim.cohort
-  (:require [clojure.string :as str]
+  (:require [kotoba.io :as kio] [clojure.string :as str]
             [cheshire.core  :as json]
             #?(:bb [babashka.http-client :as http])))
 
@@ -421,7 +421,7 @@
 
            (= sub "diff")
            (let [[a b] pos]
-             (if (and a b (.exists (java.io.File. ^String a)) (.exists (java.io.File. ^String b)))
+             (if (and a b (kio/exists? (kio/file ^String a)) (kio/exists? (kio/file ^String b)))
                (let [d (diff-snapshots (json/parse-string (slurp a) true)
                                        (json/parse-string (slurp b) true))]
                  (if (get opts "--json")
@@ -432,11 +432,11 @@
 
            (= sub "drift")
            (let [dir (get opts "--dir" "data/cohort-coverage")
-                 d (java.io.File. ^String dir)]
-             (if-not (.exists d)
+                 d (kio/file ^String dir)]
+             (if-not (kio/exists? d)
                (binding [*out* *err*] (println (str "snapshot dir not found: " dir)))
-               (let [files (sort (filter #(str/ends-with? (.getName ^java.io.File %) ".json")
-                                         (seq (.listFiles d))))]
+               (let [files (sort (filter #(str/ends-with? (kio/file-name %) ".json")
+                                         (seq (kio/list-files d))))]
                  (if (< (count files) 2)
                    (binding [*out* *err*] (println "need at least 2 snapshots for drift analysis"))
                    (let [a (json/parse-string (slurp (first files)) true)
