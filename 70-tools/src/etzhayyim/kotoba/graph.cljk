@@ -7,7 +7,7 @@
 ;; [?e :supply.edge/to ?t]]}). Cycle-safe.
 
 (ns etzhayyim.kotoba.graph
-  (:require [clojure.set :as set]))
+  (:require [kotoba.lang.coll :as kcoll] [clojure.set :as set]))
 
 (defn adjacency
   "{node -> #{successors}} from a seq of [from to] edge pairs."
@@ -86,7 +86,7 @@
      (fn [cb s]
        ;; single-source: BFS order S, predecessors P, path counts sigma, dist d
        (let [{:keys [order P sigma]}
-             (loop [q (conj clojure.lang.PersistentQueue/EMPTY s)
+             (loop [q (conj kcoll/empty-queue s)
                     order [] P {} sigma {s 1} d {s 0}]
                (if (empty? q)
                  {:order order :P P :sigma sigma}
