@@ -17,7 +17,7 @@
   datoms [uri :record/did did] [uri :record/collection coll] [uri :record/rkey
   rkey] [uri :record/cid cid] [uri :record/value <json>] [uri :record/createdAt
   ts]. Deletes append a tombstone [uri :record/deleted true]."
-  (:require [cheshire.core :as json]
+  (:require [kotoba.bytes :as kbytes] [cheshire.core :as json]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [babashka.http-client :as http]
@@ -56,7 +56,7 @@
     "Return {:did :collections [coll ..] :count n}."))
 
 (defn- b64-decode ^bytes [^String s]
-  (.decode (java.util.Base64/getDecoder) s))
+  (kbytes/base64-decode-bytes s))
 
 ;; ── in-process datom-log backend ─────────────────────────────────────────────
 ;; State: an atom holding the ordered datom log (vector of [e a v]). Reads fold

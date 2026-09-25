@@ -17,13 +17,12 @@
 ;; (fixed 44-byte structure for Ed25519) — verified equivalent in tests.
 
 (ns etzhayyim.kotoba-rad-sign
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [babashka.process :as p]
             [etzhayyim.kotoba-rad :as rad]
             [ed25519.core :as ed])
   (:import (java.security KeyPairGenerator Signature KeyFactory)
-           (java.security.spec PKCS8EncodedKeySpec X509EncodedKeySpec)
-           (java.util Base64)))
+           (java.security.spec PKCS8EncodedKeySpec X509EncodedKeySpec)))
 
 ;; ── hex / base32 (RFC4648 lower, no pad — inverse of cid.cljc's base32) ──────
 
@@ -79,13 +78,13 @@
   []
   (let [kp (.generateKeyPair (KeyPairGenerator/getInstance "Ed25519"))
         pub-hex (pub->raw-hex (.getPublic kp))]
-    {:priv-b64 (.encodeToString (Base64/getEncoder) (.getEncoded (.getPrivate kp)))
+    {:priv-b64 (kbytes/base64-encode (.getEncoded (.getPrivate kp)))
      :pub-hex pub-hex
      :did-key (rad/did-key pub-hex)}))
 
 (defn- load-priv [^String priv-b64]
   (.generatePrivate (KeyFactory/getInstance "Ed25519")
-                    (PKCS8EncodedKeySpec. (.decode (Base64/getDecoder) priv-b64))))
+                    (PKCS8EncodedKeySpec. (kbytes/base64-decode-bytes priv-b64))))
 
 (defn sign-bytes ^bytes [^String priv-b64 ^bytes msg]
   (let [s (Signature/getInstance "Ed25519")]
@@ -137,7 +136,7 @@
    (com-junkawasaki/ed25519-clj). This is the derivation bb's JCA can't do — it
    removes the need for callers to carry pub-hex alongside the private key."
   ^String [^String priv-b64]
-  (let [seed (byte-array (take-last 32 (seq (.decode (Base64/getDecoder) priv-b64))))]
+  (let [seed (byte-array (take-last 32 (seq (kbytes/base64-decode-bytes priv-b64))))]
     (ed/hexify (ed/pubkey-from-seed seed))))
 
 (defn sign-fn-for-actor

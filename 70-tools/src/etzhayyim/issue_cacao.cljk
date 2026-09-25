@@ -40,21 +40,20 @@
 ;; actor. The actor only ever sees `cacao_b64` (opaque) + the sidecar metadata.
 
 (ns etzhayyim.issue-cacao
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [ed25519.core :as ed]
             [cacao.core :as cacao])
   (:import (java.security KeyPairGenerator KeyFactory Signature MessageDigest)
            (java.security.spec PKCS8EncodedKeySpec)
-           (java.time ZonedDateTime)
-           (java.util Base64)))
+           (java.time ZonedDateTime)))
 
 (def ^:const capability "datom:transact")
 (def ^:const default-domain "kotoba.etzhayyim.com")
 
 ;; ── encodings ───────────────────────────────────────────────────────────────
 
-(defn- b64 ^String [^bytes b] (.encodeToString (Base64/getEncoder) b))
-(defn- unb64 ^bytes [^String s] (.decode (Base64/getDecoder) s))
+(defn- b64 ^String [^bytes b] (kbytes/base64-encode b))
+(defn- unb64 ^bytes [^String s] (kbytes/base64-decode-bytes s))
 
 (defn hexify ^String [^bytes b]
   (apply str (map #(format "%02x" (bit-and (int %) 0xff)) b)))
@@ -166,7 +165,7 @@
 (defn- seed-from-priv-b64
   "The raw 32-byte Ed25519 seed is the tail of a PKCS8-encoded private key."
   ^bytes [^String priv-b64]
-  (byte-array (take-last 32 (seq (.decode (Base64/getDecoder) priv-b64)))))
+  (byte-array (take-last 32 (seq (kbytes/base64-decode-bytes priv-b64)))))
 
 (defn issue
   "Mint the delegation bundle. `key` = {:priv-b64 … :pub-hex …} (the member's key).
@@ -219,7 +218,7 @@
    does it. Returns {:priv-b64 <PKCS8 b64> :pub-hex <raw32 hex>}."
   [seed-hex]
   (let [seed (ed/unhex seed-hex)]
-    {:priv-b64 (.encodeToString (Base64/getEncoder) (.getEncoded (ed/private-from-seed seed)))
+    {:priv-b64 (kbytes/base64-encode (.getEncoded (ed/private-from-seed seed)))
      :pub-hex  (ed/hexify (ed/pubkey-from-seed seed))}))
 
 (defn -main [& args]

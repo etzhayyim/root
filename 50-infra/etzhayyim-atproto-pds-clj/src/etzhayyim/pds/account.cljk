@@ -3,20 +3,19 @@
   hash) live in a small EDN file; sessions are HS256 JWTs signed with a PDS secret.
   Write methods can be auth-scoped (a Bearer whose `sub` did matches the repo) when
   PDS_REQUIRE_AUTH is set — otherwise writes stay open (operator-gated at the network)."
-  (:require [cheshire.core :as json]
+  (:require [kotoba.bytes :as kbytes] [cheshire.core :as json]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.string :as str])
   (:import [javax.crypto Mac SecretKeyFactory]
            [javax.crypto.spec PBEKeySpec SecretKeySpec]
-           [java.security MessageDigest SecureRandom]
-           [java.util Base64]))
+           [java.security MessageDigest SecureRandom]))
 
 ;; ── base64url ────────────────────────────────────────────────────────────────
 
-(defn- b64url [^bytes b] (-> (.encodeToString (Base64/getUrlEncoder) b) (str/replace "=" "")))
+(defn- b64url [^bytes b] (-> (kbytes/base64url-encode b) (str/replace "=" "")))
 (defn- b64url-dec ^bytes [^String s]
-  (.decode (Base64/getUrlDecoder) (str s (apply str (repeat (mod (- 4 (mod (count s) 4)) 4) "=")))))
+  (kbytes/base64url-decode-bytes (str s (apply str (repeat (mod (- 4 (mod (count s) 4)) 4) "=")))))
 
 ;; ── password hashing (PBKDF2-HMAC-SHA256) ────────────────────────────────────
 

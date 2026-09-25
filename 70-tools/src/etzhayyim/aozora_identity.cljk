@@ -22,7 +22,7 @@
 ;; app-aozora-pds enforces session DID == repo DID; the old
 ;; CACAO-Bearer-at-createRecord model returns 403 there.
 (ns etzhayyim.aozora-identity
-  (:require [clojure.edn :as edn]
+  (:require [kotoba.bytes :as kbytes] [clojure.edn :as edn]
             [clojure.java.io :as io]
             [cheshire.core :as json]
             [babashka.http-client :as http]
@@ -31,10 +31,10 @@
   (:import [java.security KeyPairGenerator]
            [java.time Instant]
            [java.time.temporal ChronoUnit]
-           [java.util Arrays Base64 UUID]))
+           [java.util Arrays UUID]))
 
-(defn- b64->bytes ^bytes [^String s] (.decode (Base64/getDecoder) s))
-(defn- bytes->b64 ^String [^bytes b] (.encodeToString (Base64/getEncoder) b))
+(defn- b64->bytes ^bytes [^String s] (kbytes/base64-decode-bytes s))
+(defn- bytes->b64 ^String [^bytes b] (kbytes/base64-encode b))
 
 (defn- last-32 ^bytes [^bytes b]
   (when (>= (alength b) 32)

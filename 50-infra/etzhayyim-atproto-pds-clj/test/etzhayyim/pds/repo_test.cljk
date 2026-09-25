@@ -3,13 +3,13 @@
   the Ed25519-signed commit, the did:key multibase publication, and CAR round-trip.
   The crux is the RELAY-side property — a verifier holding ONLY the published
   `publicKeyMultibase` can reconstruct the key and verify the repo commit `sig`."
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim.pds.repo :as repo]
             [etzhayyim.pds.keys :as keys]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.actorkeys :as ak]))
 
-(defn- b64 ^String [^bytes b] (.encodeToString (java.util.Base64/getEncoder) b))
+(defn- b64 ^String [^bytes b] (kbytes/base64-encode b))
 
 (deftest multibase-publishes-an-ed25519-did-key
   (testing "pubkey-multibase emits an atproto did:key Multikey (z6Mk…)"

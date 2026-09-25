@@ -5,6 +5,10 @@
  ;; NOT re-implemented. Resolves in the monorepo checkout where the
  ;; PDS runs `kbb -M:serve` (both are tracked siblings under 50-infra/).
  :paths ["src" "test" "../app-aozora-repo/src"]
+ :deps {
+        ;; kotoba.bytes replaced java.util.Base64 here (2026-09-24). An explicit
+        ;; floor: tools.deps takes the NEWEST sha it is shown.
+        io.github.kotoba-lang/bytes {:git/sha "d5259f35ab7c4f5a66e63ca29ed4dcf7ba3f1ac5"}}
  :tasks
  {serve
   {:doc "Run the PDS HTTP server (PORT, PDS_HOST, KOTOBA_URL env overridable)."

@@ -17,16 +17,15 @@
 ;; The AEAD/envelope framing is independent of this choice.
 
 (ns etzhayyim.kotoba.encrypted
-  (:require #?(:clj [clojure.edn :as edn])
+  (:require [kotoba.bytes :as kbytes] #?(:clj [clojure.edn :as edn])
             [scripts.nbb-compat :as compat]
             [etzhayyim.kotoba.cid :as cid]
-            [etzhayyim.kotoba.crypto :as crypto])
-  #?(:clj (:import (java.util Base64))))
+            [etzhayyim.kotoba.crypto :as crypto]))
 
 (defn- b64 ^String [^bytes b]
-  #?(:clj (.encodeToString (Base64/getEncoder) b) :cljs nil))
+  #?(:clj (kbytes/base64-encode b) :cljs nil))
 (defn- unb64 ^bytes [^String s]
-  #?(:clj (.decode (Base64/getDecoder) s) :cljs nil))
+  #?(:clj (kbytes/base64-decode-bytes s) :cljs nil))
 
 (defn- sha256 ^bytes [^bytes b] (cid/sha2-256-digest b))
 (defn- hexpref [^bytes b ^long nchars]

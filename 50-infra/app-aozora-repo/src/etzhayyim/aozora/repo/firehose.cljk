@@ -7,10 +7,9 @@
   persisted to the kotoba blockstore as a seq-indexed log (`:firehose/*` datoms)
   so subscribeRepos can replay from a cursor — same canonical Datom log, no
   parallel store. (The WebSocket transport is a thin wrapper over `replay`.)"
-  (:require [etzhayyim.aozora.repo.dag-cbor :as dc]
+  (:require [kotoba.bytes :as kbytes] [etzhayyim.aozora.repo.dag-cbor :as dc]
             [etzhayyim.aozora.repo.blockstore :as bs])
-  (:import [java.io ByteArrayOutputStream]
-           [java.util Base64]))
+  (:import [java.io ByteArrayOutputStream]))
 
 (defn commit-frame
   "Encode a #commit firehose frame (header ‖ body, both dag-cbor). `ev` =
@@ -38,8 +37,8 @@
     (.write o body 0 (alength body))
     (.toByteArray o)))
 
-(defn- b64e [^bytes b] (.encodeToString (Base64/getEncoder) b))
-(defn- b64d ^bytes [^String s] (.decode (Base64/getDecoder) s))
+(defn- b64e [^bytes b] (kbytes/base64-encode b))
+(defn- b64d ^bytes [^String s] (kbytes/base64-decode-bytes s))
 
 (defn append!
   "Persist a #commit frame to the firehose log on `store`. Returns its seq."
