@@ -22,7 +22,7 @@
   relay-registered, so no cached external CID depends on the old (wrong) roots.
   A regression test (`repo-conformance-test`) pins this namespace to the lib's
   @atproto golden vectors."
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [etzhayyim.aozora.repo.dag-cbor :as dc]
@@ -34,15 +34,15 @@
            [java.math BigInteger]
            [java.security MessageDigest KeyPairGenerator Signature KeyFactory]
            [java.security.spec PKCS8EncodedKeySpec X509EncodedKeySpec]
-           [java.util Base64 Arrays]))
+           [java.util Arrays]))
 
 ;; ── hashing / base64 ─────────────────────────────────────────────────────────
 
 (defn- sha256 ^bytes [^bytes b]
   (.digest (MessageDigest/getInstance "SHA-256") b))
 
-(defn- b64e [^bytes b] (.encodeToString (Base64/getEncoder) b))
-(defn- b64d ^bytes [^String s] (.decode (Base64/getDecoder) s))
+(defn- b64e [^bytes b] (kbytes/base64-encode b))
+(defn- b64d ^bytes [^String s] (kbytes/base64-decode-bytes s))
 
 ;; ── DAG-CBOR + CID (delegated to the canonical lib) ──────────────────────────
 ;; This namespace threads a CID link as {::cid <binary-cid-bytes>} (the form the

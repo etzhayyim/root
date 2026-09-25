@@ -4,7 +4,7 @@
   (:require [clojure.test :refer [deftest is testing]]
             [etzhayyim.pds.keys :as keys]
             [etzhayyim.pds.config :as cfg])
-  (:import [java.util Base64]
+  (:import
            [java.math BigInteger]))
 
 (defn- bytes->vec [^bytes b] (mapv #(bit-and % 0xff) b))

@@ -31,8 +31,7 @@
 
 (ns etzhayyim.identity
   (:require [clojure.string :as str])
-  #?(:clj (:import [java.security MessageDigest]
-                   [java.util Base64])))
+  #?(:clj (:import [java.security MessageDigest])))
 
 ;; ── path DID derivation ──────────────────────────────────────────────────────
 

@@ -1,7 +1,7 @@
 (ns etzhayyim.tools.test-maturation-agent
   "Tests for the langgraph-clj maturation agent (port of
   70-tools/langgraph_maturation_agent.py)."
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as kio] [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.test :refer [deftest is testing use-fixtures]]
             [etzhayyim.tools.maturation-agent :as agent]))
@@ -31,9 +31,8 @@
   (.delete f))
 
 (defn- with-fixture-dir [f]
-  (let [root (.toFile (java.nio.file.Files/createTempDirectory
-                       "maturation-agent-test"
-                       (make-array java.nio.file.attribute.FileAttribute 0)))]
+  (let [root (kio/temp-dir
+                       "maturation-agent-test")]
     (try
       (mk-actor! root "foo-compat")
       (mk-actor! root "bar-compat")

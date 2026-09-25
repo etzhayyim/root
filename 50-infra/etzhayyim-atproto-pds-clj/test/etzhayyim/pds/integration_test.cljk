@@ -6,7 +6,7 @@
   and the post surfaces in both the author feed and the cross-actor discover feed.
   This is the integration seam — routing + body parsing + the /actor/<h>/did.json route
   + dispatch wiring — that the unit suites each exercise only in isolation."
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.java.io :as io]
             [clojure.string :as str]
             [cheshire.core :as json]
@@ -19,7 +19,7 @@
             [etzhayyim.pds.config :as cfg]
             [etzhayyim.pds.util :as util]))
 
-(defn- b64 ^String [^bytes b] (.encodeToString (java.util.Base64/getEncoder) b))
+(defn- b64 ^String [^bytes b] (kbytes/base64-encode b))
 
 (def secret "node-secret")
 (def handle "unspsc-30202000")

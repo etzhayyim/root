@@ -4,12 +4,11 @@
 ;; (or via run_tests.clj). No network, no external key material.
 
 (ns etzhayyim.issue-cacao-test
-  (:require [clojure.test :refer [deftest is run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is run-tests]]
             [clojure.string :as str]
-            [etzhayyim.issue-cacao :as ic])
-  (:import (java.util Base64)))
+            [etzhayyim.issue-cacao :as ic]))
 
-(defn- unb64 ^bytes [^String s] (.decode (Base64/getDecoder) s))
+(defn- unb64 ^bytes [^String s] (kbytes/base64-decode-bytes s))
 
 (deftest graph-cid-matches-engine-vector
   ;; KotobaCid::from_bytes("social"), verified byte-identical against a live

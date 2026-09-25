@@ -1,7 +1,7 @@
 (ns etzhayyim.pds.server-test
   "Round-trip tests for the independent etzhayyim PDS: identity is etzhayyim (no
   gftd), and the datom-log store survives create/get/list/put/delete."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
             [cheshire.core :as json]
             [etzhayyim.pds.config :as cfg]
@@ -414,7 +414,7 @@
           (.setSoTimeout sock 2500)
           (let [out (.getOutputStream sock)
                 in (.getInputStream sock)
-                wskey (.encodeToString (java.util.Base64/getEncoder) (.getBytes "0123456789abcdef"))
+                wskey (kbytes/base64-encode (.getBytes "0123456789abcdef"))
                 req (str "GET /xrpc/com.atproto.sync.subscribeRepos HTTP/1.1\r\n"
                          "Host: localhost\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n"
                          "Sec-WebSocket-Key: " wskey "\r\nSec-WebSocket-Version: 13\r\n\r\n")

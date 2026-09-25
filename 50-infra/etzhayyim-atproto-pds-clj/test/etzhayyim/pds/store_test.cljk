@@ -3,7 +3,7 @@
   DurableStore (same datom-log semantics), so the core persistence layer has its own
   coverage independent of the xrpc/server handlers that use it. KotobaStore needs the
   live kotoba engine and is covered at cutover, not here."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing]]
             [clojure.java.io :as io]
             [clojure.string :as str]
             [cheshire.core :as json]
@@ -18,7 +18,7 @@
 
 ;; a deterministic fake signer: {:sig <b64> :multikey <str>}; commit-sig decodes :sig.
 (def ^bytes sig-bytes (byte-array (map byte (range 1 65))))   ; 64 raw bytes (P-256 compact)
-(def sig-b64 (.encodeToString (java.util.Base64/getEncoder) sig-bytes))
+(def sig-b64 (kbytes/base64-encode sig-bytes))
 (defn- fake-signer [_did _msg] {:sig sig-b64 :multikey "zDnaFAKEkeyForStoreContract"})
 
 ;; ── the shared contract, run against each backend ────────────────────────────

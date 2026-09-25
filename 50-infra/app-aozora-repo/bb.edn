@@ -1,6 +1,10 @@
 {;; app-aozora-repo — AT Protocol repo layer (dag-cbor / CIDv1 / blocks / commit)
  ;; on the kotoba Datom log. babashka runner, no external deps.
  :paths ["src" "test"]
+ :deps {
+        ;; kotoba.bytes replaced java.util.Base64 here (2026-09-24). An explicit
+        ;; floor: tools.deps takes the NEWEST sha it is shown.
+        io.github.kotoba-lang/bytes {:git/sha "d5259f35ab7c4f5a66e63ca29ed4dcf7ba3f1ac5"}}
  :tasks
  {test
   {:doc "Spec-conformance + round-trip suite (CIDs vs go-ipfs; MST vs @atproto/repo)."

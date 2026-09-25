@@ -14,7 +14,7 @@
   `MemBlockstore` folds an in-process atom of [e a v] datoms (single-node / dev /
   tests); a kotoba-engine backend mirrors the same datoms over the live engine
   (parity with `etzhayyim.pds.store/->kotoba-store`, wired at P2 cutover)."
-  (:import [java.util Base64]))
+  (:require [kotoba.bytes :as kbytes]))
 
 (defprotocol BlockStore
   (put-block  [_ cid data] "Persist block bytes under `cid`. Returns cid.")
@@ -27,8 +27,8 @@
   (read-attr  [_ e a]      "Latest value of attribute `a` on entity `e`, or nil.")
   (block-count [_]         "Number of distinct blocks held."))
 
-(defn- b64e [^bytes b] (.encodeToString (Base64/getEncoder) b))
-(defn- b64d ^bytes [^String s] (.decode (Base64/getDecoder) s))
+(defn- b64e [^bytes b] (kbytes/base64-encode b))
+(defn- b64d ^bytes [^String s] (kbytes/base64-decode-bytes s))
 
 (defn- latest-v
   "Latest value of attribute `a` on entity `e` in the append-only log."

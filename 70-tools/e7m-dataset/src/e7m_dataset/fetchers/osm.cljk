@@ -14,7 +14,7 @@
     europe/germany/berlin      -> europe/germany/berlin-latest.osm.pbf
 
   source maps stay string-keyed, byte-for-byte the shapes Python produced."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.io :as kio] [clojure.string :as str]))
 
 (def default-base-url "https://download.geofabrik.de")
 
@@ -111,7 +111,7 @@
              ;; the local sha256 of the downloaded PBF.
              revision (if md5-text
                         (str "md5:" (str/trim (first (str/split md5-text #"\s+"))))
-                        (str "sha256:" (sha256-hex (java.nio.file.Files/readAllBytes (.toPath pbf-path)))))
+                        (str "sha256:" (sha256-hex (kio/read-all-bytes pbf-path))))
              files     (filter #(.isFile %) (.listFiles out-dir))
              size-bytes (reduce + 0 (map #(.length %) files))
              file-count (count files)]

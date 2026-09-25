@@ -13,7 +13,7 @@
 
   License/TOS: research-use. NOT Apache/CC0/CC-BY publishable — Tier C,
   internal-only. source maps stay string-keyed."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.io :as kio] [clojure.string :as str]))
 
 (def default-base "https://opendata.rapid7.com/sonar.fdns_v2")
 
@@ -69,7 +69,7 @@
              leaf       (last (str/split archive-file #"/"))
              archive-path (java.io.File. out-dir leaf)]
          (download! url archive-path)
-         (let [raw-sha   (sha256-hex (java.nio.file.Files/readAllBytes (.toPath archive-path)))
+         (let [raw-sha   (sha256-hex (kio/read-all-bytes archive-path))
                revision  (str "sha256:" raw-sha)
                files     (filter #(.isFile %) (file-seq out-dir))
                size-bytes (reduce + 0 (map #(.length %) files))
