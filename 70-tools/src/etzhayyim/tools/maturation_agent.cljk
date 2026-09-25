@@ -20,7 +20,7 @@
       LLM latency)
     - the actors dir is parameterized (no hardcoded \"20-actors\";
       `-main` passes \"20-actors\" to match the Python CLI behavior)."
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [clojure.string :as str]
             [langgraph.graph :as g]))
 
@@ -49,9 +49,9 @@
   "Sorted *-compat actor dirs under actors-dir.
   (In reality, this would use evaluate_maturity logic.)"
   [actors-dir]
-  (->> (.listFiles (io/file actors-dir))
-       (filter #(.isDirectory ^java.io.File %))
-       (map #(.getName ^java.io.File %))
+  (->> (io/list-files (io/file actors-dir))
+       (filter #(io/directory? %))
+       (map #(io/file-name %))
        (filter #(str/ends-with? % "-compat"))
        sort
        vec))
@@ -60,7 +60,7 @@
   "Appends text to path when the file exists (the Python silently skips
   missing files — preserved)."
   [path text]
-  (when (.exists (io/file path))
+  (when (io/exists? (io/file path))
     (spit path text :append true)))
 
 ;; ─── Node functions ──────────────────────────────────────────────────

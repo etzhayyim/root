@@ -14,7 +14,7 @@
 
 (ns etzhayyim.kotoba.schema
   (:require [clojure.edn :as edn]
-            [clojure.set :as set]
+            [kotoba.lang.coll :as set]
             [clojure.java.io :as io]
             [etzhayyim.kotoba.datom :as d]))
 

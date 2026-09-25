@@ -3,7 +3,7 @@
   member; expiry / audience / scope / tamper all rejected; garbage never throws."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [etzhayyim.pds.leash :as leash]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.xrpc :as xrpc]
@@ -137,7 +137,7 @@
         (let [s2 (store/->durable-store path)
               r  (store/get-record s2 cfg/pds-did "app.bsky.feed.post" "d1")]
           (is (= (:did m) (:author r)) "the consenting member is recovered from the journal"))
-        (finally (.delete (io/file path)))))))
+        (finally (io/delete (io/file path)))))))
 
 (deftest author-is-readable-back-via-getrecord-and-listrecords
   (testing "the consenting member is OBSERVABLE on read (accountability by consent)"

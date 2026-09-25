@@ -3,17 +3,17 @@
 ;; Covers the pure crypto/identity helpers (OAuth/PKCE/HTTP legs are IO-deferred):
 ;; b64url-encode · parse-jwt-claims (unverified) · prefer-token · build-auth-store.
 (ns etzhayyim.test-authn
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
             [cheshire.core :as json]
             [etzhayyim.authn :as authn]))
 
 (deftest b64url-encode-no-padding
   (testing "URL-safe base64 without '=' padding"
-    (is (= "aGVsbG8" (authn/b64url-encode (.getBytes "hello" "UTF-8"))))
-    (is (not (re-find #"=" (authn/b64url-encode (.getBytes "any padding?" "UTF-8")))))))
+    (is (= "aGVsbG8" (authn/b64url-encode (kbytes/utf8-bytes "hello"))))
+    (is (not (re-find #"=" (authn/b64url-encode (kbytes/utf8-bytes "any padding?")))))))
 
 (defn- jwt-of [claims]
-  (str "h." (authn/b64url-encode (.getBytes ^String (json/generate-string claims) "UTF-8")) ".sig"))
+  (str "h." (authn/b64url-encode (kbytes/utf8-bytes ^String (json/generate-string claims))) ".sig"))
 
 (deftest parse-jwt-claims-unverified
   (testing "sub + email are extracted from the (unverified) payload segment"

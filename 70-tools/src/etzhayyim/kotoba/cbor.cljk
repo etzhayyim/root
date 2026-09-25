@@ -17,7 +17,7 @@
 ;; Validated against RFC 8949 Appendix A test vectors (see test_cbor).
 
 (ns etzhayyim.kotoba.cbor
-  (:require [clojure.string :as str])
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str])
   (:import (java.io ByteArrayOutputStream)))
 
 ;; ── encode ──
@@ -56,9 +56,9 @@
     (boolean? v)        (write-byte o (if v 0xf5 0xf4))
     (integer? v)        (if (neg? v) (write-head o 1 (dec (- v))) (write-head o 0 v))
     (keyword? v)        (let [s (subs (str v) 1)
-                              b (.getBytes s "UTF-8")]
+                              b (kbytes/utf8-bytes s)]
                           (write-head o 3 (alength b)) (.write o b))
-    (string? v)         (let [b (.getBytes ^String v "UTF-8")]
+    (string? v)         (let [b (kbytes/utf8-bytes ^String v)]
                           (write-head o 3 (alength b)) (.write o b))
     (bytes? v)          (do (write-head o 2 (alength ^bytes v)) (.write o ^bytes v))
     (map? v)            (let [pairs (map (fn [[k val]] [(enc-bytes k) val k]) v)
@@ -93,7 +93,7 @@
       0 [n j]
       1 [(- (- n) 1) j]
       2 (let [bs (java.util.Arrays/copyOfRange b j (+ j n))] [bs (+ j n)])
-      3 [(String. (java.util.Arrays/copyOfRange b j (+ j n)) "UTF-8") (+ j n)]
+      3 [(kbytes/utf8-string (java.util.Arrays/copyOfRange b j (+ j n))) (+ j n)]
       4 (loop [k 0 idx j acc []]
           (if (< k n)
             (let [[v nx] (decode-at b idx)] (recur (inc k) nx (conj acc v)))

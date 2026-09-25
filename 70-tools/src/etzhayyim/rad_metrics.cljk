@@ -32,7 +32,7 @@
 ;;   bb rad:metrics                       ;; pprint {:rad {...}} to stdout
 ;;   bb rad:metrics --out metrics/etzhayyim.edn   ;; write the {:rad {...}} fragment
 (ns etzhayyim.rad-metrics
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]
             [etzhayyim.kotoba.datom :as d]
@@ -158,17 +158,17 @@
    seq of datom vectors. Sorted by filename for cross-OS reproducibility (see
    etzhayyim.data-provenance/all-holdings)."
   [rad-dir]
-  (->> (file-seq (io/file rad-dir))
-       (filter #(and (.isFile %)
-                     (str/ends-with? (.getName %) ".identity.journal.edn")))
-       (sort-by #(.getName %))
-       (mapv #(log/read-log (.getPath %)))))
+  (->> (io/file-seq (io/file rad-dir))
+       (filter #(and (io/file? %)
+                     (str/ends-with? (io/file-name %) ".identity.journal.edn")))
+       (sort-by #(io/file-name %))
+       (mapv #(log/read-log (io/path %)))))
 
 (defn read-give-datoms
   "Read the give ledger (append-only kotoba journal) if present, else []. No
    fabrication: absent ledger ⇒ 0 funding events."
   [give-ledger]
-  (if (and give-ledger (.exists (io/file give-ledger)))
+  (if (and give-ledger (io/exists? (io/file give-ledger)))
     (log/read-log give-ledger)
     []))
 

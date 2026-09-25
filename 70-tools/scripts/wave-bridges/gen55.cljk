@@ -7,9 +7,8 @@
 ;; Python "__main__" demo (writes lexicon JSON + BPMN XML, writes per-actor DDL
 ;; to /tmp/wave13/w55_NN.sql) is ported behind #?(:clj ...) as `-main`.
 (ns scripts.wave-bridges.gen55
-  (:require [clojure.string :as str]
-            #?(:clj [cheshire.core :as json]))
-  #?(:clj (:import [java.io File])))
+  (:require [kotoba.io :as kio] [clojure.string :as str]
+            #?(:clj [cheshire.core :as json])))
 
 (def repo "/Users/junkawasaki/github/etzhayyim/root")
 
@@ -296,8 +295,8 @@
 ;; --- host I/O demo (Python __main__) ---
 #?(:clj
    (defn- write-text! [^String path ^String content]
-     (let [f (File. path)]
-       (.mkdirs (.getParentFile f))
+     (let [f (kio/file path)]
+       (kio/mkdirs (kio/parent-file f))
        (spit f content))))
 
 #?(:clj
@@ -305,8 +304,8 @@
      (doseq [[i a] (map-indexed (fn [i a] [(inc i) a]) actors)]
          (let [bd (str repo "/00-contracts/bpmn/com/etzhayyim/open-" (get a "slug"))
                ld (str repo "/00-contracts/lexicons/com/etzhayyim/apps/" (get a "app"))]
-           (.mkdirs (File. bd))
-           (.mkdirs (File. ld))
+           (kio/mkdirs (kio/file bd))
+           (kio/mkdirs (kio/file ld))
            (doseq [m (get a "methods")]
              (write-text! (str ld "/" (get m "name") ".json")
                           (json/generate-string (gen-lexicon a m) {:pretty true}))

@@ -8,7 +8,7 @@
   and verifies the result against the actor's PUBLISHED multikey — no shared key.
 
   Stdlib + babashka.http-client; the `transport` is injectable so tests run offline."
-  (:require [cheshire.core :as json]
+  (:require [kotoba.bytes :as kbytes] [cheshire.core :as json]
             [babashka.http-client :as http]
             [etzhayyim.pds.keys :as keys]))
 
@@ -66,4 +66,4 @@
   [base handle cid sig & {:keys [transport] :or {transport default-transport}}]
   (boolean
    (when-let [mk (resolve-actor-multikey base handle :transport transport)]
-     (and cid sig (keys/verify-b64 mk (.getBytes ^String cid "UTF-8") sig)))))
+     (and cid sig (keys/verify-b64 mk (kbytes/utf8-bytes ^String cid) sig)))))

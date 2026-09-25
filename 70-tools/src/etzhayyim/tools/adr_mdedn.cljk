@@ -16,7 +16,7 @@
 
   Pure clojure.core + clojure.edn + clojure.string (babashka-compatible)."
   (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]))
 
 ;; ── canonical front-matter key order (matches 90-docs/adr/template.md) ───────
@@ -218,8 +218,8 @@
   preferring plain `.edn` then `.md.edn` then `.md`. Excludes README / template /
   MDEDN / adr-index."
   [dir]
-  (let [names (->> (.listFiles (io/file dir))
-                   (map #(.getName %))
+  (let [names (->> (io/list-files (io/file dir))
+                   (map #(io/file-name %))
                    (filter #(or (re-matches #".*\.md(\.edn)?$" %)
                                 (and (str/ends-with? % ".edn")
                                      (not (str/ends-with? % ".md.edn")))))
@@ -313,7 +313,7 @@
   ([dir] (check-index dir (str dir "/adr-index.edn")))
   ([dir out]
    (let [want (emit-index (gen-index dir))
-         have (if (.exists (io/file out)) (slurp out) "")]
+         have (if (io/exists? (io/file out)) (slurp out) "")]
      (if (= want have)
        {:ok true :count (count (gen-index dir))}
        {:ok false :reason (str out " is stale — run `kbb -M:adr:index` and commit")}))))

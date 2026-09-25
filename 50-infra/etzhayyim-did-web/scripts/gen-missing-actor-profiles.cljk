@@ -12,13 +12,13 @@
   (:require [clojure.string :as str]
             [clojure.edn :as edn]
             [cheshire.core :as json]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 (def script-dir (str (io/file *file*)))
 (def here (io/file *file*))
-(def repo-root (.getParentFile (.getParentFile (.getParentFile (.getParentFile here)))))
+(def repo-root (io/parent-file (io/parent-file (io/parent-file (io/parent-file here)))))
 (def seed-path (str (io/file repo-root "00-contracts/schemas/actor-profile-seed.kotoba.edn")))
-(def etzhayyim-dir (str (io/file (.getParentFile (.getParentFile repo-root)) "etzhayyim")))
+(def etzhayyim-dir (str (io/file (io/parent-file (io/parent-file repo-root)) "etzhayyim")))
 
 ;; ── read existing handles from seed ────────────────────────────────────────
 (defn read-existing-handles []
@@ -30,12 +30,12 @@
 ;; ── read all com-etzhayyim-* repos ────────────────────────────────────────
 (binding [*out* *err*]
   (println "repo-root:" (str repo-root))
-  (println "seed-path:" seed-path "exists:" (.exists (io/file seed-path)))
-  (println "etzhayyim-dir:" etzhayyim-dir "exists:" (.exists (io/file etzhayyim-dir))))
+  (println "seed-path:" seed-path "exists:" (io/exists? (io/file seed-path)))
+  (println "etzhayyim-dir:" etzhayyim-dir "exists:" (io/exists? (io/file etzhayyim-dir))))
 (defn read-all-repos []
-  (->> (.listFiles (io/file etzhayyim-dir))
-       (filter #(.isDirectory %))
-       (map #(.getName %))
+  (->> (io/list-files (io/file etzhayyim-dir))
+       (filter #(io/directory? %))
+       (map #(io/file-name %))
        (filter #(.startsWith ^String % "com-etzhayyim-"))
        (map #(str/replace ^String % #"^com-etzhayyim-" ""))
        sort))
@@ -43,9 +43,9 @@
 ;; ── read manifest.jsonld or actor-manifest.jsonld ──────────────────────────
 (defn read-manifest [handle]
   (let [repo-dir (str (io/file etzhayyim-dir (str "com-etzhayyim-" handle)))
-        json-file (or (when (.exists (io/file repo-dir "manifest.jsonld"))
+        json-file (or (when (io/exists? (io/file repo-dir "manifest.jsonld"))
                         "manifest.jsonld")
-                      (when (.exists (io/file repo-dir "actor-manifest.jsonld"))
+                      (when (io/exists? (io/file repo-dir "actor-manifest.jsonld"))
                         "actor-manifest.jsonld"))]
     (cond
       json-file
@@ -54,7 +54,7 @@
            (catch Exception e
              {:raw (slurp (str (io/file repo-dir json-file))) :file json-file}))
 
-      (.exists (io/file repo-dir "manifest.edn"))
+      (io/exists? (io/file repo-dir "manifest.edn"))
       (try {:data (edn/read-string (slurp (str (io/file repo-dir "manifest.edn"))))
             :file "manifest.edn"}
            (catch Exception e

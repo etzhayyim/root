@@ -12,7 +12,7 @@
 (ns robotics-coverage.maturity
   (:require [clojure.edn :as edn]
             [clojure.string :as str]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 ;; The robotics-coverage wave + the actors whose GAPs they close (ADR-2606073001).
 (def actors
@@ -21,7 +21,7 @@
    {:id "madomori" :glyph "窓守" :occupation "高所/façade window clean" :adr "2606142020"}
    {:id "kudamori" :glyph "管守" :occupation "下水道/confined-space"    :adr "2606142030"}])
 
-(defn- slurp* [p] (when (.exists (io/file p)) (slurp p)))
+(defn- slurp* [p] (when (io/exists? (io/file p)) (slurp p)))
 
 (defn- count-re [s re] (if s (count (re-seq re s)) 0))
 
@@ -61,7 +61,7 @@
            :datom-day (boolean (let [d (slurp* (str base "/methods/datom_emit.clj"))]
                                  (and d (re-find #"emit-day|run-day" d))))
            :has-handoff (boolean (and methods-src (re-find #":handoff/" methods-src)))
-           :has-coverage (.exists (io/file (str base "/methods/coverage.clj")))
+           :has-coverage (io/exists? (io/file (str base "/methods/coverage.clj")))
            :pipeline-frac (when (and wired (pos? (count domain-methods)))
                             (/ (double wired) (count domain-methods)))
            ;; pull the ACTUAL occupation sub-task coverage fraction from the module

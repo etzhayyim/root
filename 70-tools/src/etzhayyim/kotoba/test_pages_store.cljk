@@ -3,9 +3,9 @@
 ;; ranger exercises identical index/slice/verify logic as the HTTP ranger).
 
 (ns etzhayyim.kotoba.test-pages-store
-  (:require [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.java.io :as io]
-            [clojure.set]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
+            [kotoba.io :as io]
+            [kotoba.lang.coll]
             [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.car :as car]
             [etzhayyim.kotoba.log :as klog]
@@ -55,10 +55,10 @@
             ranger (ps/file-ranger (str dir "/" graph ".car"))
             back (ps/fetch-log ranger index)]
         (testing "published artifacts exist"
-          (is (.exists (io/file (:car r))))
-          (is (.exists (io/file (:idx r))))
-          (is (.exists (io/file (:head-json r))))
-          (is (.exists (io/file (str dir "/.nojekyll")))))
+          (is (io/exists? (io/file (:car r))))
+          (is (io/exists? (io/file (:idx r))))
+          (is (io/exists? (io/file (:head-json r))))
+          (is (io/exists? (io/file (str dir "/.nojekyll")))))
         (testing "root resolves + the log reassembles datom-for-datom"
           (is (= (:root index) (:root r)))
           (is (= logv back) "reconstructed log == original")
@@ -73,7 +73,7 @@
 
 (deftest manifest-links-all-datoms
   (let [{:keys [root blocks]} (ps/blocks-of-log "cargo" logv)
-        man (clojure.edn/read-string (String. (second (first blocks)) "UTF-8"))]
+        man (clojure.edn/read-string (kbytes/utf8-string (second (first blocks))))]
     (is (true? (:kotoba/car-root man)))
     (is (= (count logv) (:count man)))
     (is (= (count logv) (count (:blocks man))) "manifest links every datom block")
@@ -117,7 +117,7 @@
         s2 (set (map first (:blocks t2)))]
     (is (not= (:root t1) (:root t2)) "root changes with content")
     (testing "most leaf/internal CIDs are SHARED (path-copy, not full rewrite)"
-      (is (pos? (count (clojure.set/intersection s1 s2)))))))
+      (is (pos? (count (kotoba.lang.coll/intersection s1 s2)))))))
 
 (deftest prolly-publish-query-roundtrip-file
   (let [dir (str (System/getProperty "java.io.tmpdir") "/etz-pages-prolly")

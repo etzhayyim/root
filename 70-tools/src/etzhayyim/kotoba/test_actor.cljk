@@ -11,9 +11,9 @@
 (ns etzhayyim.kotoba.test-actor
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]
-            [clojure.set :as set]
+            [kotoba.lang.coll :as set]
             [etzhayyim.kotoba.schema :as schema]
             [etzhayyim.kotoba.metrics :as metrics]
             [etzhayyim.kotoba.graph :as graph]
@@ -87,7 +87,7 @@
   ;; One assertion block per stalled 🟡 R0 mirror actor. Catches schema drift
   ;; (an undeclared attribute = a typo or an ontology that fell behind its data).
   (doseq [{:keys [actor schema seed] :as spec} actor-specs]
-    (when (and (.exists (io/file schema)) (.exists (io/file seed)))
+    (when (and (io/exists? (io/file schema)) (io/exists? (io/file seed)))
       (let [{:keys [undeclared value-violations ids-unique? ent-count vocab-size]}
             (conformance spec)]
         (testing (str actor " — every seed attribute is declared (no drift)")
@@ -106,22 +106,22 @@
   ;; data conforms (no undeclared attrs). Catches schema drift across the WHOLE
   ;; roster — not just the hand-listed table — and exercises the schema loader on
   ;; all five ontology dialects found in 00-contracts.
-  (let [seeds (->> (file-seq (io/file "20-actors"))
-                   (filter #(and (str/includes? (.getPath %) "/data/")
-                                 (str/ends-with? (.getName %) ".kotoba.edn"))))
+  (let [seeds (->> (io/file-seq (io/file "20-actors"))
+                   (filter #(and (str/includes? (io/path %) "/data/")
+                                 (str/ends-with? (io/file-name %) ".kotoba.edn"))))
         vocab-of (fn [f] (second (re-find #"vocabulary[:\s]+([a-z0-9-]+-ontology)"
                                           (apply str (take 600 (slurp f))))))
         results (for [f seeds
                       :let [vh (vocab-of f)
                             sp (when vh (str "00-contracts/schemas/" vh ".kotoba.edn"))]
-                      :when (and sp (.exists (io/file sp)))]
+                      :when (and sp (io/exists? (io/file sp)))]
                   (let [raw (try (edn/read-string (slurp f)) (catch Exception _ nil))
                         ms (cond (vector? raw) (filter map? raw)
                                  (map? raw) (mapcat (fn [[_ v]]
                                                       (when (and (sequential? v) (every? map? v)) v))
                                                     raw)
                                  :else nil)
-                        actor (-> f .getParentFile .getParentFile .getName)]
+                        actor (-> f io/parent-file io/parent-file io/file-name)]
                     {:actor actor
                      :undeclared (when (seq ms) (schema/undeclared-attrs (schema/load-vocabulary sp) ms))
                      :value-attrs (when (seq ms)
@@ -168,7 +168,7 @@
   ;; + canonical snapshot + maturity report, in one call.
   (let [schema "orgs/etzhayyim/com-etzhayyim-asobi/schema/asobi-ontology.kotoba.edn"
         seed "orgs/etzhayyim/com-etzhayyim-asobi/data/seed-asobi-graph.kotoba.edn"]
-    (when (and (.exists (io/file schema)) (.exists (io/file seed)))
+    (when (and (io/exists? (io/file schema)) (io/exists? (io/file seed)))
       (let [j (str (System/getProperty "java.io.tmpdir") "/etz-ing-j-" (System/nanoTime) ".edn")
             out (str (System/getProperty "java.io.tmpdir") "/etz-ing-" (System/nanoTime) ".kotoba.edn")]
         (try
@@ -213,7 +213,7 @@
   ;; is fully typed (50 attrs, 13 enums, unique :node/id …). Loading the REAL seed
   ;; with :validate? true exercises every write-path gate (type + enum + unique)
   ;; against real data: the completed engine × a real stalled actor.
-  (when (and (.exists (io/file keizu-schema)) (.exists (io/file keizu-seed)))
+  (when (and (io/exists? (io/file keizu-schema)) (io/exists? (io/file keizu-seed)))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-keizu-" (System/nanoTime) ".edn")
           d (edn/read-string (slurp keizu-seed))
           rows (map with-db-id (mapcat d [:nodes :committees :rels :money :statements]))]
@@ -238,7 +238,7 @@
   ;; The 取-concentration lens (keizu's purpose) computed END TO END on the
   ;; engine: aggregate query (payer -> #flows) → metrics/hhi. Currency-agnostic
   ;; count-based concentration (the money flows span JPY/USD/EUR).
-  (when (.exists (io/file keizu-seed))
+  (when (io/exists? (io/file keizu-seed))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-keizu-hhi-" (System/nanoTime) ".edn")
           money (:money (edn/read-string (slurp keizu-seed)))
           rows (map #(assoc % :db/id (:money/id %)) money)]
@@ -263,7 +263,7 @@
 (deftest keizu-relation-graph-pull
   ;; pull a procurement-award relation and follow it to the actual payer/payee
   ;; nodes — the graph-traversal the accountability lens needs, on the engine.
-  (when (.exists (io/file keizu-seed))
+  (when (io/exists? (io/file keizu-seed))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-keizu-pull-" (System/nanoTime) ".edn")
           d (edn/read-string (slurp keizu-seed))
           rows (map with-db-id (mapcat d [:nodes :committees :rels :money :statements]))]
@@ -283,7 +283,7 @@
 (deftest keizu-power-broker-betweenness
   ;; keizu's 取-concentration purpose: surface the BROKERS in the government↔
   ;; industry↔party power graph (rel source→target). Betweenness on the engine.
-  (when (.exists (io/file keizu-seed))
+  (when (io/exists? (io/file keizu-seed))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-kz-bw-" (System/nanoTime) ".edn")
           d (edn/read-string (slurp keizu-seed))
           rows (map with-db-id (mapcat d [:nodes :committees :rels :money :statements]))]
@@ -307,7 +307,7 @@
   ;; watatsuna 綿津綱 (ADR-2606012600, 🟡 R0) — its purpose is "chokepoint SPOF
   ;; routed to redundancy+repair". The station network (segments connect landing
   ;; stations) → betweenness surfaces the chokepoints. Computed on the engine.
-  (when (.exists (io/file watatsuna-seed))
+  (when (io/exists? (io/file watatsuna-seed))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-wt-" (System/nanoTime) ".edn")
           rows (map with-db-id (filter map? (edn/read-string (slurp watatsuna-seed))))]
       (try
@@ -338,7 +338,7 @@
   ;; kabuto 兜 (ADR-2606022000, 🟡 R0) public-company supply-chain KG — the
   ;; supplier-concentration lens at REAL scale (2496 entities) on the engine.
   ;; Also a performance sanity: load + aggregate of the whole seed completes fast.
-  (when (.exists (io/file kabuto-seed))
+  (when (io/exists? (io/file kabuto-seed))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-kabuto-" (System/nanoTime) ".edn")
           rows (map with-db-id (filter map? (edn/read-string (slurp kabuto-seed))))]
       (try
@@ -383,7 +383,7 @@
 (def ^:private asobi-seed "orgs/etzhayyim/com-etzhayyim-asobi/data/seed-asobi-graph.kotoba.edn")
 
 (deftest asobi-loads-into-engine-and-queries
-  (when (.exists (io/file asobi-seed))
+  (when (io/exists? (io/file asobi-seed))
     (let [tmp (str (System/getProperty "java.io.tmpdir") "/etz-asobi-" (System/nanoTime) ".edn")
           nodes (->> (edn/read-string (slurp asobi-seed))
                      (filter :organism/id)

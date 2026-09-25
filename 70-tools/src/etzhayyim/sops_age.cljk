@@ -26,7 +26,7 @@
 
 (ns etzhayyim.sops-age
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [babashka.process :as p]
             [etzhayyim.kotoba.datom :as d]
             [etzhayyim.kotoba.log :as log]
@@ -219,10 +219,10 @@
    Returns a sorted seq of [actor recipient]."
   []
   (let [dir (io/file rad/journal-dir)]
-    (when (.isDirectory dir)
-      (->> (.listFiles dir)
+    (when (io/directory? dir)
+      (->> (io/list-files dir)
            (keep (fn [f]
-                   (let [n (.getName f)]
+                   (let [n (io/file-name f)]
                      (when (str/ends-with? n ".identity.journal.edn")
                        (let [actor (subs n 0 (- (count n) (count ".identity.journal.edn")))]
                          (when-let [r (journal-recipient actor)] [actor r]))))))

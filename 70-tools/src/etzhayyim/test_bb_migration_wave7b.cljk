@@ -71,7 +71,7 @@
 ;;     by manual cross-comparison with the source .py and comments below).
 
 (ns etzhayyim.test-bb-migration-wave7b
-  (:require [clojure.test            :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test            :refer [deftest is testing run-tests]]
             [clojure.string          :as str]
             [cheshire.core           :as json]
             [etzhayyim.murakumo-cmd  :as mc]
@@ -347,8 +347,8 @@
   ;; environment — the old comment's worry about "if NOMAD_ADDR is set in CI"
   ;; did not apply; this namespace takes the environment as explicit data.
   (testing "no address supplied → fails closed, no default"
-    (is (thrown? clojure.lang.ExceptionInfo (mc/resolve-nomad-addr)))
-    (is (thrown? clojure.lang.ExceptionInfo (mc/resolve-nomad-addr {}))))
+    (is (thrown? kerror/ExceptionInfo (mc/resolve-nomad-addr)))
+    (is (thrown? kerror/ExceptionInfo (mc/resolve-nomad-addr {}))))
   (testing "an address the host supplied is returned"
     (is (= "http://nomad.internal:4646"
            (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad.internal:4646"})))

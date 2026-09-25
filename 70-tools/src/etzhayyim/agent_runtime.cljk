@@ -35,7 +35,7 @@
 ;;   (ar/build-holochain-plan "did:web:etzhayyim.com" "myapp" "ipfs://baf..." "bafy..." ...)
 
 (ns etzhayyim.agent-runtime
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [cheshire.core  :as json]))
 
 ;; ── constants ─────────────────────────────────────────────────────────────────
@@ -177,7 +177,7 @@
   "'0x' + sha256 hex of a UTF-8 string. Mirrors python hashlib.sha256(...).hexdigest()."
   [s]
   (let [md (java.security.MessageDigest/getInstance "SHA-256")]
-    (.update md (.getBytes (str s) "UTF-8"))
+    (.update md (kbytes/utf8-bytes (str s)))
     (str "0x" (apply str (map #(format "%02x" (bit-and % 0xff)) (seq (.digest md)))))))
 
 (defn- ar-parse

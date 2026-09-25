@@ -3,7 +3,7 @@
 ;; Covers the pure helpers (XRPC dispatch deferred): build-auth-headers ·
 ;; parse-bench-list · validate-run-opts! · build-{list,get,run,promote,eval,list-runs}-request.
 (ns etzhayyim.test-training
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [cheshire.core  :as json]
             [etzhayyim.auth :as auth]
@@ -19,13 +19,13 @@
 
 (deftest validate-run-opts
   (testing "dataset always required"
-    (is (thrown? clojure.lang.ExceptionInfo (tr/validate-run-opts! {:kind "sft" :base-model "m"}))))
+    (is (thrown? kerror/ExceptionInfo (tr/validate-run-opts! {:kind "sft" :base-model "m"}))))
   (testing "sft/lora require base-model"
-    (is (thrown? clojure.lang.ExceptionInfo (tr/validate-run-opts! {:kind "sft" :dataset "d"}))))
+    (is (thrown? kerror/ExceptionInfo (tr/validate-run-opts! {:kind "sft" :dataset "d"}))))
   (testing "distill requires student-base and teacher-kind"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (tr/validate-run-opts! {:kind "distill" :dataset "d" :teacher-kind "run"})))
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (tr/validate-run-opts! {:kind "distill" :dataset "d" :student-base "s"}))))
   (testing "a complete sft spec validates (returns nil, no throw)"
     (is (nil? (tr/validate-run-opts! {:kind "sft" :dataset "d" :base-model "m"})))))
@@ -50,7 +50,7 @@
       (is (= "run" (get b "teacherKind")))
       (is (= "soft-logits" (get b "distillMethod")))))
   (testing "unknown kind throws"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (tr/build-run-request {:pds-url "https://p" :kind "wat" :dataset "d"})))))
 
 (deftest eval-and-list-runs
@@ -58,7 +58,7 @@
     (is (= ["internal-loss"]
            (get (:body (tr/build-eval-request {:pds-url "p" :checkpoint-id "c"})) "benches"))))
   (testing "runEval with an explicitly empty bench throws"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (tr/build-eval-request {:pds-url "p" :checkpoint-id "c" :bench ""}))))
   (testing "listRuns limit defaults to 50"
     (is (= 50 (get (:body (tr/build-list-runs-request {:pds-url "p"})) "limit"))))

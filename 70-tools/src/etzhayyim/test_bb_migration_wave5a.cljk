@@ -5,7 +5,7 @@
 ;; Parity verified: Python values in comments match clj output (see parity-smoke tests).
 
 (ns etzhayyim.test-bb-migration-wave5a
-  (:require [clojure.test :refer [deftest testing is run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest testing is run-tests]]
             [etzhayyim.auth         :as auth]
             [etzhayyim.authn        :as authn]
             [etzhayyim.authz        :as authz]
@@ -108,7 +108,7 @@
     (is (= "" (authn/b64url-encode (byte-array 0)))))
   (testing "known vector (no padding)"
     ;; base64url("hello") = "aGVsbG8" (no padding)
-    (is (= "aGVsbG8" (authn/b64url-encode (.getBytes "hello" "UTF-8"))))))
+    (is (= "aGVsbG8" (authn/b64url-encode (kbytes/utf8-bytes "hello"))))))
 
 (deftest test-parse-jwt-claims
   ;; PARITY: Python _parse_jwt_claims returns (sub, email) from payload segment

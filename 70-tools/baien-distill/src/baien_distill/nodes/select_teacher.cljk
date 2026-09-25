@@ -13,7 +13,7 @@
   TypedDict and the `TeacherSpec`/`CategorySpec` dataclasses are represented as
   string-keyed maps so the port is host-portable .cljc with no Python dependency.
   The Python `__main__`/module demo is omitted (none present)."
-  (:require [clojure.set :as set]))
+  (:require [kotoba.lang.coll :as set]))
 
 ;; Candidates derived from fleet.toml + ADR-2605202345 + recent verification.
 ;; "throughput-tok-per-sec" is from manual measurement; nil means unverified.

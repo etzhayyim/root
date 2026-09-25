@@ -2,14 +2,14 @@
 ;; ADR-2605181100. Reproducible (caller supplies key+nonce, no RNG): seal/open
 ;; round-trip, AAD header binding (swap-resistance), envelope CID, keyWrap shape.
 (ns etzhayyim.kotoba.test-encrypted
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [etzhayyim.kotoba.encrypted :as enc]))
 
-(def key32   (.getBytes "0123456789abcdef0123456789abcdef" "UTF-8"))  ;; 32-byte sym key
-(def wrong32 (.getBytes "FEDCBA9876543210FEDCBA9876543210" "UTF-8"))
-(def nonce24 (.getBytes "abcdefghijklmnopqrstuvwx" "UTF-8"))          ;; 24-byte XChaCha nonce
-(def nonce24b (.getBytes "ABCDEFGHIJKLMNOPQRSTUVWX" "UTF-8"))
+(def key32   (kbytes/utf8-bytes "0123456789abcdef0123456789abcdef"))  ;; 32-byte sym key
+(def wrong32 (kbytes/utf8-bytes "FEDCBA9876543210FEDCBA9876543210"))
+(def nonce24 (kbytes/utf8-bytes "abcdefghijklmnopqrstuvwx"))          ;; 24-byte XChaCha nonce
+(def nonce24b (kbytes/utf8-bytes "ABCDEFGHIJKLMNOPQRSTUVWX"))
 (def hdr {:sender "did:web:alice" :innerType "app.bsky.feed.post" :createdAt "2026-01-01T00:00:00Z"})
 
 (deftest key-id-and-aad

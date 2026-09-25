@@ -20,7 +20,7 @@
         kbb -M:fleet:deploy --install-local (write + bootstrap the LaunchAgent here)
         kbb -M:fleet:deploy --uninstall-local"
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             #?(:bb [babashka.process :as proc]
                :clj [babashka.process :as proc])))
 
@@ -96,7 +96,7 @@
   (let [path (launch-agents-path post-drain-label)
         uid (str/trim (:out (sh "id" "-u")))]
     (sh "launchctl" "bootout" (str "gui/" uid) path)
-    (when (.exists (io/file path)) (.delete (io/file path)))
+    (when (io/exists? (io/file path)) (io/delete (io/file path)))
     {:removed path}))
 
 (defn -main [& args]

@@ -4,7 +4,7 @@
 ;;      70-tools/src/etzhayyim/ie_flow/test_scoreboard.cljk
 (require '[clojure.test :as t :refer [deftest is run-tests]]
          '[clojure.string :as str]
-         '[clojure.set]
+         '[kotoba.lang.coll]
          '[etzhayyim.ie-flow.scoreboard :as sb])
 
 ;; a fixture snapshot (render-md is pure over this shape — no actor deps needed)
@@ -52,7 +52,7 @@
         pending (set (map :actor (:pending snap)))]
     (is (vector? (:pending snap)))
     (is (every? :actor (:pending snap)))
-    (is (empty? (clojure.set/intersection scored pending))
+    (is (empty? (kotoba.lang.coll/intersection scored pending))
         "no actor is both scored and pending")
     (is (every? #(contains? scored %) ["kafun" "kaname" "tsumugi"])
         "the live adapters score")

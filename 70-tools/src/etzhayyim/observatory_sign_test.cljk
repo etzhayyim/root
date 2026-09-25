@@ -3,7 +3,7 @@
   Only the PURE parts + the lazy-dep guard are tested here — minting a real CACAO /
   publishing needs the member's Keychain key + member-publish.deps.edn
   (kagi-clj + langchain), which is the member's runtime, never the test/agent."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing]]
             [etzhayyim.observatory-sign :as sign]))
 
 (deftest leash-request-is-datom-transact-revocable
@@ -24,7 +24,7 @@
 
 (deftest agent-path-cannot-mint-without-member-capabilities
   (testing "without a member-owned capability bundle, minting throws — the agent never publishes"
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"member-publish capability unavailable"
                           (sign/mint-leash {:priv-b64 "x" :pub-b64 "y" :aud "did:web:node-operator"})))))
 

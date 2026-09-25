@@ -4,7 +4,7 @@
 ;; redact-url · validate-migrator-args! · build-git-root-command ·
 ;; build-kysely-migrate-command · build-xrpc-get-request · build-xrpc-post-request.
 (ns etzhayyim.test-database
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim.database :as db]))
 
 (deftest redact-url-strips-password
@@ -22,9 +22,9 @@
     (is (nil? (db/validate-migrator-args! ["latest"])))
     (is (nil? (db/validate-migrator-args! ["to" "00010"]))))
   (testing "empty args throw"
-    (is (thrown? clojure.lang.ExceptionInfo (db/validate-migrator-args! []))))
+    (is (thrown? kerror/ExceptionInfo (db/validate-migrator-args! []))))
   (testing "an unknown subcommand throws"
-    (is (thrown? clojure.lang.ExceptionInfo (db/validate-migrator-args! ["bogus"])))))
+    (is (thrown? kerror/ExceptionInfo (db/validate-migrator-args! ["bogus"])))))
 
 (deftest argv-command-builders
   (testing "git-root command is a fixed argv vector"
@@ -54,13 +54,13 @@
                               {"DATABASE_URL" "postgres://env/db"})))
     (is (= db/rw-local-url (db/resolve-db-url "" "DATABASE_URL"))))
   (testing "omitted process, filesystem and HTTP capabilities fail closed"
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :process"
                           (db/find-git-root)))
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :filesystem"
                           (db/list-graph-schema-migs "/schema")))
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :http"
                           (db/call-xrpc-get
                            (db/build-xrpc-get-request "https://pds.example" "tok" "com.x"))))))

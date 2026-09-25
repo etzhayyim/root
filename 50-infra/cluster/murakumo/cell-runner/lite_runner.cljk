@@ -17,7 +17,7 @@
 
     kbb --classpath . -m lite-runner --node issachar --registry cells.edn --cells-root ~/.etzhayyim/cells
     kbb --classpath . -m lite-runner --node issachar ... --once     # fire all due cells once and exit"
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [kotoba.io :as kio] [clojure.string :as str]
             [clojure.edn :as edn]
             [cheshire.core :as json]
             [babashka.process :as p]
@@ -79,7 +79,7 @@
   sorted-map gives sorted keys + compact separators, matching json.dumps(sort_keys=True,
   separators=(',',':'))."
   ^bytes [datoms prev]
-  (.getBytes ^String (json/generate-string (sorted-map "datoms" datoms "prev" prev)) "UTF-8"))
+  (kbytes/utf8-bytes ^String (json/generate-string (sorted-map "datoms" datoms "prev" prev))))
 
 (defn tx-cid
   "Port of `_tx_cid`: \"b\" + sha256(canonical)."
@@ -89,8 +89,8 @@
 (defn- read-log
   "Port of `_read_log`: parse each non-comment line of the ops log into a tx map."
   [path]
-  (let [f (java.io.File. (str path))]
-    (if-not (.exists f)
+  (let [f (kio/file (str path))]
+    (if-not (kio/exists? f)
       []
       (->> (str/split-lines (slurp f))
            (remove #(or (str/blank? %) (str/starts-with? (str/trim %) ";")))
@@ -125,9 +125,9 @@
                 [":db/add" e ":cell.run/detail" (subs detail 0 (min 200 (count detail)))]]
         prev (head log-path)
         cid (tx-cid datoms prev)
-        f (java.io.File. (str log-path))]
-    (when-let [parent (.getParentFile f)] (.mkdirs parent))
-    (when-not (.exists f)
+        f (kio/file (str log-path))]
+    (when-let [parent (kio/parent-file f)] (kio/mkdirs parent))
+    (when-not (kio/exists? f)
       (spit f ";; lite_runner ops commit-DAG — append-only. ADR-2606161645.\n"))
     (let [body (->> datoms
                     (map (fn [d] (str "[" (str/join " " (map edn-val d)) "]")))

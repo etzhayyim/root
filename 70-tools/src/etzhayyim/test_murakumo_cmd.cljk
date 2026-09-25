@@ -5,7 +5,7 @@
 ;; build-{ssh,scp,nomad}-command · parse-fleet-models · probe-cmd-for-model ·
 ;; resolve-install-cmd · parse-nodes-json · resolve-node-id · resolve-alloc-id.
 (ns etzhayyim.test-murakumo-cmd
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [etzhayyim.murakumo-cmd :as mc]))
 
@@ -71,10 +71,10 @@
     (is (= "" (mc/resolve-auth-token)))
     (is (= "http://nomad:4646" (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad:4646"}))))
   (testing "omitted process and HTTP capabilities fail closed"
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :process"
                           (mc/run-git-root)))
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :http"
                           (mc/call-xrpc-get
                            (mc/build-status-request "https://pds.example" "tok")))))
@@ -100,17 +100,17 @@
 ;; not the closing of a leak.
 (deftest nomad-addr-has-no-default
   (testing "an absent address fails closed like any other host capability"
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :nomad-addr"
                           (mc/resolve-nomad-addr)))
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :nomad-addr"
                           (mc/resolve-nomad-addr {})))
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+    (is (thrown-with-msg? kerror/ExceptionInfo
                           #"host capability not configured: :nomad-addr"
                           (mc/resolve-nomad-addr {"NOMAD_ADDR" "   "}))))
   (testing "no resolution path yields an mDNS host"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (mc/resolve-nomad-addr {"SOME_OTHER" "x"}))))
   (testing "an address the host chose is honoured, trailing slashes stripped"
     (is (= "http://nomad:4646" (mc/resolve-nomad-addr {"NOMAD_ADDR" "http://nomad:4646"})))
@@ -126,7 +126,7 @@
       (is (= "http://chosen:4646" (get-in @wire [1 :env "NOMAD_ADDR"]))))
     ;; and refuses to shell out at all when nobody named a host
     (let [called (atom false)]
-      (is (thrown? clojure.lang.ExceptionInfo
+      (is (thrown? kerror/ExceptionInfo
                    (mc/run-nomad ["node" "status"]
                                  {:proc-fn (fn [_ _] (reset! called true) {:exit 0})
                                   :env {"PATH" "/host/bin"}})))

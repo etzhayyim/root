@@ -4,7 +4,7 @@
   coverage independent of the xrpc/server handlers that use it. KotobaStore needs the
   live kotoba engine and is covered at cutover, not here."
   (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]
             [cheshire.core :as json]
             [babashka.http-client :as http]
@@ -101,9 +101,9 @@
 
 (deftest commit-sig-needs-a-signer
   (testing "without a signer the store returns nil (caller falls back to the PDS key)"
-    (is (nil? (store/commit-sig (store/->mem-store) did (.getBytes "msg" "UTF-8")))))
+    (is (nil? (store/commit-sig (store/->mem-store) did (kbytes/utf8-bytes "msg")))))
   (testing "with a signer commit-sig returns the raw signature bytes (decoded from :sig)"
-    (let [sig (store/commit-sig (store/->mem-store fake-signer) did (.getBytes "msg" "UTF-8"))]
+    (let [sig (store/commit-sig (store/->mem-store fake-signer) did (kbytes/utf8-bytes "msg"))]
       (is (bytes? sig))
       (is (= (seq sig-bytes) (seq sig)) "the 64 raw P-256 bytes, base64-decoded"))))
 
@@ -135,7 +135,7 @@
         (store/put-record s1 did "app.bsky.feed.post" "r1" {"text" "persisted"})
         (store/put-record s1 did "app.bsky.feed.post" "r2" {"text" "gone"})
         (store/delete-record s1 did "app.bsky.feed.post" "r2"))
-      (is (.exists (io/file path)) "the on-disk journal was written")
+      (is (io/exists? (io/file path)) "the on-disk journal was written")
       (let [s2 (store/->durable-store path)]               ; reopen = replay the journal
         (is (= {"text" "persisted"} (:value (store/get-record s2 did "app.bsky.feed.post" "r1"))))
         (is (nil? (store/get-record s2 did "app.bsky.feed.post" "r2")) "tombstone survived the reopen")))))
@@ -241,4 +241,4 @@
         (store/describe-repo (store/->kotoba-store kbase kgraph) did)
         (is (str/ends-with? (:url (first @reqs)) "/xrpc/com.etzhayyim.apps.kotoba.kg.describe_repo")))))
   (testing "commit-sig is nil — the live engine signs its own commits (PDS holds no key)"
-    (is (nil? (store/commit-sig (store/->kotoba-store kbase kgraph) did (.getBytes "m" "UTF-8"))))))
+    (is (nil? (store/commit-sig (store/->kotoba-store kbase kgraph) did (kbytes/utf8-bytes "m"))))))

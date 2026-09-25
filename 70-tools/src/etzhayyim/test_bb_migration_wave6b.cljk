@@ -16,7 +16,7 @@
 ;; parity marker: # Python: <original call> → <result>
 
 (ns etzhayyim.test-bb-migration-wave6b
-  (:require [clojure.test   :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test   :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [cheshire.core  :as json]
             [etzhayyim.deploy    :as dep]
@@ -514,7 +514,7 @@
   (testing "agent-run throws ex-info (Go binary required)"
     (let [ex (try (ac/agent-run) nil (catch Exception e e))]
       (is (some? ex))
-      (is (instance? clojure.lang.ExceptionInfo ex))
+      (is (instance? kerror/ExceptionInfo ex))
       (is (true? (get (ex-data ex) :go-binary-required))))))
 
 (deftest test-ac-agent-organism-publish-throws

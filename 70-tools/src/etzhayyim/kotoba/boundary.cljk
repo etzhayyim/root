@@ -21,7 +21,7 @@
 ;; Run: bb lint:kotoba-boundary   (asserts clean; non-zero exit on violation)
 
 (ns etzhayyim.kotoba.boundary
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [clojure.string :as str]))
 
 (def subrepo-root "40-engine/kotoba")
@@ -37,11 +37,11 @@
   ([] (scan subrepo-root))
   ([root]
    (let [base (io/file root)]
-     (when (.exists base)
-       (->> (file-seq base)
-            (filter #(.isFile %))
-            (filter #(data-artifact? (.getName %)))
-            (map #(.getPath %))
+     (when (io/exists? base)
+       (->> (io/file-seq base)
+            (filter #(io/file? %))
+            (filter #(data-artifact? (io/file-name %)))
+            (map #(io/path %))
             (remove #(str/includes? % "/.git/"))
             (sort)
             (vec))))))

@@ -2,7 +2,7 @@
   "atproto identifier primitives: TID record keys + content addressing.
 
   Independent of any vendor SDK — pure JVM/babashka."
-  (:require [cheshire.core :as json])
+  (:require [kotoba.bytes :as kbytes] [cheshire.core :as json])
   (:import [java.security MessageDigest]))
 
 ;; ── base32 (RFC 4648 lower-case, no padding) — the atproto alphabet ──────────
@@ -48,7 +48,7 @@
 
 ;; ── content addressing ───────────────────────────────────────────────────────
 (defn- sha256 ^bytes [^String s]
-  (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8")))
+  (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes s)))
 
 (defn content-cid
   "Deterministic content identifier for a record value (stable JSON → sha-256 →

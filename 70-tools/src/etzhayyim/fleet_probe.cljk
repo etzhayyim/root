@@ -26,7 +26,7 @@
         kbb -M:fleet:probe --no-ssh        (tailscale + inference only, no node login)"
   (:require [clojure.edn :as edn]
             [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.pprint :as pprint]
             #?(:bb [babashka.process :as proc]
                :clj [babashka.process :as proc])))

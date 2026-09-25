@@ -36,7 +36,7 @@
 ;;   ;=> {"Authorization" "Bearer mytoken" "X-Active-DID" "did:plc:abc" ...}
 
 (ns etzhayyim.auth
-  (:require [clojure.string :as str]))
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]))
 
 ;; ── constants ─────────────────────────────────────────────────────────────────
 
@@ -66,7 +66,7 @@
   [base-token nsid]
   (let [prefix (try
                  #?(:clj  (let [md  (java.security.MessageDigest/getInstance "SHA-256")
-                                bts (.digest md (.getBytes ^String base-token "UTF-8"))
+                                bts (.digest md (kbytes/utf8-bytes ^String base-token))
                                 hex (apply str (map #(format "%02x" (bit-and % 0xff)) bts))]
                              (subs hex 0 16))
                     :cljs (subs base-token 0 (min 16 (count base-token))))

@@ -23,7 +23,7 @@
 ;; CACAO-Bearer-at-createRecord model returns 403 there.
 (ns etzhayyim.aozora-identity
   (:require [kotoba.bytes :as kbytes] [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]
             [babashka.http-client :as http]
             [cacao.core :as cacao]
@@ -55,7 +55,7 @@
    sub-actors, whose :rad/repo repos do not exist)."
   [actor]
   (or (some-> (System/getenv "AOZORA_IDENTITY") not-empty)
-      (first (filter #(.exists (io/file %)) (identity-paths actor)))
+      (first (filter #(io/exists? (io/file %)) (identity-paths actor)))
       (str ".e7m/identity/" actor ".edn")))
 
 (defn- identity-from-pkcs8
@@ -76,7 +76,7 @@
   "Load the actor's persisted identity, or nil when none exists yet."
   [actor]
   (let [path (resolve-identity-path actor)]
-    (when (and path (.exists (io/file path)))
+    (when (and path (io/exists? (io/file path)))
       (identity-from-pkcs8 (edn/read-string (slurp path)) path))))
 
 (defn load-or-create-identity!
@@ -94,7 +94,7 @@
               priv-enc (.getEncoded (.getPrivate kp))
               pub-enc (.getEncoded (.getPublic kp))
               f (io/file path)]
-          (some-> (.getParentFile (.getAbsoluteFile f)) .mkdirs)
+          (some-> (io/parent-file (io/absolute-file f)) io/mkdirs)
           (spit f (pr-str {:private-b64 (bytes->b64 priv-enc)
                            :public-b64 (bytes->b64 pub-enc)}))
           (assoc (identity-from-pkcs8 {:private-b64 (bytes->b64 priv-enc)

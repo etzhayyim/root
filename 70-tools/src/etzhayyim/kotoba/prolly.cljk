@@ -17,7 +17,7 @@
 ;; a CIDv1 block (raw/sha2-256, ipfs-parity), so the tree IS a Merkle DAG.
 
 (ns etzhayyim.kotoba.prolly
-  (:require [etzhayyim.kotoba.cid :as cid]))
+  (:require [kotoba.bytes :as kbytes] [etzhayyim.kotoba.cid :as cid]))
 
 (def ^:private default-bits
   "Average chunk size = 2^bits datoms. 6 ⇒ ~64/leaf in production; tests pass a
@@ -34,7 +34,7 @@
 (defn- boundary?
   "Content-defined chunk boundary: true when the low `bits` of sha2-256(s) are 0."
   [bits ^String s]
-  (let [d (cid/sha2-256-digest (.getBytes s "UTF-8"))
+  (let [d (cid/sha2-256-digest (kbytes/utf8-bytes s))
         nbytes (quot (+ bits 7) 8)
         v (reduce (fn [acc i] (bit-or (bit-shift-left acc 8)
                                       (bit-and (aget d (- (alength d) 1 i)) 0xff)))
@@ -55,7 +55,7 @@
       (if (seq cur) (conj runs cur) runs))))
 
 (defn- node->block [node]
-  (let [b (.getBytes (pr-str node) "UTF-8")] [(cid/cid b) b]))
+  (let [b (kbytes/utf8-bytes (pr-str node))] [(cid/cid b) b]))
 
 (defn build
   "Build a prolly tree over `datoms`. Returns
@@ -96,7 +96,7 @@
 ;; `get-fn` = (fn [cid-str] -> ^bytes), CID-verified by the caller's store.
 
 (defn- read-node [get-fn cid-str]
-  (clojure.edn/read-string (String. ^bytes (get-fn cid-str) "UTF-8")))
+  (clojure.edn/read-string (kbytes/utf8-string ^bytes (get-fn cid-str))))
 
 (defn walk
   "Full in-order scan: descend every node, concat leaf items. Returns the sorted

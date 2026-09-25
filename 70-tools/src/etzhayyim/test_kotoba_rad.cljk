@@ -2,7 +2,7 @@
 ;; Run: bb test:kotoba-rad
 (ns etzhayyim.test-kotoba-rad
   (:require [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [etzhayyim.kotoba-rad :as rad]
             [etzhayyim.kotoba-rad-sign :as sign]
             [etzhayyim.kotoba.cid :as cid]
@@ -111,8 +111,8 @@
   ;; (partition 2 s) used to silently drop the trailing nibble instead of
   ;; erroring -- must fail loudly, not quietly decode a shorter-than-
   ;; intended byte array (e.g. from a truncated --member-pub-hex CLI arg).
-  (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs js/Error) (sign/unhex "1")))
-  (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs js/Error) (sign/unhex "abc"))))
+  (is (thrown? js/Error (sign/unhex "1")))
+  (is (thrown? js/Error (sign/unhex "abc"))))
 
 (deftest publish-signed-attaches-sig
   (let [a "__test_kr_signed__"
@@ -222,7 +222,7 @@
         path (rad/journal-path a)]
     (io/delete-file path true)
     (try
-      (is (thrown? #?(:clj clojure.lang.ExceptionInfo :cljs js/Error)
+      (is (thrown? js/Error
                    (rad/update-did-web! a "did:web:etzhayyim.com:actor:x" {:sign-fn nil})))
       (finally (io/delete-file path true)))))
 

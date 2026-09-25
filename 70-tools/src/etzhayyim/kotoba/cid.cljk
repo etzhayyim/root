@@ -26,7 +26,7 @@
 ;;   a UnixFS dag-pb tree (codec 0x70) and need the dag builder, out of scope.)
 
 (ns etzhayyim.kotoba.cid
-  (:require [clojure.string :as str])
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str])
   #?(:clj (:import (java.security MessageDigest))))
 
 ;; ── multihash codes ──
@@ -120,7 +120,7 @@
   (str "b" (base32-lower* frame)))
 
 (defn- ->bytes ^bytes [s]
-  #?(:clj (.getBytes ^String s "UTF-8")
+  #?(:clj (kbytes/utf8-bytes ^String s)
      :cljs (js/Buffer.from s "utf8")))
 
 (defn cid

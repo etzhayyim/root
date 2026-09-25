@@ -12,7 +12,7 @@
 ;; Load check: kbb --classpath 70-tools/src -e "(require 'etzhayyim.vertex)(println :ok)"
 
 (ns etzhayyim.vertex
-  (:require [clojure.string :as str]
+  (:require [kotoba.io :as kio] [clojure.string :as str]
             #?(:bb [cheshire.core :as json])))
 
 ;; ── regex patterns ────────────────────────────────────────────────────────────
@@ -149,16 +149,16 @@
         under --workspace-dir (or cwd), walking up to find it. Returns path or nil."
        [flags]
        (or (get flags "--deps")
-           (let [start (java.io.File. (or (get flags "--workspace-dir")
+           (let [start (kio/file (or (get flags "--workspace-dir")
                                           (System/getProperty "user.dir")))]
              (loop [d start]
                (when d
-                 (let [c (java.io.File. d "30-graph/deps.toml")]
-                   (if (.exists c) (.getPath c) (recur (.getParentFile d)))))))))
+                 (let [c (kio/file d "30-graph/deps.toml")]
+                   (if (kio/exists? c) (kio/path c) (recur (kio/parent-file d)))))))))
 
      (defn- v-load [flags]
        (let [dp (v-resolve-deps flags)]
-         (when-not (and dp (.exists (java.io.File. ^String dp)))
+         (when-not (and dp (kio/exists? (kio/file ^String dp)))
            (throw (ex-info "30-graph/deps.toml not found; use --deps to specify path" {})))
          [dp (parse-tier-registry (slurp dp))]))
 

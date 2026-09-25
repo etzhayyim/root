@@ -1,8 +1,8 @@
 (ns etzhayyim.pds.actorkeys-test
   "Per-actor sealed-key registry: stable identity across restart, signer↔doc
   composition (the end-to-end Path B loop), and the no-plaintext-key posture."
-  (:require [clojure.test :refer [deftest is testing]]
-            [clojure.java.io :as io]
+  (:require [kotoba.bytes :as kbytes] [clojure.test :refer [deftest is testing]]
+            [kotoba.io :as io]
             [etzhayyim.pds.actorkeys :as ak]
             [etzhayyim.pds.store :as store]
             [etzhayyim.pds.xrpc :as xrpc]
@@ -17,9 +17,9 @@
 
 (defn- rm-rf [dir]
   (let [d (io/file dir)]
-    (when (.exists d)
-      (doseq [f (.listFiles d)] (.delete f))
-      (.delete d))))
+    (when (io/exists? d)
+      (doseq [f (io/list-files d)] (io/delete f))
+      (io/delete d))))
 
 (deftest stable-identity-across-restart
   (testing "an actor's key is generated once, sealed to disk, and reloaded identically"
@@ -27,10 +27,10 @@
       (try
         (let [k1 (ak/load-or-create! dir actor secret)
               k2 (ak/load-or-create! dir actor secret)]   ; reloads the same sealed key
-          (is (.exists (io/file (ak/key-path dir actor))))
+          (is (io/exists? (io/file (ak/key-path dir actor))))
           (is (= (:multikey k1) (:multikey k2)) "same published identity across restart")
           ;; a signature from the reloaded key verifies against the original multikey
-          (let [msg (.getBytes "after-restart" "UTF-8")]
+          (let [msg (kbytes/utf8-bytes "after-restart")]
             (is (true? (keys/verify-b64 (:multikey k1) msg (keys/sign-b64 k2 msg))))))
         (finally (rm-rf dir))))))
 
@@ -58,7 +58,7 @@
           (is (= (get vm "publicKeyMultibase") (get body "signedBy")) "doc key == signing key")
           ;; verifier with ONLY the resolved doc + the record verifies the write
           (is (true? (keys/verify-b64 (get vm "publicKeyMultibase")
-                                      (.getBytes cid "UTF-8") (get body "sig")))))
+                                      (kbytes/utf8-bytes cid) (get body "sig")))))
         (finally (rm-rf dir))))))
 
 (deftest on-disk-blob-has-no-plaintext-key
@@ -80,7 +80,7 @@
               handle  "unspsc-10101500"
               resp    (ak/serve-actor-did dir secret handle)
               vm      (first (get-in resp [:body "verificationMethod"]))
-              payload (.getBytes "a-record-cid" "UTF-8")]
+              payload (kbytes/utf8-bytes "a-record-cid")]
           (is (= 200 (:status resp)))
           (is (= (ak/handle->actor-did handle) (get-in resp [:body "id"])))
           (is (= (:multikey k) (get vm "publicKeyMultibase")))
@@ -96,7 +96,7 @@
         ;; key was never created → 404, and (crucially) the file is NOT created by the GET
         (let [resp (ak/serve-actor-did dir secret "never-seen")]
           (is (= 404 (:status resp)))
-          (is (not (.exists (io/file (ak/key-path dir (ak/handle->actor-did "never-seen")))))))
+          (is (not (io/exists? (io/file (ak/key-path dir (ak/handle->actor-did "never-seen")))))))
         (finally (rm-rf dir))))
     (testing "no dir or no secret → nil (route falls through)"
       (is (nil? (ak/serve-actor-did nil secret "x")))
@@ -120,9 +120,9 @@
           (is (= (ak/multikey-for dir a1 secret) (get b1 "signedBy")))
           (is (= (ak/multikey-for dir a2 secret) (get b2 "signedBy")))
           ;; each verifies under its own actor's published key; cross-verify fails
-          (is (true?  (keys/verify-b64 (get b1 "signedBy") (.getBytes (util/content-cid rec1) "UTF-8") (get b1 "sig"))))
-          (is (true?  (keys/verify-b64 (get b2 "signedBy") (.getBytes (util/content-cid rec2) "UTF-8") (get b2 "sig"))))
-          (is (false? (keys/verify-b64 (get b2 "signedBy") (.getBytes (util/content-cid rec1) "UTF-8") (get b1 "sig")))))
+          (is (true?  (keys/verify-b64 (get b1 "signedBy") (kbytes/utf8-bytes (util/content-cid rec1)) (get b1 "sig"))))
+          (is (true?  (keys/verify-b64 (get b2 "signedBy") (kbytes/utf8-bytes (util/content-cid rec2)) (get b2 "sig"))))
+          (is (false? (keys/verify-b64 (get b2 "signedBy") (kbytes/utf8-bytes (util/content-cid rec1)) (get b1 "sig")))))
         (finally (rm-rf dir))))))
 
 (deftest actors-index-enumerates-without-secret
@@ -140,7 +140,7 @@
           (is (= (:multikey k1) (by-did a1)))
           (is (= (:multikey k2) (by-did a2)))
           ;; the listed key actually verifies a signature that actor makes
-          (let [msg (.getBytes "x" "UTF-8")]
+          (let [msg (kbytes/utf8-bytes "x")]
             (is (true? (keys/verify-b64 (by-did a1) msg (keys/sign-b64 k1 msg))))))
         (finally (rm-rf dir)))))
   (testing "absent / empty dir → empty index (never throws)"
@@ -176,7 +176,7 @@
               (is (= "Multikey" (get vm "type")))
               ;; THE BINDING: the published multibase == the actor's actual signing key
               (is (= (ak/multikey-for dir d secret) (get vm "publicKeyMultibase")))
-              (is (= (:multikey (signer d (.getBytes "x" "UTF-8")))
+              (is (= (:multikey (signer d (kbytes/utf8-bytes "x")))
                      (get vm "publicKeyMultibase"))
                   "a consumer resolving this vm can verify what the PDS actually signs"))))
         (finally (rm-rf dir))))))

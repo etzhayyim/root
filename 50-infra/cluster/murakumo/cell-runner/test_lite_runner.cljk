@@ -4,7 +4,7 @@
   are drop-in interchangeable (the property that makes the runtime cutover safe) — plus
   cron parsing, cells.edn loading, native cljc cell firing (the cutover capability), and
   the error-safe supervisor contract. Includes a LIVE py↔clj byte-parity deftest."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.io :as kio] [clojure.test :refer [deftest is testing]]
             [clojure.java.shell :refer [sh]]
             [clojure.string :as str]
             [lite-runner :as lr]))
@@ -67,7 +67,7 @@
       (is (= "" (get (first txs) :tx/prev)))
       (is (= c1 (get (second txs) :tx/prev)))   ;; chained
       (is (= c2 (get (second txs) :tx/cid)))
-      (.delete (java.io.File. log)))))
+      (kio/delete (kio/file log)))))
 
 ;; ── LIVE py↔clj BYTE parity on the ops commit-DAG ──────────────────
 

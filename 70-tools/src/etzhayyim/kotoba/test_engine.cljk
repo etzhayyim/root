@@ -3,7 +3,7 @@
 
 (ns etzhayyim.kotoba.test-engine
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [etzhayyim.kotoba.cid :as cid]
             [etzhayyim.kotoba.datom :as d]
             [etzhayyim.kotoba.query :as query]
@@ -58,11 +58,11 @@
   ;; CIDs recorded in 80-data/genome/publish-manifest.json. Skips if data absent.
   (let [graph "80-data/genome/genome-graph.kotoba.edn"
         datoms "80-data/genome/genome-datoms.kotoba.edn"]
-    (when (.exists (io/file graph))
+    (when (io/exists? (io/file graph))
       (is (= "bafkreiamcn6vz4iuqtri6cbjtrse2koz7dfxxyde5rknfypx3ukj5elfvm"
              (cid/cid-of-file graph))
           "graph CID matches daemon-verified published CID"))
-    (when (.exists (io/file datoms))
+    (when (io/exists? (io/file datoms))
       (is (= "bafkreihsvbx4cs6qjfxkvipn4npsyq4wfmcrwttgzdtbe3w5t56wstpmay"
              (cid/cid-of-file datoms))
           "datoms CID matches daemon-verified published CID"))))

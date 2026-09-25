@@ -19,7 +19,7 @@
   ts]. Deletes append a tombstone [uri :record/deleted true]."
   (:require [kotoba.bytes :as kbytes] [cheshire.core :as json]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [babashka.http-client :as http]
             [etzhayyim.pds.datom :as d]
             [etzhayyim.pds.util :as util]))
@@ -96,7 +96,7 @@
 ;; content id, so a write is an actor-attributed, independently-verifiable assertion
 ;; (Path B). Absent → records are unsigned (fail-open; the store holds no key either way).
 (defn- sign-pair [signer did ^String cid]
-  (when signer (signer did (.getBytes cid "UTF-8"))))
+  (when signer (signer did (kbytes/utf8-bytes cid))))
 
 (defn repo-summary
   "describeRepo projection from an EAVT `db`: collections + total + per-collection counts."
@@ -213,7 +213,7 @@
 
 (defn- replay-log [path]
   (let [f (io/file path)]
-    (if (.exists f)
+    (if (io/exists? f)
       (with-open [r (io/reader f)]
         (->> (line-seq r)
              (remove #(re-matches #"\s*" %))

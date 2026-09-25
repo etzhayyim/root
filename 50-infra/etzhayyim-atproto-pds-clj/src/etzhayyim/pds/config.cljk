@@ -9,7 +9,7 @@
   All values are overridable via env so the same image can serve a staging
   host. Defaults are the production etzhayyim identity."
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]))
+            [kotoba.io :as io]))
 
 (defn- env
   ([k] (env k nil))
@@ -80,7 +80,7 @@
   "The current set of revoked leash jtis from PDS_LEASH_REVOCATION_FILE (or #{})."
   []
   (let [f (io/file leash-revocation-file)]
-    (if (.exists f)
+    (if (io/exists? f)
       (into #{} (->> (str/split-lines (slurp f))
                      (map str/trim)
                      (remove #(or (str/blank? %) (str/starts-with? % ";")))))

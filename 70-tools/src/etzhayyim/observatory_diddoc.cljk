@@ -14,7 +14,7 @@
   (:require [etzhayyim.observatory-registry :as reg]
             [clojure.string :as str]
             [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [cheshire.core :as json]))
 
 (def ^:private ns-glyph

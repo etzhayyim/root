@@ -30,7 +30,7 @@
 ;;   ;=> ["https://atproto.etzhayyim.com/xrpc/com.atproto.repo.describeRepo" {:repo "did:plc:abc"}]
 
 (ns etzhayyim.identity
-  (:require [clojure.string :as str])
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str])
   #?(:clj (:import [java.security MessageDigest])))
 
 ;; ── path DID derivation ──────────────────────────────────────────────────────
@@ -38,7 +38,7 @@
 (defn- sha256-bytes
   "Compute SHA-256 digest of a UTF-8 string, returning a byte array."
   [^String s]
-  #?(:clj  (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))
+  #?(:clj  (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes s))
      :cljs (let [arr (js/TextEncoder. "utf-8")]
              ;; CLJS: use SubtleCrypto — async; return nil for now (bb/clj is primary)
              nil)))

@@ -69,13 +69,13 @@
                    :domain "kotoba.etzhayyim.com" :version "1"
                    :resources [(str "kotoba://can/datom:transact")
                                (str "kotoba://graph/" gcid)]}
-          msg (.getBytes (ic/siwe-message payload) "UTF-8")
+          msg (kbytes/utf8-bytes (ic/siwe-message payload))
           ;; extract the 64-byte sig: it's the last CBOR text string in the cacao,
           ;; but easier — re-sign and confirm determinism + verify the re-sign.
           sig (ic/sign-bytes (:priv-b64 kp) msg)]
       (is (ic/verify-bytes (:pub-hex kp) msg sig))
       ;; tamper → reject
-      (is (not (ic/verify-bytes (:pub-hex kp) (.getBytes "tampered" "UTF-8") sig))))))
+      (is (not (ic/verify-bytes (:pub-hex kp) (kbytes/utf8-bytes "tampered") sig))))))
 
 (deftest unhex-rejects-odd-length-hex-strings
   ;; (partition 2 s) used to silently drop the trailing nibble instead of

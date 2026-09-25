@@ -13,7 +13,7 @@
    pgrep / id) per the clj/bb operational rule; no first-party logic in shell."
   (:require [cheshire.core :as json]
             [clojure.string :as str]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [babashka.process :as p]
             [babashka.http-client :as http]))
 

@@ -3,7 +3,7 @@
   and per-actor signing through the drain → client → PDS path — OFFLINE (the transport
   is wired to an in-process signed store, no network)."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]
             [cheshire.core :as json]
             [etzhayyim.pds.drain :as drain]
@@ -19,7 +19,7 @@
 (defn- tmp-dir [] (str (System/getProperty "java.io.tmpdir") "/pds-drain-" (hash (str (gensym)))))
 (defn- rm-rf [dir]
   (let [d (io/file dir)]
-    (when (.exists d) (doseq [f (.listFiles d)] (.delete f)) (.delete d))))
+    (when (io/exists? d) (doseq [f (io/list-files d)] (io/delete f)) (io/delete d))))
 
 ;; A fake PDS over an in-process multi-actor signed store. `fail` is a set of repo
 ;; DIDs whose createRecord returns 500 (to exercise the retry path).

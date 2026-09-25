@@ -3,7 +3,7 @@
    Pure aggregation over synthetic RAD journals + give datoms, plus a live-ledger
    invariant check against 80-data/kotoba-rad."
   (:require [clojure.test :refer [deftest is run-tests]]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [etzhayyim.rad-metrics :as rm]))
 
 ;; ── synthetic RAD journals (datom vectors [e a v tx op]) ────────────────────
@@ -71,7 +71,7 @@
 ;; ── live ledger invariant (read-only, against 80-data/kotoba-rad) ───────────
 (deftest live-rad-ledger-registered-matches-files
   (let [dir "80-data/kotoba-rad"]
-    (when (.isDirectory (io/file dir))
+    (when (io/directory? (io/file dir))
       (let [journals (rm/read-journals dir)
             s        (rm/rad-summary journals)]
         (is (pos? (:registered-organisms s)) "the RAD ledger has registered organisms")

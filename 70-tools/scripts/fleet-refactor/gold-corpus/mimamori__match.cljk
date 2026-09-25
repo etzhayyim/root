@@ -9,7 +9,8 @@
 ;; engine は純データ {:state {bond status} :kept {bond keeper}} + 注入操作で表す。
 ;;   load-of    (fn [engine did] → int)
 ;;   offer!     (fn [engine keeper member] → engine')  ; cooldown 時は ex-info {:cooldown true}
-(ns mimamori.methods.match)
+(ns mimamori.methods.match
+  (:require [kotoba.lang.error :as kerror]))
 
 (def max-kept 2)  ; bond (active + standing offer) a keeper may carry
 
@@ -42,7 +43,7 @@
               result (reduce (fn [_ k]
                                (try
                                  (reduced {:engine (offer! eng k m) :placed true})
-                                 (catch clojure.lang.ExceptionInfo e
+                                 (catch kerror/ExceptionInfo e
                                    (if (:cooldown (ex-data e))
                                      nil           ; この pair は休む — 次の keeper
                                      (throw e)))))

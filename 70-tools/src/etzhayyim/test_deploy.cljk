@@ -4,7 +4,7 @@
 ;; app-id · ui-type · actor-handle · extract-wit-imports ·
 ;; validate-no-cors · validate-no-pds-hardcode · validate-governance-import.
 (ns etzhayyim.test-deploy
-  (:require [clojure.test :refer [deftest is testing run-tests]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is testing run-tests]]
             [etzhayyim.deploy :as dep]))
 
 (deftest app-id-and-ui-type
@@ -35,14 +35,14 @@
   (testing "passes on clean content"
     (is (nil? (dep/validate-no-cors "const x = 1;" "f.ts"))))
   (testing "throws on a CORS header literal"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (dep/validate-no-cors "headers['Access-Control-Allow-Origin'] = '*'" "f.ts")))))
 
 (deftest validate-no-pds-hardcode-guard
   (testing "passes on clean content"
     (is (nil? (dep/validate-no-pds-hardcode "appId: myId" "f.ts"))))
   (testing "throws on a hardcoded 'pds' appId"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (dep/validate-no-pds-hardcode "const c = { appId: \"pds\" }" "f.ts")))))
 
 (deftest validate-governance-import-guard
@@ -53,7 +53,7 @@
                "include kotodama:runtime/kotodama-component@1.0.0;" "world.wit")))
     (is (nil? (dep/validate-governance-import "" "world.wit"))))   ;; blank → skipped
   (testing "throws when neither is present"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? kerror/ExceptionInfo
                  (dep/validate-governance-import "world w { import other:x; }" "world.wit")))))
 
 (defn -main [& _]

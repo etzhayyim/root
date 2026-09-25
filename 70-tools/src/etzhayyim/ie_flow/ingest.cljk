@@ -18,7 +18,7 @@
   shell; ADR-2606182359 exemption). Source `:edn-events` ingests any committed EDN vector of event
   maps. :clj only (I/O tool). Deterministic for a fixed range/snapshot."
   (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [clojure.string :as str]
             [babashka.process :as p]
             [cheshire.core :as json]
@@ -132,7 +132,7 @@
                          :parasitic? (:parasitic? state)}}]
     (io/make-parents flow-log)
     ;; fresh snapshot: the ledger is the source of truth, re-ingest overwrites the snapshot file
-    (when (.exists (io/file flow-log)) (io/delete-file flow-log true))
+    (when (io/exists? (io/file flow-log)) (io/delete-file flow-log true))
     (ledger/record-events! events {:log-path flow-log :as-of as-of :tx-id (str name "-ingest")})
     (spit (str dir "/ingest-provenance.json") (json/generate-string prov {:pretty true}))
     {:dir dir :n-events (count events) :state state :provenance prov}))

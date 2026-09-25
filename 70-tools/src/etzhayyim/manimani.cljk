@@ -45,7 +45,7 @@
 ;;      refresh token mints short-lived access tokens on demand.
 
 (ns etzhayyim.manimani
-  (:require [clojure.string :as str]
+  (:require [kotoba.bytes :as kbytes] [clojure.string :as str]
             [cheshire.core :as json]
             [babashka.http-client :as http]
             [babashka.process :as proc]
@@ -90,7 +90,7 @@
   (let [bs (byte-array 32)] (.nextBytes (SecureRandom.) bs) (b64url bs)))
 
 (defn- pkce-challenge [^String verifier]
-  (b64url (.digest (MessageDigest/getInstance "SHA-256") (.getBytes verifier "UTF-8"))))
+  (b64url (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes verifier))))
 
 ;; ── local redirect catcher: one raw HTTP GET, extract `code`, reply, close ────
 ;; The socket is bound by the CALLER on port 0 (OS-assigned ephemeral) BEFORE the auth
@@ -115,8 +115,8 @@
           body (if (get params "code")
                  "<html><body>manimani: Gmail authorized — you can close this tab.</body></html>"
                  "<html><body>manimani: authorization failed — see the terminal.</body></html>")]
-      (.write out (.getBytes (str "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: "
-                                  (count body) "\r\n\r\n" body) "UTF-8"))
+      (.write out (kbytes/utf8-bytes (str "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: "
+                                  (count body) "\r\n\r\n" body)))
       (.flush out)
       (cond
         (get params "error") (throw (ex-info (str "oauth consent denied: " (get params "error")) params))
@@ -200,7 +200,7 @@
 (defn- now-ms [] (System/currentTimeMillis))
 
 (defn- sha256-hex [^String s]
-  (let [d (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
+  (let [d (.digest (MessageDigest/getInstance "SHA-256") (kbytes/utf8-bytes s))]
     (apply str (map #(format "%02x" %) d))))
 
 (defn- intake-id
