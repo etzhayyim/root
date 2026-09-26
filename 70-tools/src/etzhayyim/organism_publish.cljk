@@ -17,7 +17,11 @@
   deploy shells out to npm/wrangler (system binaries, allowed via babashka.process;
   the rule bars authoring LOGIC in .sh, not invoking installed tools)."
   (:require [etzhayyim.vitals :as vitals]
-            [babashka.process :as p]))
+            [babashka.process :as p]
+            [scripts.nbb-compat :as compat]))
+
+;; kbb/SCI 移植注記 (2026-09-23): (catch Throwable …) → (catch :default …) (sci は
+;; java.lang.Throwable を解決できない)、(System/exit n) → (compat/exit n)。
 
 (def ^:private worker-dir "50-infra/etzhayyim-did-web")
 
@@ -32,11 +36,11 @@
     (when full?
       (vitals/-joucho)
       (try (vitals/-trajectory)
-           (catch Throwable e (println "[organism] trajectory skipped:" (ex-message e)))))
+           (catch :default e (println "[organism] trajectory skipped:" (ex-message e)))))
     (println "[organism] publishing to etzhayyim.com (npm run deploy)…")
     (let [{:keys [exit]} (p/shell {:dir worker-dir :continue true :inherit true}
                                   "npm" "run" "deploy")]
       (if (zero? exit)
         (println "[organism] live → https://etzhayyim.com/organism/")
         (do (println "[organism] deploy FAILED (exit" exit ")")
-            (System/exit exit))))))
+            (compat/exit exit))))))

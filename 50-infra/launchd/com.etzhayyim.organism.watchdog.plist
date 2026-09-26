@@ -35,7 +35,10 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/bb</string>
+    <string>/Users/junkawasaki/.local/bin/kbb</string>
+    <string>--backend</string>
+    <string>sci</string>
+    <string>scripts/run-task.cljk</string>
     <string>organism:watchdog</string>
   </array>
 
@@ -45,7 +48,7 @@
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>
-    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <string>/Users/junkawasaki/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
   </dict>
 
   <key>RunAtLoad</key>

@@ -15,7 +15,19 @@
             [clojure.string :as str]
             [clojure.java.io :as io]
             [babashka.process :as p]
-            [babashka.http-client :as http]))
+            [babashka.http-client :as http]
+            [scripts.nbb-compat :as compat]))
+
+;; kbb/SCI 移植注記 (2026-09-23): JVM 依存を sci 相当に置換した。
+;;   (catch Throwable …) → (catch :default …)  — sci は java.lang.Throwable を
+;;     解決できない (旧: kbb sci で load-time 落ち, 実測 2026-09-23)。
+;;   (.getMessage e) → (ex-message e)          — sci のキャッチ値は js/Error。
+;;   (System/currentTimeMillis) → (js/Date.now)
+;;   (java.time.Instant/ofEpochMilli n) → (.toISOString (js/Date. n))
+;;   裸 slurp/spit → io/slurp・io/spit (scripts/nbb_compat の clojure.java.io)。
+;;   (format …) → (compat/format …)。
+;;   babashka.process / babashka.http-client / cheshire.core は
+;;   scripts/nbb_compat の shim (class path に必要 — plist 側の tasks.edn 参照)。
 
 (def ^:private health-json "50-infra/etzhayyim-did-web/public/organism/health.json")
 (def ^:private out-paths
@@ -32,15 +44,15 @@
   "true if the URL answered at all (connection made), regardless of status code — we are
    asking 'is the process listening', not 'is the response 200'."
   [url]
-  (try (some? (:status (http/get url {:timeout 4000 :throw false}))) (catch Throwable _ false)))
+  (try (some? (:status (http/get url {:timeout 4000 :throw false}))) (catch :default _ false)))
 
 (defn- ok-200 [url]
-  (try (= 200 (:status (http/get url {:timeout 4000 :throw false}))) (catch Throwable _ false)))
+  (try (= 200 (:status (http/get url {:timeout 4000 :throw false}))) (catch :default _ false)))
 
 (defn- organism-up? []
   (try (-> (p/shell {:out :string :continue true} "pgrep" "-f" "organism:heartbeat")
            :out str/trim seq boolean)
-       (catch Throwable _ false)))
+       (catch :default _ false)))
 
 (defn- kick! []
   (let [u (uid)]
@@ -50,13 +62,13 @@
         (binding [*out* *err*] (println "[watchdog] ⚠ organism wedged/down — kickstart -k restart"))
         (try (p/shell {:continue true} "launchctl" "kickstart" "-k"
                       (str "gui/" u "/" service))
-             (catch Throwable e (binding [*out* *err*] (println "[watchdog] kick failed:" (.getMessage e)))))))))
+             (catch :default e (binding [*out* *err*] (println "[watchdog] kick failed:" (ex-message e)))))))))
 
 (defn -check
   "One supervision pass (launchd StartInterval re-invokes it every 60s — not a resident loop)."
   [& _]
-  (let [now    (System/currentTimeMillis)
-        health (try (json/parse-string (slurp health-json)) (catch Throwable _ nil))
+  (let [now    (js/Date.now)
+        health (try (json/parse-string (io/slurp health-json)) (catch :default _ nil))
         h-now  (get health "now")
         age    (when h-now (- now h-now))
         up     (organism-up?)
@@ -67,12 +79,12 @@
         kotoba (ok-200 "http://localhost:8077/health")
         ipfs   (reachable "http://localhost:5001/api/v0/version")
         page   (reachable "http://localhost:8799/organism/health.json")
-        status {:checkedAt (str (java.time.Instant/ofEpochMilli now))
+        status {:checkedAt (.toISOString (js/Date. now))
                 :organismUp up :loopAgeMs age :wedged (boolean wedged)
                 :action (if wedged "kickstart" "none")
                 :substrate {:kotoba kotoba :ipfs ipfs :servedPage page}}]
-    (doseq [pth out-paths] (io/make-parents pth) (spit pth (json/generate-string status {:pretty true})))
+    (doseq [pth out-paths] (io/make-parents pth) (io/spit pth (json/generate-string status {:pretty true})))
     (binding [*out* *err*]
-      (println (format "[watchdog] organism=%s loopAge=%sms kotoba=%s ipfs=%s page=%s%s"
+      (println (compat/format "[watchdog] organism=%s loopAge=%sms kotoba=%s ipfs=%s page=%s%s"
                        up age kotoba ipfs page (if wedged "  WEDGED→kick" ""))))
     status))

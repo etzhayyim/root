@@ -4,8 +4,8 @@
   "private": true,
   "description": "ClojureScript core for the etzhayyim did:web Worker (compiled to ../cljs-out/worker_core.mjs)",
   "scripts": {
-    "build": "amu compile --target wasm32-browser worker",
-    "watch": "amu compile --target wasm32-browser worker",
+    "build": "npx shadow-cljs release worker",
+    "watch": "npx shadow-cljs watch worker",
     "test": "kbb --classpath \"src:test\" -e '(require (quote did-web.router-test)) (let [{:keys [fail error]} (clojure.test/run-tests (quote did-web.router-test))] (System/exit (if (pos? (+ fail error)) 1 0)))'",
     "test:smoke": "npm run build && node test/core_smoke.mjs"
   },

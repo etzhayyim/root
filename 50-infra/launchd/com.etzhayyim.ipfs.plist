@@ -9,7 +9,7 @@
   KeepAlive agent makes it self-recover, matching the organism + watchdog.
 
   KeepAlive=true → restart on crash.  RunAtLoad=true → start at login / survive reboot.
-  --routing=dhtclient preserves the original invocation; IPFS_PATH pins the same repo.
+  (routing)=dhtclient preserves the original invocation; IPFS_PATH pins the same repo.
 
   OS config only — no first-party logic. The organism's watchdog (com.etzhayyim.organism.watchdog)
   observes this node's liveness into watchdog.json.
