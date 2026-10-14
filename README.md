@@ -17,7 +17,8 @@ canonical; this README is only a human-facing pointer.
 |---|---|
 | Operating entity | etzhayyim (canonical) |
 | Aliases | amanomibashira / 天御柱 / עץ חיים (Tree of Life) / etz hayim / etzhayim / etz chaim |
-| Form | 宗教法人 (任意団体 / unincorporated religious voluntary association) |
+| Form | 宗教法人 (任意団体 / unincorporated religious voluntary association, United States) |
+| Subordinate organisation | AWAI Network, L.L.C. (Delaware LLC) — operates the hosted services; sits under etzhayyim |
 | Registry | On-chain (blockchain-registered constitution and member roster) |
 | Domain | https://etzhayyim.com |
 | DID | `did:web:etzhayyim.com` |
@@ -74,7 +75,9 @@ tiers, no priority (pure gift; anti-class invariant).
   on-chain addresses).
 - The repo **Sponsor** button ([`.github/FUNDING.yml`](.github/FUNDING.yml)) points at the
   on-chain donate page — **not** GitHub Sponsors / Patreon / Stripe (fiat processors are
-  constitutionally prohibited, ADR-2605172100).
+  constitutionally prohibited, ADR-2605172100). The prohibition covers etzhayyim's own funds;
+  it does not extend to the payment rails of its subordinate organisation AWAI Network, L.L.C.
+  (owner decision 2026-10-14).
 - Design: [ADR-2606012100](90-docs/adr/2606012100-donation-funded-operation-and-compute-node-participation.md)
   · [ADR-2606111700](90-docs/adr/2606111700-public-sponsor-donation-solicitation-surfaces.md).
 
