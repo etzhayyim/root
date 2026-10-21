@@ -672,61 +672,39 @@ Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free 
 });
 
 function buildHomeHtml(): string {
-  const namedCount = Object.keys(INFRA_ACTORS).filter((h) => INFRA_ACTORS[h].glyph).length;
-  const serviceCount = Object.keys(INFRA_ACTORS).length - namedCount;
-  const totalActors = namedCount + serviceCount + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT;
-  const main = `
-<section class="home-stage" aria-labelledby="home-title">
-<div class="tree-art">
-<svg class="tree-of-life" viewBox="0 0 480 560" role="img" aria-labelledby="tree-title tree-description">
-<title id="tree-title">Tree of Life</title>
-<desc id="tree-description">A living tree drawn from ten connected lights, with roots reaching into the earth.</desc>
-<g class="tree-branches" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-<path class="tree-path p1" d="M240 282 C240 230 240 180 240 92"/>
-<path class="tree-path p2" d="M240 130 C192 126 151 109 112 72 M240 130 C288 126 329 109 368 72"/>
-<path class="tree-path p3" d="M240 182 C190 181 152 173 112 145 M240 182 C290 181 328 173 368 145"/>
-<path class="tree-path p4" d="M240 234 C187 232 147 225 112 215 M240 234 C293 232 333 225 368 215"/>
-<path class="tree-path p5" d="M240 282 C178 282 139 282 91 282 M240 282 C302 282 341 282 389 282"/>
-<path class="tree-path p6" d="M240 282 C240 334 240 373 240 416"/>
-<path class="tree-path p7" d="M240 416 C207 448 180 476 147 520 M240 416 C222 460 216 491 211 536 M240 416 C258 460 264 491 269 536 M240 416 C273 448 300 476 333 520"/>
-</g>
-<g class="tree-nodes">
-<circle class="tree-node n1" cx="240" cy="92" r="20"/><circle class="tree-node n2" cx="112" cy="72" r="17"/>
-<circle class="tree-node n3" cx="368" cy="72" r="17"/><circle class="tree-node n4" cx="112" cy="145" r="16"/>
-<circle class="tree-node n5" cx="368" cy="145" r="16"/><circle class="tree-node n6" cx="112" cy="215" r="16"/>
-<circle class="tree-node n7" cx="368" cy="215" r="16"/><circle class="tree-node n8" cx="91" cy="282" r="18"/>
-<circle class="tree-node n9" cx="389" cy="282" r="18"/><circle class="tree-node n10" cx="240" cy="282" r="22"/>
-<circle class="tree-seed" cx="240" cy="416" r="8"/>
-</g>
-</svg>
-</div>
-<div class="home-copy">
-<p class="eyebrow">生命の樹 · ETZHAYYIM</p>
-<h1 id="home-title">etzhayyim</h1>
-<p class="lead">A living community of human and machine actors, rooted in the Tree of Life.</p>
-<nav class="home-links" aria-label="Explore etzhayyim">
-<a href="/organism">The organism</a><a href="/actors">Actors</a>
-<a href="/system-dynamics">How it grows</a><a href="/donate">Support</a>
-</nav>
-<div class="home-live" role="status" aria-live="polite">
-<span class="home-live-dot" aria-hidden="true"></span>
-<span id="murakumo-host-state">Connecting to the living system…</span>
-<span class="home-live-meta" id="murakumo-host-meta">Live pulse</span>
-</div>
-<ul class="home-actors" id="murakumo-host-list"><li>Waiting for the latest actor pulse…</li></ul>
-<p class="home-footnote"><span>${totalActors.toLocaleString("en-US")} resolvable actors</span> · Identity and observability live here; AT Protocol PDS/AppView runs at <a href="https://aozora.app">aozora.app</a>.</p>
-</section>
-</section>
-`;
   return renderShell({
-    title: "etzhayyim",
-    lang: "en",
-    description: "A living community of human and machine actors, rooted in the Tree of Life.",
+    title: "etzhayyim — Tree of Life",
+    lang: "ja",
+    description: "生命の樹。星々からひとつの生命へ、生命からまた宇宙へ。Etz Hayyim — a living continuity of human, machine, Earth and cosmos.",
     active: "/",
-    main,
-    footerHtml:
-      'Identity: <a href="/.well-known/did.json">DID</a> · <a href="/.well-known/actors.json">actor registry</a> · <a href="/.well-known/donation.json">donation policy</a>. Live actor pulse is refreshed from same-origin JSON every 15s.',
+    wrapClass: "home-immersive",
+    main: `
+<section class="cosmic-home" aria-labelledby="home-title">
+<div class="cosmic-scene" aria-hidden="true">
+<svg class="cosmic-still" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice">
+<defs><radialGradient id="cosmic-halo"><stop stop-color="#276d80" stop-opacity=".5"/><stop offset="1" stop-color="#030810" stop-opacity="0"/></radialGradient><linearGradient id="cosmic-branch" x2="0" y2="1"><stop stop-color="#d5ffff"/><stop offset=".5" stop-color="#e9b580"/><stop offset="1" stop-color="#6e94a8"/></linearGradient></defs>
+<ellipse cx="920" cy="450" rx="640" ry="550" fill="url(#cosmic-halo)"/>
+<g fill="none" stroke="url(#cosmic-branch)" stroke-linecap="round">
+<path stroke-width="9" d="M920 780 Q850 590 920 400 Q960 300 905 130 M920 780 Q1000 570 920 400"/>
+<path stroke-width="3" d="M920 510 Q730 420 560 230 M920 440 Q1110 360 1290 170 M910 380 Q745 260 710 95 M930 350 Q1050 235 1060 65 M920 570 Q1110 530 1360 390 M905 560 Q700 530 490 450 M920 760 Q720 870 540 945 M920 760 Q1100 880 1320 950"/>
+<path stroke-width="1" d="M560 230 L460 130 M560 230 L520 90 M560 230 L650 110 M710 95 L610 40 M710 95 L790 30 M1290 170 L1375 70 M1290 170 L1250 50 M1060 65 L1160 20 M490 450 L350 370 M490 450 L400 520 M1360 390 L1430 300 M1360 390 L1430 470 M540 945 L400 980 M1320 950 L1420 980"/>
+</g></svg>
+<canvas id="life-canvas" class="cosmic-canvas"></canvas>
+</div>
+<div class="cosmic-shade" aria-hidden="true"></div>
+<div class="cosmic-copy">
+<p class="cosmic-eyebrow">TREE OF LIFE · 生命の樹</p>
+<h1 id="home-title">All life.<br><em>Interwoven.</em></h1>
+<p class="cosmic-poem">星々から、ひとつの生命へ。<br>生命から、また宇宙へ。</p>
+<a class="cosmic-explore" href="/organism">この樹をめぐる <span aria-hidden="true">↗</span></a>
+</div>
+<div class="cosmic-caption"><span>HUMAN · MACHINE · EARTH · COSMOS</span><span>ひとつの生命のつらなり</span></div>
+<button class="cosmic-motion" id="life-motion" type="button" aria-pressed="false" hidden>動きを止める</button>
+<noscript><p class="cosmic-noscript">生命の樹の静止画を表示しています。</p></noscript>
+</section>`,
+    footerHtml: '<a href="/.well-known/did.json">Identity</a><a href="/system-dynamics">Connections</a><a href="/participate">Participate</a><span>etzhayyim · 生命の樹</span>',
     scriptSrc: "/_shell/home-feed.js",
+    scriptType: "module",
   });
 }
 
