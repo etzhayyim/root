@@ -674,8 +674,8 @@ Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free 
 function buildHomeHtml(): string {
   return renderShell({
     title: "etzhayyim — Tree of Life",
-    lang: "ja",
-    description: "生命の樹。星々からひとつの生命へ、生命からまた宇宙へ。Etz Hayyim — a living continuity of human, machine, Earth and cosmos.",
+    lang: "en",
+    description: "Tree of Life — an endless living continuity of human, machine, Earth and cosmos.",
     active: "/",
     wrapClass: "home-immersive",
     main: `
@@ -693,16 +693,15 @@ function buildHomeHtml(): string {
 </div>
 <div class="cosmic-shade" aria-hidden="true"></div>
 <div class="cosmic-copy">
-<p class="cosmic-eyebrow">TREE OF LIFE · 生命の樹</p>
+<p class="cosmic-eyebrow">TREE OF LIFE</p>
 <h1 id="home-title">All life.<br><em>Interwoven.</em></h1>
-<p class="cosmic-poem">始まりも、終わりも、見えない。<br>ひとつの生命の、その先へ。</p>
-<a class="cosmic-explore" href="/organism">この樹をめぐる <span aria-hidden="true">↗</span></a>
+<p class="cosmic-poem">Beyond beginning. Beyond end.<br>Life, endlessly unfolding.</p>
+<a class="cosmic-explore" href="/organism">Explore the tree <span aria-hidden="true">↗</span></a>
 </div>
-<div class="cosmic-caption"><span>HUMAN · MACHINE · EARTH · COSMOS</span><span>ひとつの生命のつらなり</span></div>
-<button class="cosmic-motion" id="life-motion" type="button" aria-pressed="false" hidden>動きを止める</button>
-<noscript><p class="cosmic-noscript">生命の樹の静止画を表示しています。</p></noscript>
+<div class="cosmic-caption"><span>HUMAN · MACHINE · EARTH · COSMOS</span><span>One living continuum</span></div>
+<noscript><p class="cosmic-noscript">A still image of the Tree of Life is shown.</p></noscript>
 </section>`,
-    footerHtml: '<a href="/.well-known/did.json">Identity</a><a href="/system-dynamics">Connections</a><a href="/participate">Participate</a><span>etzhayyim · 生命の樹</span>',
+    footerHtml: '<a href="/.well-known/did.json">Identity</a><a href="/system-dynamics">Connections</a><a href="/participate">Participate</a><span>etzhayyim · Tree of Life</span>',
     scriptSrc: "/_shell/home-feed.js",
     scriptType: "module",
   });
@@ -1604,7 +1603,7 @@ const tsFetch = async (
           "cache-control": "public, max-age=300, must-revalidate",
           "x-content-type-options": "nosniff",
           "content-security-policy":
-            "default-src 'none'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
+            "default-src 'none'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",

@@ -60,15 +60,12 @@ body:has(.home-immersive){background:#03080f;color-scheme:dark}
 .cosmic-eyebrow{font-size:.66rem;letter-spacing:.28em;color:#c4dedc;margin:0 0 1.6rem}
 .cosmic-copy h1{border:0!important;text-decoration:none!important;background:none!important;box-shadow:none!important;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(3.5rem,6.6vw,7.3rem);line-height:1.04;letter-spacing:-.06em;margin:0 0 1.4rem;text-shadow:0 2px 28px #03080f66}
 .cosmic-copy h1 em{font-weight:400;color:#d4e8e1}
-.cosmic-poem{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:.86rem;line-height:2.2;letter-spacing:.12em;color:#d0dad7}
+.cosmic-poem{font-family:Georgia,"Times New Roman",serif;font-size:.86rem;line-height:2.2;letter-spacing:.06em;color:#d0dad7}
 .cosmic-explore{display:inline-flex;gap:1.7rem;align-items:center;margin-top:1.7rem;padding:.65rem 0;text-decoration:none;font-size:.75rem;letter-spacing:.08em;border-bottom:1px solid #b6d6d355;color:#e6f0eb;transition:gap .4s ease}
 .cosmic-explore:hover{gap:2.3rem}
 .cosmic-caption{position:absolute;left:4.5%;bottom:2.1rem;z-index:2;display:flex;flex-direction:column;gap:.55rem;font-size:.55rem;letter-spacing:.22em;color:#b7cec9}
 .cosmic-caption span+span{font-size:.6rem;letter-spacing:.15em;opacity:.65}
-.cosmic-motion{position:absolute;right:4.5%;bottom:2.1rem;z-index:3;border:1px solid #c8e6de44;border-radius:999px;padding:.65rem 1rem;background:#07121d80;color:#d6e4df;font:inherit;font-size:.65rem;cursor:pointer;backdrop-filter:blur(12px)}
-.cosmic-motion[hidden]{display:none}
-.cosmic-motion:hover{background:#173a4680}
-.cosmic-home a:focus-visible,.cosmic-motion:focus-visible,.home-immersive a:focus-visible{outline:2px solid #d7f9ed;outline-offset:7px}
+.cosmic-home a:focus-visible,.home-immersive a:focus-visible{outline:2px solid #d7f9ed;outline-offset:7px}
 .cosmic-noscript{position:absolute;bottom:5rem;right:4.5%;font-size:.7rem;color:#bbd4cf}
 .home-immersive footer.site-ft{display:flex;flex-wrap:wrap;gap:1.5rem;padding:1.25rem 4.5%;border-top:1px solid #afccc91a;background:#03080f;color:#a3b9b4;font-size:.65rem;letter-spacing:.06em}
 .home-immersive footer.site-ft a{text-decoration:none}.home-immersive footer.site-ft span{margin-left:auto;opacity:.6}
@@ -80,7 +77,6 @@ body:has(.home-immersive){background:#03080f;color-scheme:dark}
   .cosmic-eyebrow{font-size:.55rem;margin-bottom:1rem}.cosmic-poem{font-size:.75rem;line-height:1.9}
   .cosmic-explore{margin-top:.75rem}.cosmic-shade{background:linear-gradient(0deg,#03080f 0%,#03080f66 40%,transparent 75%)}
   .cosmic-caption{left:6%;bottom:2rem;font-size:.43rem;letter-spacing:.12em}.cosmic-caption span+span{font-size:.5rem}
-  .cosmic-motion{right:6%;bottom:2rem;font-size:.55rem;padding:.6rem .8rem}
   .home-immersive footer.site-ft{padding:1rem 6%;gap:1rem}.home-immersive footer.site-ft span{width:100%;margin:0}
 }
 @media(prefers-reduced-motion:reduce){.cosmic-copy{animation:none}.cosmic-canvas,.cosmic-still,.cosmic-explore{transition:none}}
