@@ -685,9 +685,9 @@ function buildHomeHtml(): string {
 <defs><radialGradient id="cosmic-halo"><stop stop-color="#276d80" stop-opacity=".5"/><stop offset="1" stop-color="#030810" stop-opacity="0"/></radialGradient><linearGradient id="cosmic-branch" x2="0" y2="1"><stop stop-color="#d5ffff"/><stop offset=".5" stop-color="#e9b580"/><stop offset="1" stop-color="#6e94a8"/></linearGradient></defs>
 <ellipse cx="920" cy="450" rx="640" ry="550" fill="url(#cosmic-halo)"/>
 <g fill="none" stroke="url(#cosmic-branch)" stroke-linecap="round">
-<path stroke-width="9" d="M920 780 Q850 590 920 400 Q960 300 905 130 M920 780 Q1000 570 920 400"/>
-<path stroke-width="3" d="M920 510 Q730 420 560 230 M920 440 Q1110 360 1290 170 M910 380 Q745 260 710 95 M930 350 Q1050 235 1060 65 M920 570 Q1110 530 1360 390 M905 560 Q700 530 490 450 M920 760 Q720 870 540 945 M920 760 Q1100 880 1320 950"/>
-<path stroke-width="1" d="M560 230 L460 130 M560 230 L520 90 M560 230 L650 110 M710 95 L610 40 M710 95 L790 30 M1290 170 L1375 70 M1290 170 L1250 50 M1060 65 L1160 20 M490 450 L350 370 M490 450 L400 520 M1360 390 L1430 300 M1360 390 L1430 470 M540 945 L400 980 M1320 950 L1420 980"/>
+<path stroke-width="9" d="M1030 1120 Q800 800 960 510 Q1090 240 920 -160 M1060 1120 Q950 800 990 510 Q1000 240 950 -160"/>
+<path stroke-width="3" d="M980 550 Q750 380 460 -90 M990 420 Q1220 300 1500 20 M960 260 Q700 140 660 -120 M970 680 Q1220 590 1550 480 M940 760 Q600 700 250 1100 M1000 950 Q1260 1020 1510 1120 M290 1140 Q530 660 360 180 Q310 10 420 -150 M1300 1120 Q1160 760 1370 460 Q1510 250 1390 -120"/>
+<path stroke-width="1" d="M670 210 Q470 200 210 -60 M670 210 Q700 20 790 -100 M1230 290 Q1270 70 1200 -100 M1230 290 Q1420 340 1550 280 M1220 590 Q1290 790 1530 880 M620 800 Q380 680 170 760 M620 800 Q700 1050 570 1140 M360 420 Q600 320 760 -100 M360 420 Q160 350 -90 520 M1320 570 Q1050 700 860 1140"/>
 </g></svg>
 <canvas id="life-canvas" class="cosmic-canvas"></canvas>
 </div>
@@ -695,7 +695,7 @@ function buildHomeHtml(): string {
 <div class="cosmic-copy">
 <p class="cosmic-eyebrow">TREE OF LIFE · 生命の樹</p>
 <h1 id="home-title">All life.<br><em>Interwoven.</em></h1>
-<p class="cosmic-poem">星々から、ひとつの生命へ。<br>生命から、また宇宙へ。</p>
+<p class="cosmic-poem">始まりも、終わりも、見えない。<br>ひとつの生命の、その先へ。</p>
 <a class="cosmic-explore" href="/organism">この樹をめぐる <span aria-hidden="true">↗</span></a>
 </div>
 <div class="cosmic-caption"><span>HUMAN · MACHINE · EARTH · COSMOS</span><span>ひとつの生命のつらなり</span></div>

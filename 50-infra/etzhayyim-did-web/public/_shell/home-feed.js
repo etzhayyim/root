@@ -107,37 +107,52 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
       branch(end,next,length*(.57+random()*.11),radius*.55,depth-1,isRoot);
     }
   };
-  // The trunk is a bundle of living strands, not a flat emblem.
-  for(let strand=0;strand<(compact?9:15);strand++) {
-    const path=[];
-    const angle=strand/(compact?9:15)*Math.PI*2;
-    for(let j=0;j<=34;j++) {
-      const u=j/34;
-      const radius=.10+.06*Math.sin(u*Math.PI);
-      path.push([Math.cos(angle+u*5.4)*radius+.1*Math.sin(u*4),-1.65+u*3.38,
-        Math.sin(angle+u*5.4)*radius]);
+  // We inhabit a small part of the tree. Each continuous braid passes beyond
+  // the camera's view in both directions; there is no visible root or crown.
+  const axes=[{x:1.5,z:0,phase:0},{x:-5.5,z:-7,phase:2.3},{x:7,z:-13,phase:4.6}];
+  const axisPoint=(axis,y)=>[axis.x+Math.sin(y*.22+axis.phase)*.85+y*.13,
+    y,axis.z+Math.cos(y*.17+axis.phase)*.7];
+  for(let layer=0;layer<axes.length;layer++) {
+    const axis=axes[layer],strands=layer===0?(compact?9:15):(compact?4:7);
+    for(let strand=0;strand<strands;strand++) {
+      const path=[],angle=strand/strands*Math.PI*2;
+      for(let j=0;j<=100;j++) {
+        const y=-20+j*.4,center=axisPoint(axis,y);
+        const radius=.20+.055*Math.sin(y*.7+axis.phase);
+        path.push(add(center,[Math.cos(angle+y*.9)*radius,0,Math.sin(angle+y*.9)*radius]));
+      }
+      tube(path,(layer===0?.044:.025)+random()*.026,mix(gold,pearl,.18+layer*.23),strand*.7);
     }
-    tube(path,.027+random()*.025,mix(gold,pearl,random()*.28),strand*.7);
+    const limbs=layer===0?(compact?20:26):(compact?8:14);
+    for(let i=0;i<limbs;i++) {
+      const span=layer===0?13:24;
+      const y=-span/2+i/(limbs-1)*span,theta=i*2.399963+axis.phase;
+      const direction=unit([Math.cos(theta),Math.sin(theta*1.7)*.8,Math.sin(theta)*.6]);
+      branch(axisPoint(axis,y),direction,(layer===0?1.8:2.1)+random()*.7,
+        (layer===0?.065:.045)+random()*.025,layer===0?4:2,direction[1]<0);
+    }
   }
-  const limbs=compact?14:22;
-  for(let i=0;i<limbs;i++) {
-    const theta=i*2.399963;
-    const u=i/(limbs-1);
-    const start=[.075*Math.sin(u*4),-1.32+u*2.35,.06*Math.cos(theta)];
-    const direction=unit([Math.cos(theta)*(.85-u*.2),.4+u*.45,Math.sin(theta)*.75]);
-    branch(start,direction,1.25-u*.32,.034+(.060*(1-u)),compact?3:4);
-  }
-  for(let i=0;i<(compact?8:13);i++) {
-    const theta=i*2.399963;
-    branch([0,-1.62,0],unit([Math.cos(theta),-.32-random()*.22,Math.sin(theta)*.7]),
-      1.02+random()*.25,.045,compact?2:3,true);
+  // Long boughs weave between the braids and continue out of frame. Smaller
+  // structures repeat along them, so a pearl is a world rather than an end.
+  for(let i=0;i<(compact?7:12);i++) {
+    const y=-10+i*1.8,from=axisPoint(axes[0],y);
+    const target=axisPoint(axes[i%2+1],y+(i%2?5:-5));
+    const path=[];
+    for(let j=0;j<=36;j++) {
+      const u=j/36,p=mix(from,target,u);
+      p[1]+=Math.sin(u*Math.PI)*1.4;p[2]+=Math.sin(u*Math.PI)*1.8;
+      path.push(p);
+    }
+    tube(path,.06,mix(gold,pearl,.45),i);
+    for(let j=8;j<30;j+=7)branch(path[j],unit([Math.sin(i+j),.5,Math.cos(i-j)]),
+      .7+random()*.5,.023,compact?1:2);
   }
   // Vast and microscopic structures share the same branching visual language.
   const starCount=compact?2700:5700;
   for(let i=0;i<starCount;i++) {
-    const r=1.8+Math.pow(random(),.6)*7.8;
+    const r=1.8+Math.pow(random(),.6)*15;
     const theta=r*.83+random()*.8+(i%3)*Math.PI*2/3;
-    const p=[Math.cos(theta)*r,(random()-.5)*.55+Math.sin(theta)*r*.21,Math.sin(theta)*r*.65-2.4];
+    const p=[Math.cos(theta)*r,(random()-.5)*9+Math.sin(theta)*r*.35,Math.sin(theta)*r*.65-5.4];
     const c=mix([.18,.38,.48],[.84,.64,.41],random());
     point(dust,p,c,.004+random()*.017,random()*30);
   }
@@ -251,12 +266,13 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
   let pointerX=0,pointerY=0,lookX=0,lookY=0;
   const draw = () => {
     const mobile=camera.aspect<.85;
-    const yaw=Math.sin(clock.value*.025)*.12+lookX*.07;
-    const distance=(mobile?9.8:8.7)+Math.sin(clock.value*.018)*.3;
-    camera.position.set(Math.sin(yaw)*distance,.35+lookY*.25,Math.cos(yaw)*distance);
-    camera.lookAt(0,.25,0);
-    life.position.set(mobile?0:1.3,mobile?.8:0,0);
-    life.rotation.z=Math.sin(clock.value*.08)*.003;
+    const yaw=Math.sin(clock.value*.016)*.09+lookX*.045;
+    const distance=(mobile?10.5:7.4)+Math.sin(clock.value*.018)*.3;
+    const drift=Math.sin(clock.value*.012)*2.5;
+    camera.position.set(Math.sin(yaw)*distance,drift+lookY*.25,Math.cos(yaw)*distance);
+    camera.lookAt(mobile?.8:0,drift+.35,-1.5);
+    life.position.set(mobile?-.45:1.1,0,0);
+    life.rotation.z=.12+Math.sin(clock.value*.008)*.015;
     stars.rotation.y=clock.value*.0008;
     heart.intensity=2.8+Math.sin(clock.value*.25)*.5;
     composer.render();stage.classList.add('is-rendered');canvas.dataset.renderer='three.js';
