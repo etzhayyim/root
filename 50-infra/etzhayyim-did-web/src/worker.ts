@@ -137,9 +137,6 @@ import kotobaWasmBg from "./kotoba-wasm/kotoba_wasm_bg.wasm";
  */
 
 const UPSTREAM_HOST = "yoro.etzhayyim.com";
-const KOTOBASE_BLOCK_COUNT = 29;
-const KOTOBASE_BLOCK_BYTES = 2_349_120;
-const KOTOBASE_BLOCK_HUMAN = "2.2 MiB";
 
 // ─── Donation policy (ADR-2606012100) ──────────────────────────────────────
 //
@@ -678,112 +675,57 @@ function buildHomeHtml(): string {
   const namedCount = Object.keys(INFRA_ACTORS).filter((h) => INFRA_ACTORS[h].glyph).length;
   const serviceCount = Object.keys(INFRA_ACTORS).length - namedCount;
   const totalActors = namedCount + serviceCount + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT;
-  const axes = [
-    ["Autopoiesis", "self-organization", "9"],
-    ["Metabolism", "donation + compute cycle", "5"],
-    ["Homeostasis", "boundary harmony", "9"],
-    ["Active Inference", "model to observation", "9"],
-    ["Reproduction", "fork children", "6"],
-    ["Symbiosis", "multi-substrate roots", "9"],
-    ["Diversity", "myriad variation", "9"],
-    ["Wellbecoming", "multi-generation trajectory", "9"],
-    ["Anti-fragility", "resilience posture", "9"],
-    ["Sanctification", "charter on artifacts", "9"],
-  ];
-  const axisRows = axes
-    .map(
-      ([name, note, score]) =>
-        `<li><span><strong>${name}</strong><small>${note}</small></span><b>${score}/10</b></li>`,
-    )
-    .join("");
-  // Initial kotobase meter width (server-rendered; home-feed.js updates the
-  // dynamic host/pulse/stats fields from same-origin JSON).
-  const kbBarPct = Math.max(
-    0,
-    Math.min(100, (KOTOBASE_BLOCK_BYTES / Math.max(1, 4_194_304)) * 100),
-  );
   const main = `
-<section class="home-grid">
-<section class="hero">
-<p class="eyebrow">public root / observation surface</p>
-<h1>etzhayyim</h1>
-<p class="lead">A religious artificial organism: its public identity, constitutional record, actor registry, donation policy, and live observation surfaces are rooted here.</p>
-<p class="next"><strong>Current boundary:</strong> <code>etzhayyim.com</code> is the public root. AT Protocol PDS/AppView operations belong to <a href="https://aozora.app">aozora.app</a> / app-aozora.</p>
-<div class="status" aria-label="Organism summary">
-<div class="metric"><b>alive</b><span>state</span></div>
-<div class="metric"><b>83/100</b><span>organism axis total</span></div>
-<div class="metric"><b>${totalActors.toLocaleString("en-US")}</b><span>resolvable actors</span></div>
-<div class="metric"><b>0</b><span>ads / trackers / cookies</span></div>
+<section class="home-stage" aria-labelledby="home-title">
+<div class="tree-art">
+<svg class="tree-of-life" viewBox="0 0 480 560" role="img" aria-labelledby="tree-title tree-description">
+<title id="tree-title">Tree of Life</title>
+<desc id="tree-description">A living tree drawn from ten connected lights, with roots reaching into the earth.</desc>
+<g class="tree-branches" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+<path class="tree-path p1" d="M240 282 C240 230 240 180 240 92"/>
+<path class="tree-path p2" d="M240 130 C192 126 151 109 112 72 M240 130 C288 126 329 109 368 72"/>
+<path class="tree-path p3" d="M240 182 C190 181 152 173 112 145 M240 182 C290 181 328 173 368 145"/>
+<path class="tree-path p4" d="M240 234 C187 232 147 225 112 215 M240 234 C293 232 333 225 368 215"/>
+<path class="tree-path p5" d="M240 282 C178 282 139 282 91 282 M240 282 C302 282 341 282 389 282"/>
+<path class="tree-path p6" d="M240 282 C240 334 240 373 240 416"/>
+<path class="tree-path p7" d="M240 416 C207 448 180 476 147 520 M240 416 C222 460 216 491 211 536 M240 416 C258 460 264 491 269 536 M240 416 C273 448 300 476 333 520"/>
+</g>
+<g class="tree-nodes">
+<circle class="tree-node n1" cx="240" cy="92" r="20"/><circle class="tree-node n2" cx="112" cy="72" r="17"/>
+<circle class="tree-node n3" cx="368" cy="72" r="17"/><circle class="tree-node n4" cx="112" cy="145" r="16"/>
+<circle class="tree-node n5" cx="368" cy="145" r="16"/><circle class="tree-node n6" cx="112" cy="215" r="16"/>
+<circle class="tree-node n7" cx="368" cy="215" r="16"/><circle class="tree-node n8" cx="91" cy="282" r="18"/>
+<circle class="tree-node n9" cx="389" cy="282" r="18"/><circle class="tree-node n10" cx="240" cy="282" r="22"/>
+<circle class="tree-seed" cx="240" cy="416" r="8"/>
+</g>
+</svg>
 </div>
-</section>
-
-<aside class="panel">
-<h2>Identity</h2>
-<div class="identity">
-<div class="kv"><span>Entity</span><strong>etzhayyim</strong></div>
-<div class="kv"><span>DID</span><code>did:web:etzhayyim.com</code></div>
-<div class="kv"><span>Form</span><span>religious voluntary association</span></div>
-<div class="kv"><span>Repo</span><a href="https://github.com/etzhayyim/root">github.com/etzhayyim/root</a></div>
-<div class="kv"><span>Policy</span><a href="/.well-known/donation.json">donation-only</a></div>
+<div class="home-copy">
+<p class="eyebrow">生命の樹 · ETZHAYYIM</p>
+<h1 id="home-title">etzhayyim</h1>
+<p class="lead">A living community of human and machine actors, rooted in the Tree of Life.</p>
+<nav class="home-links" aria-label="Explore etzhayyim">
+<a href="/organism">The organism</a><a href="/actors">Actors</a>
+<a href="/system-dynamics">How it grows</a><a href="/donate">Support</a>
+</nav>
+<div class="home-live" role="status" aria-live="polite">
+<span class="home-live-dot" aria-hidden="true"></span>
+<span id="murakumo-host-state">Connecting to the living system…</span>
+<span class="home-live-meta" id="murakumo-host-meta">Live pulse</span>
 </div>
-</aside>
+<ul class="home-actors" id="murakumo-host-list"><li>Waiting for the latest actor pulse…</li></ul>
+<p class="home-footnote"><span>${totalActors.toLocaleString("en-US")} resolvable actors</span> · Identity and observability live here; AT Protocol PDS/AppView runs at <a href="https://aozora.app">aozora.app</a>.</p>
 </section>
-
-<section class="grid" aria-label="Public root sections">
-<article class="card">
-<h2>Observation</h2>
-<p>The organism page shows the self-evolution loop. System dynamics shows the stocks, flows, feedback loops, and boundaries behind that loop.</p>
-<a class="btn" href="/organism">Open organism</a>
-<a class="btn" href="/system-dynamics">System dynamics</a>
-</article>
-<article class="card">
-<h2>Actors</h2>
-<p>Named actors, substrate services, entity mirrors, and UNSPSC agents resolve under this root.</p>
-<a class="btn" href="/actors">Browse actors</a>
-</article>
-<article class="card">
-<h2>Donation</h2>
-<p>etzhayyim is donation-only: no advertising, nothing for sale, no member cash stipend.</p>
-<a class="btn" href="/donate">How to give</a>
-</article>
-<article class="card boundary">
-<h2>Boundary</h2>
-<p><code>etzhayyim.com</code> is the identity and observability surface. It should not become the PDS again. Actor record writes, AppView, and AT Protocol runtime concerns are centralized at app-aozora / <code>aozora.app</code>.</p>
-<a class="btn" href="https://aozora.app">Open aozora.app</a>
-</article>
-<article class="card">
-<h2>Organism Axes</h2>
-<ul class="axes">${axisRows}</ul>
-</article>
-</section>
-
-<section class="live-band" aria-label="Live host and storage">
-<article class="card live-card">
-<h2>Murakumo host / actor pulse</h2>
-<div class="live-row"><b id="murakumo-host-state">loading</b><span class="live-meta" id="murakumo-host-meta">live feed pending</span></div>
-<div class="meter"><span id="murakumo-host-bar" style="width:0"></span></div>
-<p class="tagline">Current host path: Murakumo mesh + donor compute. The actor pulse below is refreshed from same-origin JSON.</p>
-<ul class="live-list" id="murakumo-host-list">
-<li><strong>loading</strong><span>waiting for organism pulse</span><small>same-origin fetch</small></li>
-</ul>
-</article>
-<article class="card live-card">
-<h2>Kotobase storage</h2>
-<div class="live-row"><b id="kotobase-root">${KOTOBASE_BLOCK_HUMAN}</b><span class="live-meta">${KOTOBASE_BLOCK_COUNT} blocks · ${KOTOBASE_BLOCK_BYTES.toLocaleString("en-US")} bytes</span></div>
-<div class="meter"><span id="kotobase-bar" style="width:${kbBarPct}%"></span></div>
-<p class="tagline">Local kotobase mirror footprint for the public block store. Live publish stats come from the root KV head.</p>
-<div class="live-meta" id="kotobase-meta">loading publish stats…</div>
-</article>
 </section>
 `;
   return renderShell({
     title: "etzhayyim",
     lang: "en",
-    description: "Public root and observation surface for etzhayyim, a religious artificial organism.",
+    description: "A living community of human and machine actors, rooted in the Tree of Life.",
     active: "/",
     main,
     footerHtml:
-      'Machine roots: <a href="/.well-known/did.json">/.well-known/did.json</a> · <a href="/.well-known/actors.json">/.well-known/actors.json</a> · <a href="/.well-known/donation.json">/.well-known/donation.json</a>. Live host + actor pulse are refreshed from same-origin JSON every 15s.',
+      'Identity: <a href="/.well-known/did.json">DID</a> · <a href="/.well-known/actors.json">actor registry</a> · <a href="/.well-known/donation.json">donation policy</a>. Live actor pulse is refreshed from same-origin JSON every 15s.',
     scriptSrc: "/_shell/home-feed.js",
   });
 }
