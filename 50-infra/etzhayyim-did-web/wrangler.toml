@@ -8,8 +8,10 @@ compatibility_date = "2026-05-17"
 # just `npm run deploy` — so a fresh checkout (cljs-out/ is gitignored) never hits
 # a missing-import bundle failure. (`npm run build:cljs` = `cd cljs && npm install
 # && npm run build`.)
+# Bundle the authored Three.js homepage into the static asset output first.
+# No npm/CDN dependency is fetched by a visitor's browser.
 [build]
-command = "npm run build:cljs"
+command = "npm run build:assets && npm run build:cljs"
 
 # ── Static assets (ADR-2606013600 / kabuto G6 browser-native render) ─────────
 # Serves the kotoba-wasm browser-node bundle at
@@ -22,7 +24,7 @@ command = "npm run build:cljs"
 # `.wasm` is served as `application/wasm` automatically.
 # Repopulate after a kotoba bump:  ./scripts/build-kotoba-wasm.sh
 [assets]
-directory = "./public"
+directory = "./.wrangler/compiled-assets"
 binding = "ASSETS"
 
 # Catch-all routes. Worker handles:

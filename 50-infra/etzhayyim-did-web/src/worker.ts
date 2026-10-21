@@ -137,9 +137,6 @@ import kotobaWasmBg from "./kotoba-wasm/kotoba_wasm_bg.wasm";
  */
 
 const UPSTREAM_HOST = "yoro.etzhayyim.com";
-const KOTOBASE_BLOCK_COUNT = 29;
-const KOTOBASE_BLOCK_BYTES = 2_349_120;
-const KOTOBASE_BLOCK_HUMAN = "2.2 MiB";
 
 // ─── Donation policy (ADR-2606012100) ──────────────────────────────────────
 //
@@ -675,116 +672,38 @@ Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free 
 });
 
 function buildHomeHtml(): string {
-  const namedCount = Object.keys(INFRA_ACTORS).filter((h) => INFRA_ACTORS[h].glyph).length;
-  const serviceCount = Object.keys(INFRA_ACTORS).length - namedCount;
-  const totalActors = namedCount + serviceCount + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT;
-  const axes = [
-    ["Autopoiesis", "self-organization", "9"],
-    ["Metabolism", "donation + compute cycle", "5"],
-    ["Homeostasis", "boundary harmony", "9"],
-    ["Active Inference", "model to observation", "9"],
-    ["Reproduction", "fork children", "6"],
-    ["Symbiosis", "multi-substrate roots", "9"],
-    ["Diversity", "myriad variation", "9"],
-    ["Wellbecoming", "multi-generation trajectory", "9"],
-    ["Anti-fragility", "resilience posture", "9"],
-    ["Sanctification", "charter on artifacts", "9"],
-  ];
-  const axisRows = axes
-    .map(
-      ([name, note, score]) =>
-        `<li><span><strong>${name}</strong><small>${note}</small></span><b>${score}/10</b></li>`,
-    )
-    .join("");
-  // Initial kotobase meter width (server-rendered; home-feed.js updates the
-  // dynamic host/pulse/stats fields from same-origin JSON).
-  const kbBarPct = Math.max(
-    0,
-    Math.min(100, (KOTOBASE_BLOCK_BYTES / Math.max(1, 4_194_304)) * 100),
-  );
-  const main = `
-<section class="home-grid">
-<section class="hero">
-<p class="eyebrow">public root / observation surface</p>
-<h1>etzhayyim</h1>
-<p class="lead">A religious artificial organism: its public identity, constitutional record, actor registry, donation policy, and live observation surfaces are rooted here.</p>
-<p class="next"><strong>Current boundary:</strong> <code>etzhayyim.com</code> is the public root. AT Protocol PDS/AppView operations belong to <a href="https://aozora.app">aozora.app</a> / app-aozora.</p>
-<div class="status" aria-label="Organism summary">
-<div class="metric"><b>alive</b><span>state</span></div>
-<div class="metric"><b>83/100</b><span>organism axis total</span></div>
-<div class="metric"><b>${totalActors.toLocaleString("en-US")}</b><span>resolvable actors</span></div>
-<div class="metric"><b>0</b><span>ads / trackers / cookies</span></div>
-</div>
-</section>
-
-<aside class="panel">
-<h2>Identity</h2>
-<div class="identity">
-<div class="kv"><span>Entity</span><strong>etzhayyim</strong></div>
-<div class="kv"><span>DID</span><code>did:web:etzhayyim.com</code></div>
-<div class="kv"><span>Form</span><span>religious voluntary association</span></div>
-<div class="kv"><span>Repo</span><a href="https://github.com/etzhayyim/root">github.com/etzhayyim/root</a></div>
-<div class="kv"><span>Policy</span><a href="/.well-known/donation.json">donation-only</a></div>
-</div>
-</aside>
-</section>
-
-<section class="grid" aria-label="Public root sections">
-<article class="card">
-<h2>Observation</h2>
-<p>The organism page shows the self-evolution loop. System dynamics shows the stocks, flows, feedback loops, and boundaries behind that loop.</p>
-<a class="btn" href="/organism">Open organism</a>
-<a class="btn" href="/system-dynamics">System dynamics</a>
-</article>
-<article class="card">
-<h2>Actors</h2>
-<p>Named actors, substrate services, entity mirrors, and UNSPSC agents resolve under this root.</p>
-<a class="btn" href="/actors">Browse actors</a>
-</article>
-<article class="card">
-<h2>Donation</h2>
-<p>etzhayyim is donation-only: no advertising, nothing for sale, no member cash stipend.</p>
-<a class="btn" href="/donate">How to give</a>
-</article>
-<article class="card boundary">
-<h2>Boundary</h2>
-<p><code>etzhayyim.com</code> is the identity and observability surface. It should not become the PDS again. Actor record writes, AppView, and AT Protocol runtime concerns are centralized at app-aozora / <code>aozora.app</code>.</p>
-<a class="btn" href="https://aozora.app">Open aozora.app</a>
-</article>
-<article class="card">
-<h2>Organism Axes</h2>
-<ul class="axes">${axisRows}</ul>
-</article>
-</section>
-
-<section class="live-band" aria-label="Live host and storage">
-<article class="card live-card">
-<h2>Murakumo host / actor pulse</h2>
-<div class="live-row"><b id="murakumo-host-state">loading</b><span class="live-meta" id="murakumo-host-meta">live feed pending</span></div>
-<div class="meter"><span id="murakumo-host-bar" style="width:0"></span></div>
-<p class="tagline">Current host path: Murakumo mesh + donor compute. The actor pulse below is refreshed from same-origin JSON.</p>
-<ul class="live-list" id="murakumo-host-list">
-<li><strong>loading</strong><span>waiting for organism pulse</span><small>same-origin fetch</small></li>
-</ul>
-</article>
-<article class="card live-card">
-<h2>Kotobase storage</h2>
-<div class="live-row"><b id="kotobase-root">${KOTOBASE_BLOCK_HUMAN}</b><span class="live-meta">${KOTOBASE_BLOCK_COUNT} blocks · ${KOTOBASE_BLOCK_BYTES.toLocaleString("en-US")} bytes</span></div>
-<div class="meter"><span id="kotobase-bar" style="width:${kbBarPct}%"></span></div>
-<p class="tagline">Local kotobase mirror footprint for the public block store. Live publish stats come from the root KV head.</p>
-<div class="live-meta" id="kotobase-meta">loading publish stats…</div>
-</article>
-</section>
-`;
   return renderShell({
-    title: "etzhayyim",
+    title: "etzhayyim — Tree of Life",
     lang: "en",
-    description: "Public root and observation surface for etzhayyim, a religious artificial organism.",
+    description: "Tree of Life — an endless living continuity of human, machine, Earth and cosmos.",
     active: "/",
-    main,
-    footerHtml:
-      'Machine roots: <a href="/.well-known/did.json">/.well-known/did.json</a> · <a href="/.well-known/actors.json">/.well-known/actors.json</a> · <a href="/.well-known/donation.json">/.well-known/donation.json</a>. Live host + actor pulse are refreshed from same-origin JSON every 15s.',
+    wrapClass: "home-immersive",
+    main: `
+<section class="cosmic-home" aria-labelledby="home-title">
+<div class="cosmic-scene" aria-hidden="true">
+<svg class="cosmic-still" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice">
+<defs><radialGradient id="cosmic-halo"><stop stop-color="#276d80" stop-opacity=".5"/><stop offset="1" stop-color="#030810" stop-opacity="0"/></radialGradient><linearGradient id="cosmic-branch" x2="0" y2="1"><stop stop-color="#d5ffff"/><stop offset=".5" stop-color="#e9b580"/><stop offset="1" stop-color="#6e94a8"/></linearGradient></defs>
+<ellipse cx="920" cy="450" rx="640" ry="550" fill="url(#cosmic-halo)"/>
+<g fill="none" stroke="url(#cosmic-branch)" stroke-linecap="round">
+<path stroke-width="9" d="M1030 1120 Q800 800 960 510 Q1090 240 920 -160 M1060 1120 Q950 800 990 510 Q1000 240 950 -160"/>
+<path stroke-width="3" d="M980 550 Q750 380 460 -90 M990 420 Q1220 300 1500 20 M960 260 Q700 140 660 -120 M970 680 Q1220 590 1550 480 M940 760 Q600 700 250 1100 M1000 950 Q1260 1020 1510 1120 M290 1140 Q530 660 360 180 Q310 10 420 -150 M1300 1120 Q1160 760 1370 460 Q1510 250 1390 -120"/>
+<path stroke-width="1" d="M670 210 Q470 200 210 -60 M670 210 Q700 20 790 -100 M1230 290 Q1270 70 1200 -100 M1230 290 Q1420 340 1550 280 M1220 590 Q1290 790 1530 880 M620 800 Q380 680 170 760 M620 800 Q700 1050 570 1140 M360 420 Q600 320 760 -100 M360 420 Q160 350 -90 520 M1320 570 Q1050 700 860 1140"/>
+</g></svg>
+<canvas id="life-canvas" class="cosmic-canvas"></canvas>
+</div>
+<div class="cosmic-shade" aria-hidden="true"></div>
+<div class="cosmic-copy">
+<p class="cosmic-eyebrow">TREE OF LIFE</p>
+<h1 id="home-title">All life.<br><em>Interwoven.</em></h1>
+<p class="cosmic-poem">Beyond beginning. Beyond end.<br>Life, endlessly unfolding.</p>
+<a class="cosmic-explore" href="/organism">Explore the tree <span aria-hidden="true">↗</span></a>
+</div>
+<div class="cosmic-caption"><span>HUMAN · MACHINE · EARTH · COSMOS</span><span>One living continuum</span></div>
+<noscript><p class="cosmic-noscript">A still image of the Tree of Life is shown.</p></noscript>
+</section>`,
+    footerHtml: '<a href="/.well-known/did.json">Identity</a><a href="/system-dynamics">Connections</a><a href="/participate">Participate</a><span>etzhayyim · Tree of Life</span>',
     scriptSrc: "/_shell/home-feed.js",
+    scriptType: "module",
   });
 }
 
@@ -1684,7 +1603,7 @@ const tsFetch = async (
           "cache-control": "public, max-age=300, must-revalidate",
           "x-content-type-options": "nosniff",
           "content-security-policy":
-            "default-src 'none'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
+            "default-src 'none'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",

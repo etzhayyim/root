@@ -40,6 +40,46 @@ main.site-main{padding:1.1rem 0 2rem}
 footer.site-ft{border-top:1px solid var(--line);padding:1rem 0 0;color:color-mix(in srgb,currentColor 65%,transparent);font-size:.85rem}
 
 /* ─── home ─── */
+/* The homepage is a browser-rendered artwork; the other public pages retain the shared shell. */
+body:has(.home-immersive){background:#03080f;color-scheme:dark}
+.home-immersive{max-width:none;min-height:100svh;padding:0;background:#03080f;color:#edf5ef;isolation:isolate}
+.home-immersive header.site-hd{background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;border-radius:0!important;position:absolute;inset:0 0 auto;z-index:4;padding:2rem 4.5%;border:0;flex-direction:row;align-items:center}
+.home-immersive .brand{font-size:1rem;letter-spacing:.12em;font-weight:500}
+.home-immersive nav.site-nav{gap:1.8rem}
+.home-immersive nav.site-nav a{box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:none;border:0;background:none;padding:.35rem 0;border-radius:0;font-size:.75rem;letter-spacing:.08em;color:#e5eeeb}
+.home-immersive nav.site-nav a[href="/organism"],.home-immersive nav.site-nav a[href="/actors"],.home-immersive nav.site-nav a[href="/donate"]{display:inline-flex}
+.home-immersive main.site-main{padding:0}
+.cosmic-home{position:relative;min-height:100svh;overflow:hidden;background:radial-gradient(ellipse at 65% 40%,#153b4a 0%,#07121e 42%,#03080f 80%)}
+.cosmic-scene,.cosmic-shade,.cosmic-canvas,.cosmic-still{position:absolute;inset:0;width:100%;height:100%}
+.cosmic-canvas{opacity:0;transition:opacity 1.8s ease}
+.cosmic-home.is-rendered .cosmic-canvas{opacity:1}
+.cosmic-still{opacity:.65;transition:opacity 1.8s ease}
+.cosmic-home.is-rendered .cosmic-still{opacity:0}
+.cosmic-shade{pointer-events:none;background:linear-gradient(90deg,rgba(2,7,14,.6),rgba(2,7,14,.08) 45%,transparent 65%),linear-gradient(0deg,rgba(2,7,14,.8),transparent 18%)}
+.cosmic-copy{position:absolute;z-index:2;left:8%;top:35%;max-width:36rem;animation:cosmic-reveal 2s .25s both}
+.cosmic-eyebrow{font-size:.66rem;letter-spacing:.28em;color:#c4dedc;margin:0 0 1.6rem}
+.cosmic-copy h1{border:0!important;text-decoration:none!important;background:none!important;box-shadow:none!important;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(3.5rem,6.6vw,7.3rem);line-height:1.04;letter-spacing:-.06em;margin:0 0 1.4rem;text-shadow:0 2px 28px #03080f66}
+.cosmic-copy h1 em{font-weight:400;color:#d4e8e1}
+.cosmic-poem{font-family:Georgia,"Times New Roman",serif;font-size:.86rem;line-height:2.2;letter-spacing:.06em;color:#d0dad7}
+.cosmic-explore{display:inline-flex;gap:1.7rem;align-items:center;margin-top:1.7rem;padding:.65rem 0;text-decoration:none;font-size:.75rem;letter-spacing:.08em;border-bottom:1px solid #b6d6d355;color:#e6f0eb;transition:gap .4s ease}
+.cosmic-explore:hover{gap:2.3rem}
+.cosmic-caption{position:absolute;left:4.5%;bottom:2.1rem;z-index:2;display:flex;flex-direction:column;gap:.55rem;font-size:.55rem;letter-spacing:.22em;color:#b7cec9}
+.cosmic-caption span+span{font-size:.6rem;letter-spacing:.15em;opacity:.65}
+.cosmic-home a:focus-visible,.home-immersive a:focus-visible{outline:2px solid #d7f9ed;outline-offset:7px}
+.cosmic-noscript{position:absolute;bottom:5rem;right:4.5%;font-size:.7rem;color:#bbd4cf}
+.home-immersive footer.site-ft{display:flex;flex-wrap:wrap;gap:1.5rem;padding:1.25rem 4.5%;border-top:1px solid #afccc91a;background:#03080f;color:#a3b9b4;font-size:.65rem;letter-spacing:.06em}
+.home-immersive footer.site-ft a{text-decoration:none}.home-immersive footer.site-ft span{margin-left:auto;opacity:.6}
+@keyframes cosmic-reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(max-width:820px){
+  .home-immersive header.site-hd{padding:1.4rem 6%;gap:1rem;flex-direction:row;align-items:center}
+  .home-immersive nav.site-nav{gap:1rem}.home-immersive nav.site-nav a{font-size:.65rem}
+  .cosmic-copy{left:8%;top:auto;bottom:19%;max-width:85%}.cosmic-copy h1{font-size:clamp(3.8rem,12vw,5.3rem)}
+  .cosmic-eyebrow{font-size:.55rem;margin-bottom:1rem}.cosmic-poem{font-size:.75rem;line-height:1.9}
+  .cosmic-explore{margin-top:.75rem}.cosmic-shade{background:linear-gradient(0deg,#03080f 0%,#03080f66 40%,transparent 75%)}
+  .cosmic-caption{left:6%;bottom:2rem;font-size:.43rem;letter-spacing:.12em}.cosmic-caption span+span{font-size:.5rem}
+  .home-immersive footer.site-ft{padding:1rem 6%;gap:1rem}.home-immersive footer.site-ft span{width:100%;margin:0}
+}
+@media(prefers-reduced-motion:reduce){.cosmic-copy{animation:none}.cosmic-canvas,.cosmic-still,.cosmic-explore{transition:none}}
 .hero,.panel{border:1px solid var(--line);border-radius:.5rem;background:var(--soft)}
 .home-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:1.1rem}
 .hero{padding:1.3rem}

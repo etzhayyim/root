@@ -13,7 +13,8 @@
     "tail": "wrangler tail",
     "types": "wrangler types",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs",
-    "enable-kv": "bash scripts/enable-kv.sh"
+    "enable-kv": "bash scripts/enable-kv.sh",
+    "build:assets": "node -e \"const fs=require('node:fs');fs.rmSync('.wrangler/compiled-assets',{recursive:true,force:true});fs.cpSync('public','.wrangler/compiled-assets',{recursive:true})\" && esbuild public/_shell/home-feed.js --bundle --format=esm --minify --legal-comments=eof --outfile=.wrangler/compiled-assets/_shell/home-feed.js"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260917.1",
@@ -22,6 +23,7 @@
     "wrangler": "^4.128.0"
   },
   "dependencies": {
-    "@noble/post-quantum": "^0.7.0"
+    "@noble/post-quantum": "^0.7.0",
+    "three": "0.186.1"
   }
 }
