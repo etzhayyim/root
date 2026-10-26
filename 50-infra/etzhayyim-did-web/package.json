@@ -17,7 +17,7 @@
     "build:assets": "node -e \"const fs=require('node:fs');fs.rmSync('.wrangler/compiled-assets',{recursive:true,force:true});fs.cpSync('public','.wrangler/compiled-assets',{recursive:true})\" && esbuild public/_shell/home-feed.js --bundle --format=esm --minify --legal-comments=eof --outfile=.wrangler/compiled-assets/_shell/home-feed.js"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261018.1",
+    "@cloudflare/workers-types": "^5.20261022.1",
     "esbuild": "^0.28.2",
     "typescript": "^7.0.2",
     "wrangler": "^4.151.1"
