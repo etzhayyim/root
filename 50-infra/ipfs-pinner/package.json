@@ -20,7 +20,7 @@
     "@atproto/api": "^0.27.0"
   },
   "devDependencies": {
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.6",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
